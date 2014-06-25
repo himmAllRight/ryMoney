@@ -2,8 +2,9 @@ import time
 import os
 
 # Directories
-DIR     = "/home/ryan/scripts/python"
-CONFIGDIR = DIR + "/configs"
+DIR        = "/home/ryan/scripts/ryMoney/"
+CONFIGDIR  = DIR + "/configs"
+ACCOUNTDIR = DIR + "/accounts"
 
 class Categories:
 	""" A payment category """
@@ -45,7 +46,16 @@ class Categories:
 
 	def loadCategories(self,loadFileName):
 		os.chdir(CONFIGDIR)
-		catInFile = open(loadFileName, "r")
+
+		# Load File
+		try:
+			catInFile = open(loadFileName, "r")
+		except:
+			# Make File if Doesn't exit
+			open(loadFileName, "w+")
+
+			# The Load it again.
+			catInFile = open(loadFileName, "r")
 
 		# Adds categories from save file, if they do not currently exist.
 		for line in catInFile:
@@ -131,6 +141,9 @@ class CLI:
 		#######################
 		cats = Categories()
 		cats.loadCategories(catSaveName)
+
+		accounts = []
+		# load accounts function to be written
 		
 		#######################
 		#### Main Run Loop ####
@@ -146,6 +159,19 @@ class CLI:
 			if(self.command == "c"):
 				os.system("clear")
 
+			# Accounts
+
+			#Create New Account
+			if(self.command == "ca"):
+				os.system("clear")
+				newName = input("Enter new account name: ")
+				accounts.append(Account(newName, cats))
+				print("Account " + newName + " created.")
+				self.screenPauseClear()
+
+
+
+			# Categories
 			# Print Loaded Categories
 			if(self.command == "sc"):
 				os.system("clear")
@@ -189,8 +215,10 @@ class CLI:
 
 	def printOptions(self):
 		print("Please select what you would like to do:")
-		print("c  - Create New")
+		print("c  - Create New Account")
 		print("l  - Load Saved Account")
+
+		print("\nCategories:")
 		print("sc - Show saved Categories")
 		print("ac - Add new Category")
 		print("dc - Delete a Category")
@@ -212,25 +240,3 @@ class __main__:
 
 	# Runs UI
 	main = CLI()
-
-	## Test Execution Code ##
-	#deer = Categories()
-	#deer.addCategory("Rent")
-	#deer.addCategory("Pay")
-	#deer.addCategory("Bills")
-	#deer.addCategory("Other")
-
-
-	#account = Account("Checking", deer)
-	#deer.printCategories()
-
-	#deer.loadCategories("savedCats.txt")
-
-	#deer.printCategories()
-	#print(deer.list)
-
-	#account.newDeposit("Income", 1, 500)
-	#account.newDeposit("Gift", 3, 50)
-	#account.newDeposit("Income2", 2, 613)
-	#account.newWithdrawl("Bills", 2, "02132", 63)
-	#account.printAccountInfo()
