@@ -169,6 +169,14 @@ class CLI:
 				print("Account " + newName + " created.")
 				self.screenPauseClear()
 
+			#Create New Account
+			if(self.command == "la"):
+				os.system("clear")
+				
+				for acc in accounts:
+					print(acc.name)
+				self.screenPauseClear()
+
 
 
 			# Categories
