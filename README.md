@@ -11,9 +11,23 @@ Account - Keeps track of the transactions of a given checking account.
           Essentially a list of Transaction Objects. Also maintains the 
           ballance of the transactions within the account.
 
-Budget Account - Another type of account that allows for the budgeting of money.
-                 A simple holding account that money is transfered to to budget
-                 ahead. STILL IN DESIGN/DEVELOPMENT.
+Budget  - An object that allows for the budgeting of money. Each budget item 
+          acts basically as a simple holding account that money is transfered 
+          to from one or more accounts in order to plan and track budgets. 
+
+          STILL IN DESIGN/DEVELOPMENT.
+
+    name       - name of the budget item.
+    fixed      - If the budget is a fixed number each month.
+    total      - The total of a fixed budget.
+    amount     - A dictonary of amount of money put towards the budget. Each 
+                 key is the name of the account that the budgeted money came 
+                 from.
+    cummAmount - The cumulative amount of money towards the budget from each
+                 account.
+    dueDate    - The date the budget item needs to be paid.
+    
+
 
 Transaction - An object that holds all the data items of a Transaction. Theses
               data items consist of:
