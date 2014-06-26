@@ -1,4 +1,5 @@
 import os
+import csv
 import dataClasses
 
 
@@ -40,9 +41,23 @@ def loadAccounts():
 
 		os.chdir(accountName)
 		# Load Transactions
+		with open(transRegName, 'r', newline='') as trans:
+			reader = csv.reader(trans)
+			i = 0
+			for row in reader:
+				if(i < 1):
+					header = row
+				else:
+					tempAccount.importTransaction(row[0], row[1], row[2], row[3], row[3], row[4], row[6])
+
+				i = i + 1
+			
+			if( (len(tempAccount.transactions)) > 0):
+				print("hi")
+				tempAccount.balance = tempAccount.transactions[(len(tempAccount.transactions) - 1)].balance
 
 
-
+		accounts.append(tempAccount)
 		os.chdir(ACCOUNTDIR)
 
 
@@ -60,7 +75,8 @@ CONFIGDIR  = DIR + "/configurations"
 ACCOUNTDIR = DIR + "/accounts"
 
 ## Globale File Names
-catSaveName = "categories.txt"
+catSaveName  = "categories.txt"
+transRegName = 'transactionReg.csv'	
 
 
 # Checks directories and makes them if not there.

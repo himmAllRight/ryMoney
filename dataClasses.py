@@ -78,6 +78,10 @@ class Account:
 		self.transactions.append(Transaction(name, num, self.categories.list[catInd], " _ ", amount*(-1), 
 								 self.balance))
 
+	def importTransaction(self, date, num, name, cat, cleared, amount, balance):
+		self.transactions.append(Transaction(name, num, cat, cleared, amount, balance))
+
+
 	def printAccountInfo(self):
 		""" Prints out the account information """
 		print("Account Name: ", self.name)

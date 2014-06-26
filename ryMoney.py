@@ -78,7 +78,7 @@ class AccountManager:
 				
 				for acc in configLoad.accounts:
 					print(acc.name)
-				screenPauseClear()
+
 
 			# Help Menu
 			if(self.command == "h"):
@@ -86,7 +86,7 @@ class AccountManager:
 				print("Help Menu to be written...")
 				screenPauseClear()
 
-			os.system("clear")
+			#os.system("clear")
 
 
 	def printOptions(self):
@@ -147,14 +147,6 @@ class CLI:
 class __main__:
 	""" The Main Class """
 	print("Main Class")
-
-	# Checks directories and makes them if not there.
-	if not os.path.exists(configLoad.CONFIGDIR):
-		os.makedirs(configLoad.CONFIGDIR)
-
-	if not os.path.exists(configLoad.ACCOUNTDIR):
-		os.makedirs(configLoad.ACCOUNTDIR)
-
 
 	# Runs UI
 	main = CLI()
