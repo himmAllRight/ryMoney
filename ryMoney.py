@@ -13,6 +13,8 @@ ACCOUNTDIR = DIR + "/accounts"
 ## Globale File Names
 catSaveName = "categories.txt"
 
+
+
 ## Global Functions ##
 
 # Clears the screen after a short pause.
@@ -20,22 +22,53 @@ def screenPauseClear():
 	os.system("sleep 1")
 	os.system("clear")
 
+# Loads all the Configuratoins
+def loadCategories(loadFileName):
+	os.chdir(CONFIGDIR)
+	# Load File
+	try:
+		catInFile = open(loadFileName, "r")
+	except:
+		# Make File if Doesn't exit
+		open(loadFileName, "w+")
+
+		# The Load it again.
+		catInFile = open(loadFileName, "r")
+
+	# Adds categories from save file, if they do not currently exist.
+	for line in catInFile:
+		c.addCategory(line.strip(), False)
+
+	catInFile.close()
+	os.chdir(DIR)
+
+	return(c)
+
 # Loads all the Accounts
 def loadAccounts():
 	os.chdir(ACCOUNTDIR)
-	accounts = []
+
 	accountNames =[d for d in os.listdir(os.getcwd()) if os.path.isdir(d)]
 
-	for account in accountNames:
-		print(account)
-		os.chdir(account)
-		os.system("touch transactionReg.csv")
+	for accountName in accountNames:
+		tempAccount = Account(accountName)
+
+		os.chdir(accountName)
+		# Load Transactions
+
+
+
 		os.chdir(ACCOUNTDIR)
 
 
 	os.chdir(DIR)
 
 	return(accounts)
+
+
+## Global Variables
+cats = loadCategories(catSaveName)
+accounts = loadAccounts()
 
 
 ################################################################################
@@ -83,26 +116,6 @@ class Categories:
 		catOutFile.close()
 		os.chdir(DIR)	# Return to program DIR
 
-	def loadCategories(self,loadFileName):
-		os.chdir(CONFIGDIR)
-
-		# Load File
-		try:
-			catInFile = open(loadFileName, "r")
-		except:
-			# Make File if Doesn't exit
-			open(loadFileName, "w+")
-
-			# The Load it again.
-			catInFile = open(loadFileName, "r")
-
-		# Adds categories from save file, if they do not currently exist.
-		for line in catInFile:
-			self.addCategory(line.strip(), False)
-
-		catInFile.close()
-		os.chdir(DIR)
-
 
 	def printCategories(self):
 		print("Categories:")
@@ -114,11 +127,11 @@ class Categories:
 
 class Account:
 	""" Bank Account Class """
-	def __init__(self, accountName, catList):
+	def __init__(self, accountName):
 		self.name 	      = accountName
 		self.balance      = 0
 		self.transactions = []
-		self.categories   = catList
+		self.categories   = cats
 
 	def newDeposit(self, name, catInd, amount):
 		""" Adds a new deposit to account. """
@@ -141,7 +154,7 @@ class Account:
 
 		print("Transactions:", "\n---------------",)
 
-		print("Date", "Num", "Payee", "Category", "Cleared", "Amount", 
+		print("Date", "Num", "Description", "Category", "Cleared", "Amount", 
 			  "Balance", sep="\t\t")
 		
 		for transaction in self.transactions:
@@ -158,7 +171,10 @@ class Transaction:
 				 transactionCleared, transactionAmount, newBalance):
 
 		self.name 	  = transactionName
-		self.date     = time.strftime("%d/%m/%Y")
+		self.date     = time.strftime("%m/%d/%Y")
+		self.day	  = time.strftime("%d")
+		self.month	  = time.strftime("%m")
+		self.year	  = time.strftime("%Y")
 		self.num	  = transactionNum
 		self.category = transactionCatigory
 		self.cleared  = transactionCleared
@@ -168,7 +184,7 @@ class Transaction:
 class CategoryManager:
 	""" Used for managing Categories. """
 
-	def __init__(self, cats):
+	def __init__(self):
 		self.command = ""
 
 		# Category Manager Run Loop
@@ -216,30 +232,18 @@ class CategoryManager:
 class AccountManager:
 	""" Used for managing Accounts. """
 
-	def __init__(self, cats, accounts):
+	def __init__(self):
 		self.command = ""
 
 		# Category Manager Run Loop
 		while(self.command != "q"):
-			self.printOptions(cats)
+			self.printOptions()
 			self.command = input("input: ")
-
-			""" Potential Selection Options"""
-			# Test Creen Clearing
-			if(self.command == "c"):
-				os.system("clear")
 
 			# Accounts
 
-			#Create New Account
-			if(self.command == "ca"):
-				os.system("clear")
-				newName = input("Enter new account name: ")
-				accounts.append(Account(newName, cats))
-				print("Account " + newName + " created.")
-				screenPauseClear()
 
-			#Create New Account
+			# Print Accounts
 			if(self.command == "la"):
 				os.system("clear")
 				
@@ -256,12 +260,11 @@ class AccountManager:
 			os.system("clear")
 
 
-	def printOptions(self, cats):
-		print("-- Category Manager --\n")
+	def printOptions(self):
+		print("-- Account Manager --\n")
 		cats.printCategories()
 		print("What you would like to do? \n")
-		print("ac - Add new Category")
-		print("dc - Delete a Category")
+		print("la - List Accounts")
 		print("\nq  - Return to Main Menu")
 
 
@@ -284,7 +287,12 @@ class CLI:
 			# Test Creen Clearing
 			if(self.command == "cm"):
 				os.system("clear")
-				CategoryManager(cats)
+				CategoryManager()
+
+
+			if(self.command == "am"):
+				os.system("clear")
+				AccountManager()
 
 			if(self.command == "q"):
 				print("Have a good day! Good-bye.")
@@ -318,15 +326,6 @@ class __main__:
 	if not os.path.exists(ACCOUNTDIR):
 		os.makedirs(ACCOUNTDIR)
 
-
-	#######################
-	# Auto-load functions #
-	#######################
-	cats = Categories()
-	cats.loadCategories(catSaveName)
-
-	
-	accounts = loadAccounts()
 
 	# Runs UI
 	main = CLI(cats, accounts)
