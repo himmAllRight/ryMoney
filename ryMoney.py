@@ -20,7 +20,22 @@ def screenPauseClear():
 	os.system("sleep 1")
 	os.system("clear")
 
+# Loads all the Accounts
+def loadAccounts():
+	os.chdir(ACCOUNTDIR)
+	accounts = []
+	accountNames =[d for d in os.listdir(os.getcwd()) if os.path.isdir(d)]
 
+	for account in accountNames:
+		print(account)
+		os.chdir(account)
+		os.system("touch transactionReg.csv")
+		os.chdir(ACCOUNTDIR)
+
+
+	os.chdir(DIR)
+
+	return(accounts)
 
 
 ################################################################################
@@ -310,12 +325,12 @@ class __main__:
 	cats = Categories()
 	cats.loadCategories(catSaveName)
 
-	accounts = []
-
-
-
+	
+	accounts = loadAccounts()
 
 	# Runs UI
 	main = CLI(cats, accounts)
+
+
 
 # sum(DICTNAME.values())
