@@ -1,10 +1,31 @@
 import time
 import os
 
-# Directories
+################################################################################
+############################### Global Section #################################
+################################################################################
+
+## Global Directories ##
 DIR        = "/home/ryan/scripts/ryMoney/"
 CONFIGDIR  = DIR + "/configs"
 ACCOUNTDIR = DIR + "/accounts"
+
+## Globale File Names
+catSaveName = "categories.txt"
+
+## Global Functions ##
+
+# Clears the screen after a short pause.
+def screenPauseClear():
+	os.system("sleep 1")
+	os.system("clear")
+
+
+
+
+################################################################################
+################################### Classes ####################################
+################################################################################
 
 class Categories:
 	""" A payment category """
@@ -19,6 +40,9 @@ class Categories:
 				print(categoryName, " added to categories.")
 		else:
 			print("Category ", categoryName, " already exists!", sep="")
+
+		# Resorts List			
+		self.list = sorted(self.list)
 
 	def containsCategory(self, searchName):
 		""" Returns the index of a searched category, otherwise returns -1 """
@@ -69,7 +93,7 @@ class Categories:
 		print("Categories:")
 		id = 0
 		for cat in self.list:
-			print(id, ":", cat, "  ", end="")
+			print(cat, "  ", end="")
 			id = id + 1
 		print("\n")
 
@@ -126,32 +150,63 @@ class Transaction:
 		self.amount	  = transactionAmount
 		self.balance  = newBalance
 
+class CategoryManager:
+	""" Used for managing Categories. """
 
-class CLI:
-	""" The command line User Run environment """
-
-	def __init__(self):
-		print(CONFIGDIR)
-		print("Hello! Welcome to ryMoney. \n")
-		catSaveName = "categories.txt"
-
-
-		#######################
-		# Auto-load functions #
-		#######################
-		cats = Categories()
-		cats.loadCategories(catSaveName)
-
-		accounts = []
-		# load accounts function to be written
-		
-		#######################
-		#### Main Run Loop ####
-		#######################
+	def __init__(self, cats):
 		self.command = ""
-		# Main Run Loop
+
+		# Category Manager Run Loop
 		while(self.command != "q"):
-			self.printOptions()
+			self.printOptions(cats)
+			self.command = input("input: ")
+
+			# Categories
+			# Add new category
+			if(self.command == "ac"):
+				os.system("clear")
+				cats.printCategories()
+				newCatName = input("Enter New Category Name: ")
+				cats.addCategory(newCatName, True)
+				screenPauseClear()				
+				cats.saveCategories(catSaveName)
+
+			# Delete Category
+			if(self.command == "dc"):
+				os.system("clear")
+				cats.printCategories()
+				deleteCatName = input("Enter name of Category to delete: ")
+				cats.removeCategory(deleteCatName)
+				screenPauseClear()
+				cats.saveCategories(catSaveName)
+
+			# Help Menu
+			if(self.command == "h"):
+				os.system("clear")
+				print("Help Menu to be written...")
+				screenPauseClear()
+
+			os.system("clear")
+
+
+	def printOptions(self, cats):
+		print("-- Category Manager --\n")
+		cats.printCategories()
+		print("What you would like to do? \n")
+		print("ac - Add new Category")
+		print("dc - Delete a Category")
+		print("\nq  - Return to Main Menu")
+
+
+class AccountManager:
+	""" Used for managing Accounts. """
+
+	def __init__(self, cats, accounts):
+		self.command = ""
+
+		# Category Manager Run Loop
+		while(self.command != "q"):
+			self.printOptions(cats)
 			self.command = input("input: ")
 
 			""" Potential Selection Options"""
@@ -167,7 +222,7 @@ class CLI:
 				newName = input("Enter new account name: ")
 				accounts.append(Account(newName, cats))
 				print("Account " + newName + " created.")
-				self.screenPauseClear()
+				screenPauseClear()
 
 			#Create New Account
 			if(self.command == "la"):
@@ -175,67 +230,67 @@ class CLI:
 				
 				for acc in accounts:
 					print(acc.name)
-				self.screenPauseClear()
-
-
-
-			# Categories
-			# Print Loaded Categories
-			if(self.command == "sc"):
-				os.system("clear")
-				cats.printCategories()
-
-			# Add new category
-			if(self.command == "ac"):
-				os.system("clear")
-				cats.printCategories()
-				newCatName = input("Enter New Category Name: ")
-				cats.addCategory(newCatName, True)
-				self.screenPauseClear()				
-				cats.saveCategories(catSaveName)
-
-			# Delete Category
-			if(self.command == "dc"):
-				os.system("clear")
-				cats.printCategories()
-				deleteCatName = input("Enter name of Category to delete: ")
-				cats.removeCategory(deleteCatName)
-				self.screenPauseClear()
-				cats.saveCategories(catSaveName)
+				screenPauseClear()
 
 			# Help Menu
 			if(self.command == "h"):
 				os.system("clear")
 				print("Help Menu to be written...")
-				self.screenPauseClear()
+				screenPauseClear()
+
+			os.system("clear")
 
 
-
-		# Ask to save on logout.
-		askSave = input("Would you like to save before quitting? (y/n): ")
-		if(askSave == "y"):
-			print("Saving file...")
-			# Save command
-			print("File Saved!")
-
-		print("Have a good day! Good-bye.")
-		self.screenPauseClear()
-
-	def printOptions(self):
-		print("Please select what you would like to do:")
-		print("c  - Create New Account")
-		print("l  - Load Saved Account")
-
-		print("\nCategories:")
-		print("sc - Show saved Categories")
+	def printOptions(self, cats):
+		print("-- Category Manager --\n")
+		cats.printCategories()
+		print("What you would like to do? \n")
 		print("ac - Add new Category")
 		print("dc - Delete a Category")
+		print("\nq  - Return to Main Menu")
+
+
+class CLI:
+	""" The command line User Run environment """
+	def __init__(self, cats, accounts):
+
+		# load accounts function to be written
+		
+		#######################
+		#### Main Run Loop ####
+		#######################
+		self.command = ""
+		# Main Run Loop
+		while(self.command != "q"):
+			self.printOptions()
+			self.command = input("input: ")
+
+			""" Potential Selection Options"""
+			# Test Creen Clearing
+			if(self.command == "cm"):
+				os.system("clear")
+				CategoryManager(cats)
+
+			if(self.command == "q"):
+				print("Have a good day! Good-bye.")
+				screenPauseClear()
+			
+			os.system("clear")
+
+		# Ask to save on logout.
+
+
+	def printOptions(self):
+		print("ryMoney -- Main Menu\n")
+		print("Please select what you would like to do:")
+		print("cm  - Category Manager")
+		print("am  - Account Manager (Not Yet)")
+		print("bm  - Budget Manager (Not Yet)")
 
 		print("\nh - help")
+		print("q - Quit ryMoney")
 
-	def screenPauseClear(self):
-		os.system("sleep 1")
-		os.system("clear")
+
 
 class __main__:
 	""" The Main Class """
@@ -245,6 +300,22 @@ class __main__:
 	if not os.path.exists(CONFIGDIR):
 		os.makedirs(CONFIGDIR)
 
+	if not os.path.exists(ACCOUNTDIR):
+		os.makedirs(ACCOUNTDIR)
+
+
+	#######################
+	# Auto-load functions #
+	#######################
+	cats = Categories()
+	cats.loadCategories(catSaveName)
+
+	accounts = []
+
+
+
 
 	# Runs UI
-	main = CLI()
+	main = CLI(cats, accounts)
+
+# sum(DICTNAME.values())
