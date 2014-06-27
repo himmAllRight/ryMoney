@@ -1,5 +1,6 @@
 import os
 import time
+import csv
 
 import configLoad
 
@@ -98,6 +99,59 @@ class Account:
 				  transaction.cleared, "\t\t", "$", transaction.amount,"\t\t",
 				  "$", transaction.balance, 
 				sep="")
+
+class AccountList:
+	""" An object that holds all the account objects and contains the functions
+		to edit all of the accounts (load, print, etcs) """
+	def __init__(self):
+		self.accounts = {}
+
+	def loadAccounts(self):
+		os.chdir(configLoad.ACCOUNTDIR)
+
+		accountNames =[d for d in os.listdir(os.getcwd()) if os.path.isdir(d)]
+
+		for accountName in accountNames:
+			tempAccount = Account(accountName)
+
+			os.chdir(accountName)
+			# Load Transactions
+			with open(configLoad.transRegName, 'r', newline='') as trans:
+				reader = csv.reader(trans)
+				i = 0
+				for row in reader:
+					if(i < 1):
+						header = row
+					else:
+						tempAccount.importTransaction(row[0], row[1], row[2], row[3], row[3], row[4], row[6])
+
+					i = i + 1
+				
+				if( (len(tempAccount.transactions)) > 0):
+					print("hi")
+					tempAccount.balance = tempAccount.transactions[(len(tempAccount.transactions) - 1)].balance
+
+			self.accounts[tempAccount.name] = tempAccount
+			os.chdir(configLoad.ACCOUNTDIR)
+
+
+		os.chdir(configLoad.DIR)
+
+	def containsAccount(self, searchName):
+		for tempAccountName in self.accounts:
+			if(tempAccountName == searchName):
+				return(True)
+		print("There is no account named ", searchName, "!")
+		return(False)
+
+
+	# Prints out each account name
+	def printAccountNames(self):
+		print("Accounts:")
+		for name in self.accounts:
+			print(name, "  ", end="")
+		print("\n")
+
 
 
 class Transaction:
