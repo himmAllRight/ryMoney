@@ -73,13 +73,13 @@ class AccountManager:
 			# Print Accounts
 			if(self.command == "pa"):
 				os.system("clear")
-				configLoad.accounts.printAccountNames()
+				configLoad.accountList.printAccountNames()
 				newCatName = input("Which account? ")
 				
-				if(configLoad.accounts.containsAccount(newCatName)):
-					print(configLoad.accounts[newCatName].name)
+				if(configLoad.accountList.containsAccount(newCatName)):
+					print(configLoad.accountList.accounts[newCatName].printAccountInfo())
 
-				screenPauseClear()			
+			
 				configLoad.cats.saveCategories(configLoad.catSaveName)
 
 
@@ -95,7 +95,7 @@ class AccountManager:
 
 	def printOptions(self):
 		print("-- Account Manager --\n")
-		configLoad.accounts.printAccountNames()
+		configLoad.accountList.printAccountNames()
 		print("What you would like to do? \n")
 		print("pa - Print Account Information")
 		print("\nq  - Return to Main Menu")

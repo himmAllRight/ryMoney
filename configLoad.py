@@ -51,11 +51,11 @@ if not os.path.exists(ACCOUNTDIR):
 
 
 
-accounts 	= dataClasses.AccountList()
+accountList = dataClasses.AccountList()
 cats 		= loadCategories(catSaveName)
 
 # Load accounts
-accounts.loadAccounts()
+accountList.loadAccounts()
 
 
 

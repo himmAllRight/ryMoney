@@ -123,7 +123,7 @@ class AccountList:
 					if(i < 1):
 						header = row
 					else:
-						tempAccount.importTransaction(row[0], row[1], row[2], row[3], row[3], row[4], row[6])
+						tempAccount.importTransaction(row[0], row[1], row[2], row[3], row[4], row[5], row[6])
 
 					i = i + 1
 				
