@@ -85,6 +85,19 @@ class AccountManager:
 			self.printOptions()
 			self.command = input("input: ")
 
+			# Add Deposit
+			if(self.command == "ad"):
+				os.system("clear")
+				name    = input("Enter deposit name: ")
+				day     = input("Enter deposit day (dd): ")
+				month   = input("Enter deposit month (mm): ")
+				year    = input("Enter deposit year (yy): ")
+				configLoad.cats.printCategories()
+				cat     = input("Select deposit category (#): ")
+				ammount = input("Enter deposit ammount: ")
+
+				self.currAccount.newDeposit(name, day, mmonth, year, cat, ammount)
+
 
 			# Print Accounts
 			if(self.command == "pa"):
@@ -98,7 +111,7 @@ class AccountManager:
 				configLoad.accountList.printAccountNames()
 				accountName = input("Which account would you like to work with? ")
 				self.currAccount = configLoad.accountList.accounts[accountName]
-				print("Working account switced to ", currAccount.name, ".")
+				print("Working account switced to ", accountName, ".")
 				screenPauseClear()
 
 			# Help Menu
@@ -118,6 +131,7 @@ class AccountManager:
 		configLoad.accountList.printAccountNames()
 		print("Current Selected Account: ", self.currAccount.name, "\n")
 		print("What you would like to do? \n")
+		print("sa  - Select another account")
 		print("pa - Print Account Information")
 		print("\nq  - Return to Main Menu")
 

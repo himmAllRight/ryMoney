@@ -54,7 +54,7 @@ class Categories:
 		print("Categories:")
 		id = 0
 		for cat in self.list:
-			print(cat, "  ", end="")
+			print(id, ": ", cat, "  ", end="")
 			id = id + 1
 		print("\n")
 
@@ -65,22 +65,24 @@ class Account:
 		self.balance      = 0
 		self.transactions = []
 
-	def newDeposit(self, name, catInd, amount):
+	def newDeposit(self, name, day, month, year, catInd, amount):
 		""" Adds a new deposit to account. """
 		self.balance = self.balance + amount
 
+(self, name, day, month, year, category, cleared, amount, balance ):
+
 		# Adds new Deposit to Account
-		self.transactions.append(Transaction(name, " DEP ", configLoad.cats.list[catInd] ," _ ", amount, 
-								 self.balance))
+		tempTrans = Transaction(name, day, month, year, "DEP", cat, " _ ", amount, self.balance)
+		self.transactions.append(tempTrans)
 
 	def newWithdrawl(self, name, catInd, num, amount):
 		""" Takes a new new Withdrawl from the account """
 		self.balance = self.balance - amount
-		self.transactions.append(Transaction(name, num, self.categories.list[catInd], " _ ", amount*(-1), 
+		self.transactions.append(Transaction(name, day, month, year, num, self.categories.list[catInd], " _ ", amount*(-1), 
 								 self.balance))
 
 	def importTransaction(self, date, num, name, cat, cleared, amount, balance):
-		self.transactions.append(Transaction(name, num, cat, cleared, amount, balance))
+		self.transactions.append(Transaction(name, day, month, year, num, cat, cleared, amount, balance))
 
 	def saveTransactions(self):
 		outTest = open(configLoad.transRegName, 'w+')
@@ -181,19 +183,18 @@ class AccountList:
 
 class Transaction:
 	""" Transaction for accounts """
-	def __init__(self, transactionName, transactionNum, transactionCatigory,
-				 transactionCleared, transactionAmount, newBalance):
+	def __init__(self, name, day, month, year, num, category, cleared, amount, balance ):
 
-		self.name 	  = transactionName
-		self.date     = time.strftime("%m/%d/%Y")
-		self.day	  = time.strftime("%d")
-		self.month	  = time.strftime("%m")
-		self.year	  = time.strftime("%Y")
-		self.num	  = transactionNum
-		self.category = transactionCatigory
-		self.cleared  = transactionCleared
-		self.amount	  = transactionAmount
-		self.balance  = newBalance
+		self.name 	  = name
+		self.day	  = day
+		self.month	  = month
+		self.year	  = year
+		self.date     = m + "/" + d + "/" + y
+		self.num	  = num
+		self.category = catigory
+		self.cleared  = cleared
+		self.amount	  = amount
+		self.balance  = balance
 
 	def printTransaction(self, outputFile):
 		print(self.date, self.num, self.name, self.category, self.cleared, 
