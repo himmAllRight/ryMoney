@@ -128,7 +128,6 @@ class AccountList:
 					i = i + 1
 				
 				if( (len(tempAccount.transactions)) > 0):
-					print("hi")
 					tempAccount.balance = tempAccount.transactions[(len(tempAccount.transactions) - 1)].balance
 
 			self.accounts[tempAccount.name] = tempAccount
@@ -150,7 +149,8 @@ class AccountList:
 		print("Accounts:")
 		for name in self.accounts:
 			print(name, "  ", end="")
-		print("\n")
+		print("")
+
 
 
 
