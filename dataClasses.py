@@ -82,6 +82,12 @@ class Account:
 	def importTransaction(self, date, num, name, cat, cleared, amount, balance):
 		self.transactions.append(Transaction(name, num, cat, cleared, amount, balance))
 
+	def saveTransactions(self):
+		outTest = open(configLoad.transRegName, 'w+')
+		print('Date,num,Description,Category,Cleared,Amount,Balance', 
+		       file=outTest)
+		for trans in self.transactions:
+			trans.printTransaction(outTest)
 
 	def printAccountInfo(self):
 		""" Prints out the account information """
@@ -105,6 +111,12 @@ class AccountList:
 		to edit all of the accounts (load, print, etcs) """
 	def __init__(self):
 		self.accounts = {}
+
+	def createNewAccount(self, newName):
+		newAccount = Account(newName)
+		self.accounts[newName] = newAccount
+		print(self.accounts, "\n\n\n\n")
+		print("Account ", newName, " created.")
 
 	def loadAccounts(self):
 		os.chdir(configLoad.ACCOUNTDIR)
@@ -144,6 +156,19 @@ class AccountList:
 		return(False)
 
 
+	# Saves accounts info to files
+	def saveAccountList(self):
+		os.chdir(configLoad.ACCOUNTDIR)
+		for account in self.accounts:
+			if not os.path.exists(account):
+				os.makedirs(account)
+			
+			os.chdir(account)
+			self.accounts[account].saveTransactions()
+			os.chdir("..")
+
+		os.chdir(configLoad.DIR)
+
 	# Prints out each account name
 	def printAccountNames(self):
 		print("Accounts:")
@@ -169,3 +194,8 @@ class Transaction:
 		self.cleared  = transactionCleared
 		self.amount	  = transactionAmount
 		self.balance  = newBalance
+
+	def printTransaction(self, outputFile):
+		print(self.date, self.num, self.name, self.category, self.cleared, 
+			  self.amount, self.balance, sep=",", file=outputFile)
+

@@ -66,8 +66,18 @@ class AccountManager:
 
 		# Select account to work on:
 		configLoad.accountList.printAccountNames()
-		accountName = input("Which account would you like to work with? ")
-		self.currAccount = configLoad.accountList.accounts[accountName]
+		print("Which account would you like to work with?")
+		accountName = input("(Or hit enter to create new account): ")
+		if(accountName == ""):
+			# Create new Account
+			print("crete new account")
+			newName = input("What would you like to name the new accout? ")
+			configLoad.accountList.createNewAccount(newName)
+			print(configLoad.accountList.accounts)
+			self.currAccount = configLoad.accountList.accounts[newName]
+
+		else:
+			self.currAccount = configLoad.accountList.accounts[accountName]
 		os.system("clear")
 		
 		# Category Manager Run Loop
@@ -98,6 +108,9 @@ class AccountManager:
 				screenPauseClear()
 
 			#os.system("clear")
+		configLoad.accountList.saveAccountList()
+		print("Accounts Saved...")
+		screenPauseClear()
 
 
 	def printOptions(self):
