@@ -1,1 +1,9 @@
 Date,num,Description,Category,Cleared,Amount,Balance
+09/06/1991,DEP,Test,Income, _ ,50.0,50.0
+09/09/1991,DEP,Pay,Income, _ ,200.0,250.0
+3/06/1991,DEP,Test2,Income, _ ,10.0,260.0
+4/3/1993,DEP,tsdf,New2, _ ,20.0,280.0
+4/3/1992,DEP,sdf,Apple, _ ,122.32,402.32
+06/29/2014,DEP,Pay,Income, _ ,700.12,1102.44
+06/29/2014,DEP,looool,Bill, _ ,90.12,1192.56
+06/29/2014,DEP,AAAAGG,Rent, _ ,795.0,1987.56

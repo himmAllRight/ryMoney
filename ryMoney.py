@@ -66,7 +66,7 @@ class AccountManager:
 
 		# Select account to work on:
 		configLoad.accountList.printAccountNames()
-		print("Which account would you like to work with?")
+		print("\nWhich account would you like to work with?")
 		accountName = input("(Or hit enter to create new account): ")
 		if(accountName == ""):
 			# Create new Account
@@ -90,7 +90,7 @@ class AccountManager:
 				os.system("clear")
 				name    = input("Enter deposit name: ")
 
-				day     = input("Enter deposit day (dd), or hit ENTER for Today["+ time.strftime("%d") +"]: ")
+				day     = input("Enter deposit day (dd), or hit ENTER for Today["+ time.strftime("%d") +"]s: ")
 				if(day == ""):
 					day = time.strftime("%d")
 				month   = input("Enter deposit month (mm), or hit ENTER for this Month["+ time.strftime("%m") +"]: ")
@@ -118,8 +118,19 @@ class AccountManager:
 				os.system("clear")
 				configLoad.accountList.printAccountNames()
 				accountName = input("Which account would you like to work with? ")
-				self.currAccount = configLoad.accountList.accounts[accountName]
+				if(accountName == ""):
+					os.system("clear")
+					# Create new Account
+					print("Create new account")
+					newName = input("What would you like to name the new accout? ")
+					configLoad.accountList.createNewAccount(newName)
+					self.currAccount = configLoad.accountList.accounts[newName]
+					accountName = newName
+				else:
+					self.currAccount = configLoad.accountList.accounts[accountName]
+					
 				print("Working account switced to ", accountName, ".")
+				
 				screenPauseClear()
 
 			# Help Menu
@@ -135,12 +146,13 @@ class AccountManager:
 
 
 	def printOptions(self):
-		print("-- Account Manager --")
+		print("-- Account Manager --\n")
 		configLoad.accountList.printAccountNames()
 		print("Current Selected Account: ", self.currAccount.name, "\n")
 		print("What you would like to do? \n")
 		print("sa  - Select another account")
 		print("pa - Print Account Information")
+		print("ad - Add Deposit")
 		print("\nq  - Return to Main Menu")
 
 

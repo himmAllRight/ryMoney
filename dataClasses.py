@@ -107,6 +107,7 @@ class Account:
 				  transaction.cleared, "\t\t", "$", transaction.amount,"\t\t",
 				  "$", transaction.balance, 
 				sep="")
+		print("\n")
 
 class AccountList:
 	""" An object that holds all the account objects and contains the functions
@@ -117,7 +118,6 @@ class AccountList:
 	def createNewAccount(self, newName):
 		newAccount = Account(newName)
 		self.accounts[newName] = newAccount
-		print(self.accounts, "\n\n\n\n")
 		print("Account ", newName, " created.")
 
 	def loadAccounts(self):
@@ -144,8 +144,6 @@ class AccountList:
 				
 				if( (len(tempAccount.transactions)) > 0):
 					loadBalance = tempAccount.transactions[  len(tempAccount.transactions) - 1  ].balance
-					tempAccount.transactions[  len(tempAccount.transactions) - 1  ].printT()
-					print("LOAD BALANCE: ", loadBalance)
 					tempAccount.balance = loadBalance
 
 			self.accounts[tempAccount.name] = tempAccount
