@@ -89,9 +89,17 @@ class AccountManager:
 			if(self.command == "ad"):
 				os.system("clear")
 				name    = input("Enter deposit name: ")
-				day     = input("Enter deposit day (dd): ")
-				month   = input("Enter deposit month (mm): ")
-				year    = input("Enter deposit year (yyyy): ")
+
+				day     = input("Enter deposit day (dd), or hit ENTER for Today["+ time.strftime("%d") +"]: ")
+				if(day == ""):
+					day = time.strftime("%d")
+				month   = input("Enter deposit month (mm), or hit ENTER for this Month["+ time.strftime("%m") +"]: ")
+				if(month == ""):
+					month = time.strftime("%m")
+				year    = input("Enter deposit year (yyyy), or hit ENTER for this Year["+ time.strftime("%") +"]: ")
+				if(year == ""):
+					year =time.strftime("%Y")
+
 				configLoad.cats.printCategories()
 				cat     = eval(input("Select deposit category (#): "))
 				ammount = eval(input("Enter deposit ammount: "))
