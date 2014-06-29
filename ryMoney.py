@@ -91,12 +91,12 @@ class AccountManager:
 				name    = input("Enter deposit name: ")
 				day     = input("Enter deposit day (dd): ")
 				month   = input("Enter deposit month (mm): ")
-				year    = input("Enter deposit year (yy): ")
+				year    = input("Enter deposit year (yyyy): ")
 				configLoad.cats.printCategories()
-				cat     = input("Select deposit category (#): ")
-				ammount = input("Enter deposit ammount: ")
+				cat     = eval(input("Select deposit category (#): "))
+				ammount = eval(input("Enter deposit ammount: "))
 
-				self.currAccount.newDeposit(name, day, mmonth, year, cat, ammount)
+				self.currAccount.newDeposit(name, day, month, year, configLoad.cats.list[cat], ammount)
 
 
 			# Print Accounts

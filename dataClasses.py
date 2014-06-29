@@ -65,11 +65,9 @@ class Account:
 		self.balance      = 0
 		self.transactions = []
 
-	def newDeposit(self, name, day, month, year, catInd, amount):
+	def newDeposit(self, name, day, month, year, cat, amount):
 		""" Adds a new deposit to account. """
 		self.balance = self.balance + amount
-
-(self, name, day, month, year, category, cleared, amount, balance ):
 
 		# Adds new Deposit to Account
 		tempTrans = Transaction(name, day, month, year, "DEP", cat, " _ ", amount, self.balance)
@@ -82,7 +80,9 @@ class Account:
 								 self.balance))
 
 	def importTransaction(self, date, num, name, cat, cleared, amount, balance):
-		self.transactions.append(Transaction(name, day, month, year, num, cat, cleared, amount, balance))
+		dates     = date.split("/")
+		tempTrans = Transaction(name, dates[1], dates[0], dates[2], "DEP", cat, " _ ", amount, self.balance)
+		self.transactions.append(tempTrans)
 
 	def saveTransactions(self):
 		outTest = open(configLoad.transRegName, 'w+')
@@ -189,9 +189,9 @@ class Transaction:
 		self.day	  = day
 		self.month	  = month
 		self.year	  = year
-		self.date     = m + "/" + d + "/" + y
+		self.date     = month + "/" + day + "/" + year
 		self.num	  = num
-		self.category = catigory
+		self.category = category
 		self.cleared  = cleared
 		self.amount	  = amount
 		self.balance  = balance
