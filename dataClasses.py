@@ -65,12 +65,12 @@ class Account:
 		self.balance      = 0
 		self.transactions = []
 
-	def newDeposit(self, name, day, month, year, cat, amount):
+	def newDeposit(self, name, day, month, year, category, amount):
 		""" Adds a new deposit to account. """
 		self.balance = self.balance + amount
 
 		# Adds new Deposit to Account
-		tempTrans = Transaction(name, day, month, year, "DEP", cat, " _ ", amount, self.balance)
+		tempTrans = Transaction(name, day, month, year, "DEP", category, " _ ", amount, self.balance)
 		self.transactions.append(tempTrans)
 
 	def newWithdrawl(self, name, catInd, num, amount):
@@ -81,7 +81,7 @@ class Account:
 
 	def importTransaction(self, date, num, name, cat, cleared, amount, balance):
 		dates     = date.split("/")
-		tempTrans = Transaction(name, dates[1], dates[0], dates[2], "DEP", cat, " _ ", amount, self.balance)
+		tempTrans = Transaction(name, dates[1], dates[0], dates[2], "DEP", cat, " _ ", amount, balance)
 		self.transactions.append(tempTrans)
 
 	def saveTransactions(self):
@@ -137,12 +137,16 @@ class AccountList:
 					if(i < 1):
 						header = row
 					else:
-						tempAccount.importTransaction(row[0], row[1], row[2], row[3], row[4], row[5], row[6])
+
+						tempAccount.importTransaction(row[0], row[1], row[2], row[3], row[4], float(row[5]), float(row[6]))
 
 					i = i + 1
 				
 				if( (len(tempAccount.transactions)) > 0):
-					tempAccount.balance = tempAccount.transactions[(len(tempAccount.transactions) - 1)].balance
+					loadBalance = tempAccount.transactions[  len(tempAccount.transactions) - 1  ].balance
+					tempAccount.transactions[  len(tempAccount.transactions) - 1  ].printT()
+					print("LOAD BALANCE: ", loadBalance)
+					tempAccount.balance = loadBalance
 
 			self.accounts[tempAccount.name] = tempAccount
 			os.chdir(configLoad.ACCOUNTDIR)
@@ -200,3 +204,6 @@ class Transaction:
 		print(self.date, self.num, self.name, self.category, self.cleared, 
 			  self.amount, self.balance, sep=",", file=outputFile)
 
+	def printT(self):
+		print(self.date, self.num, self.name, self.category, self.cleared, 
+			  self.amount, self.balance, sep=",")
