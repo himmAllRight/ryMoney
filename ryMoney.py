@@ -199,7 +199,7 @@ class AccountManager:
 		print("pa - Print Account Information")
 		print("nd - Add new Deposit")
 		print("np - Add a new Payment")
-		print("np - Add a new Check Payment")
+		print("nc - Add a new Check Payment")
 		print("\nq  - Return to Main Menu")
 
 
