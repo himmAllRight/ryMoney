@@ -97,6 +97,13 @@ class Account:
 		for trans in self.transactions:
 			trans.printTransaction(outTest)
 
+	def printUncleared(self):
+		ind = 0
+		for trans in self.transactions:
+			if(trans.cleared == " _ "):
+				print(ind, ": ", trans.printT(), sep="")
+				ind = ind + 1
+
 	def printAccountInfo(self):
 		""" Prints out the account information """
 		print("Account Name: ", self.name)
@@ -210,4 +217,4 @@ class Transaction:
 
 	def printT(self):
 		print(self.date, self.num, self.name, self.category, self.cleared, 
-			  self.amount, self.balance, sep=",")
+			  self.amount, self.balance, sep="\t")

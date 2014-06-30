@@ -166,6 +166,11 @@ class AccountManager:
 				os.system("clear")
 				self.currAccount.printAccountInfo()
 
+			# Print only uncleared Transactions
+			if(self.command == "puc"):
+				os.system("clear")
+				self.currAccount.printUncleared()
+
 
 			# Select another account
 			if(self.command == "sa"):
