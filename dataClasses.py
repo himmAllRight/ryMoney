@@ -73,10 +73,16 @@ class Account:
 		tempTrans = Transaction(name, day, month, year, "DEP", category, " _ ", amount, self.balance)
 		self.transactions.append(tempTrans)
 
-	def newWithdrawl(self, name, catInd, num, amount):
+	def newPayment(self, name, day, month, year, category, amount):
 		""" Takes a new new Withdrawl from the account """
 		self.balance = self.balance - amount
-		self.transactions.append(Transaction(name, day, month, year, num, self.categories.list[catInd], " _ ", amount*(-1), 
+		self.transactions.append(Transaction(name, day, month, year, "PAY", category, " _ ", amount*(-1), 
+								 self.balance))
+
+	def newCheck(self, name, day, month, year, num, category, amount):
+		""" Takes a new new Withdrawl from the account """
+		self.balance = self.balance - amount
+		self.transactions.append(Transaction(name, day, month, year, num, category, " _ ", amount*(-1), 
 								 self.balance))
 
 	def importTransaction(self, date, num, name, cat, cleared, amount, balance):

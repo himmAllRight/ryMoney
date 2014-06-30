@@ -86,7 +86,7 @@ class AccountManager:
 			self.command = input("input: ")
 
 			# Add Deposit
-			if(self.command == "ad"):
+			if(self.command == "nd"):
 				os.system("clear")
 				name    = input("Enter deposit name: ")
 
@@ -105,6 +105,51 @@ class AccountManager:
 				ammount = eval(input("Enter deposit ammount: "))
 
 				self.currAccount.newDeposit(name, day, month, year, configLoad.cats.list[cat], ammount)
+
+
+			# New Payment
+			if(self.command == "np"):
+				os.system("clear")
+				name    = input("Enter Payment name: ")
+
+				day     = input("Enter payment day (dd), or hit ENTER for Today["+ time.strftime("%d") +"]s: ")
+				if(day == ""):
+					day = time.strftime("%d")
+				month   = input("Enter payment month (mm), or hit ENTER for this Month["+ time.strftime("%m") +"]: ")
+				if(month == ""):
+					month = time.strftime("%m")
+				year    = input("Enter payment year (yyyy), or hit ENTER for this Year["+ time.strftime("%") +"]: ")
+				if(year == ""):
+					year =time.strftime("%Y")
+
+				configLoad.cats.printCategories()
+				cat     = eval(input("Select payment category (#): "))
+				ammount = eval(input("Enter payment ammount: "))
+
+				self.currAccount.newPayment(name, day, month, year, configLoad.cats.list[cat], ammount)
+
+
+			# New Check Payment
+			if(self.command == "nc"):
+				os.system("clear")
+				name    = input("Enter Payment name: ")
+				num		= input("Enter Check Number: ")
+
+				day     = input("Enter check day (dd), or hit ENTER for Today["+ time.strftime("%d") +"]s: ")
+				if(day == ""):
+					day = time.strftime("%d")
+				month   = input("Enter check month (mm), or hit ENTER for this Month["+ time.strftime("%m") +"]: ")
+				if(month == ""):
+					month = time.strftime("%m")
+				year    = input("Enter check year (yyyy), or hit ENTER for this Year["+ time.strftime("%") +"]: ")
+				if(year == ""):
+					year =time.strftime("%Y")
+
+				configLoad.cats.printCategories()
+				cat     = eval(input("Select payment category (#): "))
+				ammount = eval(input("Enter check ammount: "))
+
+				self.currAccount.newCheck(name, day, month, year, num, configLoad.cats.list[cat], ammount)
 
 
 			# Print Accounts
@@ -152,7 +197,9 @@ class AccountManager:
 		print("What you would like to do? \n")
 		print("sa  - Select another account")
 		print("pa - Print Account Information")
-		print("ad - Add Deposit")
+		print("nd - Add new Deposit")
+		print("np - Add a new Payment")
+		print("np - Add a new Check Payment")
 		print("\nq  - Return to Main Menu")
 
 
