@@ -85,7 +85,7 @@ class AccountManager:
 			self.printOptions()
 			self.command = input("input: ")
 
-			# Add Deposit
+			# New Deposit
 			if(self.command == "nd"):
 				os.system("clear")
 				name    = input("Enter deposit name: ")
@@ -105,6 +105,9 @@ class AccountManager:
 				ammount = eval(input("Enter deposit ammount: "))
 
 				self.currAccount.newDeposit(name, day, month, year, configLoad.cats.list[cat], ammount)
+
+				print("Deposit added to account: ",self.currAccount.name ,".")
+				screenPauseClear()
 
 
 			# New Payment
@@ -128,6 +131,9 @@ class AccountManager:
 
 				self.currAccount.newPayment(name, day, month, year, configLoad.cats.list[cat], ammount)
 
+				print("Payment added to account: ",self.currAccount.name ,".")
+				screenPauseClear()
+
 
 			# New Check Payment
 			if(self.command == "nc"):
@@ -150,6 +156,9 @@ class AccountManager:
 				ammount = eval(input("Enter check ammount: "))
 
 				self.currAccount.newCheck(name, day, month, year, num, configLoad.cats.list[cat], ammount)
+
+				print("Check Payment added to account: ",self.currAccount.name ,".")
+				screenPauseClear()
 
 
 			# Print Accounts
