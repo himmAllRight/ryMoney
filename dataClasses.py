@@ -119,8 +119,7 @@ class Account:
 		ind		  = 0
 		monthList = []
 
-		#currMonth = int(time.strftime("%m"))
-		currMonth = 1
+		currMonth = int(time.strftime("%m"))
 		currYear  = int(time.strftime("%Y"))
 
 		print("Current: ", currMonth, currYear, sep = "\t")
