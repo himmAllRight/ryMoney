@@ -171,6 +171,12 @@ class AccountManager:
 				os.system("clear")
 				self.currAccount.printUncleared()
 
+			# Clear a transaction
+			if(self.command == "ct"):
+				os.system("clear")
+				unclearedList = self.currAccount.printUncleared()
+				
+
 
 			# Select another account
 			if(self.command == "sa"):

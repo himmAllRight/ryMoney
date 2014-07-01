@@ -98,15 +98,20 @@ class Account:
 			trans.printTransaction(outTest)
 
 	def printUncleared(self):
-		ind = 0
 		print("Uncleared Transactions: \n------------------------")
 
+		ind 		  = 0
+		unclearedList = []
+		
 		for trans in self.transactions:
 			if(trans.cleared == " _ "):
+				unclearedList.append(trans)
 				print(ind, ":   ",  sep="", end="")
 				trans.printT()
 				ind = ind + 1
 		print("\n")
+
+		return(unclearedList)
 
 	def printAccountInfo(self):
 		""" Prints out the account information """
