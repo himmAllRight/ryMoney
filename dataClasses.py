@@ -87,7 +87,7 @@ class Account:
 
 	def importTransaction(self, date, num, name, cat, cleared, amount, balance):
 		dates     = date.split("/")
-		tempTrans = Transaction(name, dates[1], dates[0], dates[2], "DEP", cat, " _ ", amount, balance)
+		tempTrans = Transaction(name, dates[1], dates[0], dates[2], num, cat, cleared, amount, balance)
 		self.transactions.append(tempTrans)
 
 	def saveTransactions(self):

@@ -3,7 +3,6 @@ import os
 
 import configLoad
 import dataClasses
-
 # Clears the screen after a short pause.
 def screenPauseClear():
 	os.system("sleep 1")
