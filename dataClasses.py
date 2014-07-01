@@ -113,6 +113,46 @@ class Account:
 
 		return(unclearedList)
 
+	def printTwoMonths(self):
+		print("Transactions from Last Two Months: \n------------------------")
+
+		ind		  = 0
+		monthList = []
+
+		#currMonth = int(time.strftime("%m"))
+		currMonth = 1
+		currYear  = int(time.strftime("%Y"))
+
+		print("Current: ", currMonth, currYear, sep = "\t")
+
+		for trans in self.transactions:
+			tranMonth = int(trans.month)
+			tranYear  = int(trans.year)
+			valid = False
+		#	print(trans.month, trans.year, sep="\t")
+			# If Feb-Dec
+			if( currMonth > 1):
+				if( tranYear == currYear and tranMonth == currMonth ):
+					valid = True
+				elif( tranYear == currYear and tranMonth == (currMonth - 1)):
+					valid = True
+			# If Jan
+			elif(currMonth == 1):
+				if(tranYear == currYear and tranMonth == currMonth):
+					valid = True
+				elif(tranYear == (currYear - 1) and tranMonth == 12 ):
+					valid = True
+
+			# If valid, add to list
+			if(valid):
+				monthList.append(trans)
+				print(ind, ":   ",  sep="", end="")
+				trans.printT()
+				ind = ind + 1
+		print("\n")
+
+		return(monthList)
+
 	def printAccountInfo(self):
 		""" Prints out the account information """
 		print("Account Name: ", self.name)

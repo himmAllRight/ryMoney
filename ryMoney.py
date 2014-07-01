@@ -170,6 +170,11 @@ class AccountManager:
 				os.system("clear")
 				self.currAccount.printUncleared()
 
+			# Print transactions from last two months
+			if(self.command == "p2m"):
+				os.system("clear")
+				self.currAccount.printTwoMonths()
+
 			# Clear a transaction
 			if(self.command == "ct"):
 				os.system("clear")
