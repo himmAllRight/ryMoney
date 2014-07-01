@@ -175,6 +175,13 @@ class AccountManager:
 			if(self.command == "ct"):
 				os.system("clear")
 				unclearedList = self.currAccount.printUncleared()
+
+				# get transaction index value
+				ctInd = eval(input("What transaction do you want to clear? (enter #): "))
+
+				unclearedList[ctInd].cleared = " C "
+
+				print("Transaction Cleared")
 				
 
 
@@ -217,9 +224,13 @@ class AccountManager:
 		print("What you would like to do? \n")
 		print("sa  - Select another account")
 		print("pa - Print Account Information")
+
 		print("nd - Add new Deposit")
 		print("np - Add a new Payment")
 		print("nc - Add a new Check Payment")
+
+		print("puc - Print all uncleared transactions")
+		print("ct  - Clear transaction")
 		print("\nq  - Return to Main Menu")
 
 
