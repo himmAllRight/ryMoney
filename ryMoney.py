@@ -205,7 +205,7 @@ class AccountManager:
 					editTrans.printT()
 
 					print("\nEdit Options: \n--------------------")
-					options = "1: Day  2: Month  3: Year  4: Name/Description  5: Num 5: Category  6.Cleared/Uncleared  7.Amount "
+					options = "1: Day  2: Month  3: Year  4: Name/Description  5: Num  6: Category  7.Cleared/Uncleared  8.Amount "
 					edit = input(options + "\n\nWhat would you like to change in the transaction? (edit #, or 'd' if done editing): ")	
 
 					if(edit == "1"):
@@ -224,15 +224,24 @@ class AccountManager:
 						editTrans.updateDate()
 
 					if(edit == "4"):
-						print("")
+						newName = input("What would you like to change the Name/Description to: ")
+						editTrans.name = newName
 
 					if(edit == "5"):
-						print("")
+						if(editTrans.num != "PAY" and editTrans.num != "DEP"):
+							newNum = input("What would you like to change the check number to: ")
+							editTrans.num = newNum
+
+						else:
+							print("Check number can only be changed for checks!")
 
 					if(edit == "6"):
 						print("")
 
 					if(edit == "7"):
+						print("")
+
+					if(edit == "8"):
 						print("")
 
 					print("Edit Made.")
