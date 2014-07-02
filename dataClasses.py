@@ -163,11 +163,12 @@ class Account:
 			  "Balance", sep="\t\t")
 		
 		for transaction in self.transactions:
-			print(transaction.date, "\t\t", transaction.num, "\t\t", 
-				  transaction.name, "\t\t", transaction.category ,"\t\t",
-				  transaction.cleared, "\t\t", "$", transaction.amount,"\t\t",
-				  "$", transaction.balance, 
-				sep="")
+			transaction.printT()
+			#print(transaction.date, "\t\t", transaction.num, "\t\t", 
+			#	  transaction.name, "\t\t", transaction.category ,"\t\t",
+		#		  transaction.cleared, "\t\t", "$", transaction.amount,"\t\t",
+		#		  "$", transaction.balance, 
+		#		sep="")
 		print("\n")
 
 class AccountList:
@@ -261,8 +262,8 @@ class Transaction:
 
 	def printTransaction(self, outputFile):
 		print(self.date, self.num, self.name, self.category, self.cleared, 
-			  self.amount, self.balance, sep=",", file=outputFile)
+			  "%.2f" %self.amount, "%.2f" % self.balance, sep=",", file=outputFile)
 
 	def printT(self):
 		print(self.date, self.num, self.name, self.category, self.cleared, 
-			  self.amount, self.balance, sep="\t\t")
+			  "%.2f" % self.amount,  "%.2f" % self.balance, sep="\t\t")
