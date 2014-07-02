@@ -97,12 +97,35 @@ class Account:
 		for trans in self.transactions:
 			trans.printTransaction(outTest)
 
+
+	def printHeader(self):
+		print("Date", "Num", "Description", "Category", "Cleared", "Amount", 
+		  "Balance", sep="\t\t")
+
+
+	def printAllTrans(self):
+		print("Transactions: \n-------------------")
+
+		ind 	  = 0
+		transList = []
+
+		self.printHeader()
+		for trans in self.transactions:
+			transList.append(trans)
+			print(ind, ":  ", sep="", end="")
+			trans.printT()
+			ind = ind + 1
+		print("\n")
+
+		return(transList)
+
 	def printUncleared(self):
 		print("Uncleared Transactions: \n------------------------")
 
 		ind 		  = 0
 		unclearedList = []
 		
+		self.printHeader()
 		for trans in self.transactions:
 			if(trans.cleared == " _ "):
 				unclearedList.append(trans)
@@ -122,8 +145,7 @@ class Account:
 		currMonth = int(time.strftime("%m"))
 		currYear  = int(time.strftime("%Y"))
 
-		print("Current: ", currMonth, currYear, sep = "\t")
-
+		self.printHeader()
 		for trans in self.transactions:
 			tranMonth = int(trans.month)
 			tranYear  = int(trans.year)
@@ -259,6 +281,9 @@ class Transaction:
 		self.cleared  = cleared
 		self.amount	  = amount
 		self.balance  = balance
+
+	def updateDate(self):
+		self.date = self.month + "/" + self.day + "/" + self.year
 
 	def printTransaction(self, outputFile):
 		print(self.date, self.num, self.name, self.category, self.cleared, 

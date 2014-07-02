@@ -186,6 +186,59 @@ class AccountManager:
 				unclearedList[ctInd].cleared = " C "
 
 				print("Transaction Cleared")
+
+
+			# Edit a transaction
+			if(self.command == "et"):
+				os.system("clear")
+				transList = self.currAccount.printAllTrans()
+
+				# get transaction index value
+				editInd = eval(input("What transaction do you want to edit? (enter #): "))
+				editTrans = transList[editInd]
+				os.system("clear")
+
+				edit = ""
+				while(edit != "d"):
+					print("Transaction selected:\n----------------")
+					self.currAccount.printHeader()
+					editTrans.printT()
+
+					print("\nEdit Options: \n--------------------")
+					options = "1: Day  2: Month  3: Year  4: Name/Description  5: Num 5: Category  6.Cleared/Uncleared  7.Amount "
+					edit = input(options + "\n\nWhat would you like to change in the transaction? (edit #, or 'd' if done editing): ")	
+
+					if(edit == "1"):
+						newDay = input("What should the day be changed to? (dd): ")
+						editTrans.day = newDay
+						editTrans.updateDate()
+
+					if(edit == "2"):
+						newMonth = input("What should the month be changed to? (mm): ")
+						editTrans.month = newMonth
+						editTrans.updateDate()
+
+					if(edit == "3"):
+						newYear = input("What should the year be changed to? (yyyy): ")
+						editTrans.year = newYear
+						editTrans.updateDate()
+
+					if(edit == "4"):
+						print("")
+
+					if(edit == "5"):
+						print("")
+
+					if(edit == "6"):
+						print("")
+
+					if(edit == "7"):
+						print("")
+
+					print("Edit Made.")
+					screenPauseClear()
+
+				print("Done Editing Transaction")
 				
 
 
@@ -277,7 +330,7 @@ class CLI:
 		print("ryMoney -- Main Menu\n")
 		print("Please select what you would like to do:")
 		print("cm  - Category Manager")
-		print("am  - Account Manager (Not Yet)")
+		print("am  - Account Manager)")
 		print("bm  - Budget Manager (Not Yet)")
 
 		print("\nh - help")
