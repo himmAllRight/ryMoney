@@ -143,7 +143,7 @@ class Account:
 
 		return(unclearedList)
 
-	def printTwoMonths(self):
+	def printTwoMonths(self, printCleared):
 		print("Transactions from Last Two Months: \n------------------------")
 
 		ind		  = 0
@@ -152,8 +152,18 @@ class Account:
 		currMonth = int(time.strftime("%m"))
 		currYear  = int(time.strftime("%Y"))
 
+		if(printCleared == True):
+			transactionList = self.transactions
+		else:
+			transactionList = []
+			for trans in self.transactions:
+				if(trans.cleared == " _ "):
+					transactionList.append(trans)
+					
+
+
 		self.printHeader()
-		for trans in self.transactions:
+		for trans in transactionList:
 			tranMonth = int(trans.month)
 			tranYear  = int(trans.year)
 			valid = False

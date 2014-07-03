@@ -173,7 +173,12 @@ class AccountManager:
 			# Print transactions from last two months
 			if(self.command == "p2m"):
 				os.system("clear")
-				self.currAccount.printTwoMonths()
+				self.currAccount.printTwoMonths(True)
+
+			# Print uncleared transactions from last two months
+			if(self.command == "p2mu"):
+				os.system("clear")
+				self.currAccount.printTwoMonths(False)
 
 			# Clear a transaction
 			if(self.command == "ct"):
@@ -323,6 +328,7 @@ class AccountManager:
 		print("\npa - Print Account Information")
 		print("puc - Print all uncleared transactions")
 		print("p2m  - Print Transactions form last 2 months")
+		print("p2m  - Print uncleared Transactions form last 2 months")
 		print("\nq  - Return to Main Menu")
 
 
