@@ -97,6 +97,13 @@ class Account:
 		for trans in self.transactions:
 			trans.printTransaction(outTest)
 
+	def recalculateBallance(self):
+		balance = 0
+		for trans in self.transactions:
+			trans.balance = float(trans.amount) + float(balance)
+			balance = trans.balance
+		self.balance = balance
+
 
 	def printHeader(self):
 		print("Date", "Num", "Description", "Category", "Cleared", "Amount", 

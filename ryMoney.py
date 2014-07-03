@@ -194,57 +194,81 @@ class AccountManager:
 				transList = self.currAccount.printAllTrans()
 
 				# get transaction index value
-				editInd = eval(input("What transaction do you want to edit? (enter #): "))
-				editTrans = transList[editInd]
+				edit = ""
+				editInd = input("What transaction do you want to edit? (enter #, or 'q' to exit): ")
+				if(editInd == "q"):
+					edit = "q"
+				else:
+					editInd = int(editInd)
+					editTrans = transList[editInd]
 				os.system("clear")
 
-				edit = ""
-				while(edit != "d"):
+				
+				while(edit != "q"):
 					print("Transaction selected:\n----------------")
 					self.currAccount.printHeader()
+					print(editInd, ": ", end="")
 					editTrans.printT()
 
 					print("\nEdit Options: \n--------------------")
-					options = "1: Day  2: Month  3: Year  4: Name/Description  5: Num  6: Category  7.Cleared/Uncleared  8.Amount "
-					edit = input(options + "\n\nWhat would you like to change in the transaction? (edit #, or 'd' if done editing): ")	
+					options = "1: Day  2: Month  3: Year  4: Num  5: Name/Description  6: Category  7.Cleared/Uncleared  8.Amount "
+					edit = input(options + "\n\nWhat would you like to change in the transaction? (edit #, or 'q' to quit): ")	
 
 					if(edit == "1"):
 						newDay = input("What should the day be changed to? (dd): ")
 						editTrans.day = newDay
 						editTrans.updateDate()
+						print("Day changed.")
 
 					if(edit == "2"):
 						newMonth = input("What should the month be changed to? (mm): ")
 						editTrans.month = newMonth
 						editTrans.updateDate()
+						print("Month Changed.")
 
 					if(edit == "3"):
 						newYear = input("What should the year be changed to? (yyyy): ")
 						editTrans.year = newYear
 						editTrans.updateDate()
+						print("Year Changed.")
 
 					if(edit == "4"):
-						newName = input("What would you like to change the Name/Description to: ")
-						editTrans.name = newName
-
-					if(edit == "5"):
 						if(editTrans.num != "PAY" and editTrans.num != "DEP"):
 							newNum = input("What would you like to change the check number to: ")
 							editTrans.num = newNum
+							print("Check Number Changed.")
 
 						else:
 							print("Check number can only be changed for checks!")
 
+					if(edit == "5"):
+						newName = input("What would you like to change the Name/Description to: ")
+						editTrans.name = newName
+						print("Name/Description changed.")
+
 					if(edit == "6"):
-						print("")
+						configLoad.cats.printCategories()
+						newCatInd = eval(input("Select new category (#): "))
+						editTrans.category = configLoad.cats.list[newCatInd]
+						print("Category Changed.")
 
 					if(edit == "7"):
-						print("")
+						if(editTrans.cleared == " C "):
+							editTrans.cleared = " _ "
+							print("Transaction uncleared.")
+						elif(editTrans.cleared == " _ "):
+							editTrans.cleared = " C "
+							print("Transaction cleared.")
 
 					if(edit == "8"):
-						print("")
+						newAmount = eval(input("Enter new amount: "))
+						if(editTrans.num != "DEP"):
+							newAmount = newAmount * (-1)
+						editTrans.amount = newAmount
+						self.currAccount.recalculateBallance()
+						print("Transaction amount changed and ballance recalculated.")
 
-					print("Edit Made.")
+
 					screenPauseClear()
 
 				print("Done Editing Transaction")
@@ -289,14 +313,16 @@ class AccountManager:
 		print("Current Selected Account: ", self.currAccount.name, "\n")
 		print("What you would like to do? \n")
 		print("sa  - Select another account")
-		print("pa - Print Account Information")
+		print("et  - Edit transaction")
+		print("ct  - Clear transaction")
 
-		print("nd - Add new Deposit")
+		print("\nnd - Add new Deposit")
 		print("np - Add a new Payment")
 		print("nc - Add a new Check Payment")
 
+		print("\npa - Print Account Information")
 		print("puc - Print all uncleared transactions")
-		print("ct  - Clear transaction")
+		print("p2m  - Print Transactions form last 2 months")
 		print("\nq  - Return to Main Menu")
 
 
