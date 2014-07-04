@@ -279,6 +279,42 @@ class AccountManager:
 				print("Done Editing Transaction")
 				
 
+			# Ballane Acount
+			if(self.command == "ba"):
+				#startDate   = input("Enter starting date (mm/dd/yyyy): ")
+				#startAmount = eval(input("Enter starting amount: "))
+				#endDate		= input("Enter ending date (mm/dd/yyyy): ")
+				#endAmount	= eval(input("Enter ending amount: "))
+
+				## Select transactions Section
+				balanceTransactions = []
+				unclearedList = self.currAccount.printUncleared()
+				select = ""
+				while(select != "d"):
+					print(unclearedList)
+					print(balanceTransactions)
+					select = input("Select a transaction number to add it to ballance: ")
+					if( select == "d"):
+						os.system("clear")
+						print("are you sure?")
+						print(unclearedList)
+						print(balanceTransactions)
+
+					else:
+						select = int(select)
+						# Cleared selected Transaction
+						unclearedList[select].cleared = " C "
+						# Move transaction from uncleared to balance List.
+						balanceTransactions.append(unclearedList.pop(select))
+						os.system("clear")
+
+
+
+				# Run actual calculation
+				self.currAccount.ballanceAccount()
+
+				screenPauseClear()
+
 
 			# Select another account
 			if(self.command == "sa"):
@@ -320,6 +356,7 @@ class AccountManager:
 		print("sa  - Select another account")
 		print("et  - Edit transaction")
 		print("ct  - Clear transaction")
+		print("ba  - Ballance Account")
 
 		print("\nnd - Add new Deposit")
 		print("np - Add a new Payment")

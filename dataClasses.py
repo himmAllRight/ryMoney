@@ -104,6 +104,9 @@ class Account:
 			balance = trans.balance
 		self.balance = balance
 
+	def ballanceAccount(self):
+		print("In ballance account...")
+
 
 	def printHeader(self):
 		print("Date", "Num", "Description", "Category", "Cleared", "Amount", 
