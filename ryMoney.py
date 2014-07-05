@@ -219,24 +219,28 @@ class AccountManager:
 					options = "1: Day  2: Month  3: Year  4: Num  5: Name/Description  6: Category  7.Cleared/Uncleared  8.Amount "
 					edit = input(options + "\n\nWhat would you like to change in the transaction? (edit #, or 'q' to quit): ")	
 
+					# Edit Transaction Day
 					if(edit == "1"):
 						newDay = input("What should the day be changed to? (dd): ")
 						editTrans.day = newDay
 						editTrans.updateDate()
 						print("Day changed.")
 
+					# Edit Transaction Month
 					if(edit == "2"):
 						newMonth = input("What should the month be changed to? (mm): ")
 						editTrans.month = newMonth
 						editTrans.updateDate()
 						print("Month Changed.")
 
+					# Edit Transaction Year
 					if(edit == "3"):
 						newYear = input("What should the year be changed to? (yyyy): ")
 						editTrans.year = newYear
 						editTrans.updateDate()
 						print("Year Changed.")
 
+					# Edit the Check number, if the transacion isn't a Payment or Deposist
 					if(edit == "4"):
 						if(editTrans.num != "PAY" and editTrans.num != "DEP"):
 							newNum = input("What would you like to change the check number to: ")
@@ -246,17 +250,20 @@ class AccountManager:
 						else:
 							print("Check number can only be changed for checks!")
 
+					# Edit transaction name/description
 					if(edit == "5"):
 						newName = input("What would you like to change the Name/Description to: ")
 						editTrans.name = newName
 						print("Name/Description changed.")
 
+					# Change the category of a transaction
 					if(edit == "6"):
 						configLoad.cats.printCategories()
 						newCatInd = eval(input("Select new category (#): "))
 						editTrans.category = configLoad.cats.list[newCatInd]
 						print("Category Changed.")
 
+					# Clear or unclear a transaction, depending on current state
 					if(edit == "7"):
 						if(editTrans.cleared == " C "):
 							editTrans.cleared = " _ "
@@ -265,6 +272,7 @@ class AccountManager:
 							editTrans.cleared = " C "
 							print("Transaction cleared.")
 
+					# Change the amount of a transaction and recalculate all the 
 					if(edit == "8"):
 						newAmount = eval(input("Enter new amount: "))
 						if(editTrans.num != "DEP"):
@@ -289,16 +297,34 @@ class AccountManager:
 				## Select transactions Section
 				balanceTransactions = []
 				unclearedList = self.currAccount.printUncleared()
+				os.system("clear")
+
+				#Might delete these and just move the code to the position...
+				def printUnclearedList():
+					i = 0
+					print("Uncleared Transactions:")
+					for trans in unclearedList:
+						print(i, ":  ", end="")
+						trans.printT()
+						i = i + 1
+
+				def printBalanceList():
+					j = 0
+					print("Transactions for ballance: ")
+					for trans in balanceTransactions:
+						print(j, ":  ", end="")
+						trans.printT()
+						j = j + 1
+
 				select = ""
 				while(select != "d"):
-					print(unclearedList)
-					print(balanceTransactions)
+					printUnclearedList()
+					printBalanceList()
 					select = input("Select a transaction number to add it to ballance: ")
 					if( select == "d"):
 						os.system("clear")
 						print("are you sure?")
-						print(unclearedList)
-						print(balanceTransactions)
+
 
 					else:
 						select = int(select)
