@@ -295,7 +295,7 @@ class AccountManager:
 				#endAmount	= eval(input("Enter ending amount: "))
 
 				## Select transactions Section
-				balanceTransactions = []
+				ballanceTransactions = []
 				unclearedList = self.currAccount.printUncleared()
 				os.system("clear")
 
@@ -308,10 +308,10 @@ class AccountManager:
 						trans.printT()
 						i = i + 1
 
-				def printBalanceList():
+				def printBallanceList():
 					j = 0
 					print("Transactions for ballance: ")
-					for trans in balanceTransactions:
+					for trans in ballanceTransactions:
 						print(j, ":  ", end="")
 						trans.printT()
 						j = j + 1
@@ -319,11 +319,27 @@ class AccountManager:
 				select = ""
 				while(select != "d"):
 					printUnclearedList()
-					printBalanceList()
-					select = input("Select a transaction number to add it to ballance: ")
+					printBallanceList()
+					select = input("Select a transaction number to add it to ballance ('d' when done): ")
 					if( select == "d"):
 						os.system("clear")
-						print("are you sure?")
+						print("\nThese are the transactions on the statement, correct?")
+
+						printBallanceList()
+
+						check = input("(y/n): ")
+
+						if(check == "y"):
+							print("Total for this statement:")
+							sumBal = 0
+							for num in ballanceTransactions:
+								sumBal = sumBal + num.amount
+
+							print(sumBal)
+
+						else:
+							select = ""
+						
 
 
 					else:
@@ -331,7 +347,7 @@ class AccountManager:
 						# Cleared selected Transaction
 						unclearedList[select].cleared = " C "
 						# Move transaction from uncleared to balance List.
-						balanceTransactions.append(unclearedList.pop(select))
+						ballanceTransactions.append(unclearedList.pop(select))
 						os.system("clear")
 
 
