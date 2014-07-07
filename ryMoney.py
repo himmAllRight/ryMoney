@@ -294,9 +294,13 @@ class AccountManager:
 				#endDate		= input("Enter ending date (mm/dd/yyyy): ")
 				#endAmount	= eval(input("Enter ending amount: "))
 
-				## Select transactions Section
-				ballanceTransactions = []
-				unclearedList = self.currAccount.printUncleared()
+				startDate = "01/01/1991"
+				endDate   = "12/01/1993"
+
+			#	startDate = startDate.split("/")
+			#	endDate   = endDate.split("/")
+
+
 				os.system("clear")
 
 				#Might delete these and just move the code to the position...
@@ -316,6 +320,16 @@ class AccountManager:
 						trans.printT()
 						j = j + 1
 
+
+
+				## Select transactions Section
+				ballanceTransactions = []
+				unclearedList = [] 
+
+				preList = self.currAccount.makeTransList(startDate, endDate)
+				print(preList)
+
+			
 				select = ""
 				while(select != "d"):
 					printUnclearedList()

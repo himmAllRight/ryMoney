@@ -107,6 +107,24 @@ class Account:
 	def ballanceAccount(self):
 		print("In ballance account...")
 
+	def makeTransList(self, inStartDate, inEndDate):
+		startDate = inStartDate.split("/")
+		endDate   = inEndDate.split("/")
+
+		print(startDate)
+		print(endDate)
+
+		transList = []
+
+		for trans in self.transactions:
+			#print(trans.name, trans.year, trans.month, trans.day, sep = "\t")
+			if(trans.year >= startDate[2] and trans.year <= endDate[2]):
+				if(trans.month >= startDate[0] and trans.month <= endDate[0]):
+					if(trans.day >= startDate[1] and trans.day <= endDate[1]):
+						transList.append(trans)
+
+		return(transList)
+
 
 	def printHeader(self):
 		print("Date", "Num", "Description", "Category", "Cleared", "Amount", 
