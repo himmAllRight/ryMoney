@@ -1,5 +1,6 @@
 import os
 import time
+import datetime
 import csv
 
 import configLoad
@@ -86,8 +87,7 @@ class Account:
 								 self.balance))
 
 	def importTransaction(self, date, num, name, cat, cleared, amount, balance):
-		dates     = date.split("/")
-		tempTrans = Transaction(name, dates[1], dates[0], dates[2], num, cat, cleared, amount, balance)
+		tempTrans = Transaction(name, date, num, cat, cleared, amount, balance)
 		self.transactions.append(tempTrans)
 
 	def saveTransactions(self):
@@ -185,8 +185,8 @@ class Account:
 
 		self.printHeader()
 		for trans in transactionList:
-			tranMonth = int(trans.month)
-			tranYear  = int(trans.year)
+			tranMonth = trans.date.month
+			tranYear  = trans.date.year
 			valid = False
 		#	print(trans.month, trans.year, sep="\t")
 			# If Feb-Dec
@@ -307,13 +307,11 @@ class AccountList:
 
 class Transaction:
 	""" Transaction for accounts """
-	def __init__(self, name, day, month, year, num, category, cleared, amount, balance ):
-
+	def __init__(self, name, inDate, num, category, cleared, amount, balance ):
+		self.inDate     = inDate.split("/")
+		self.date     = datetime.date(self.inDate[2],self.inDate[0],self.inDate[1])
+		self.date 	  = self.date.strftime("%m/%d/%y")
 		self.name 	  = name
-		self.day	  = day
-		self.month	  = month
-		self.year	  = year
-		self.date     = month + "/" + day + "/" + year
 		self.num	  = num
 		self.category = category
 		self.cleared  = cleared
