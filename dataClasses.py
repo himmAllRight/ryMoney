@@ -312,9 +312,11 @@ class AccountList:
 class Transaction:
 	""" Transaction for accounts """
 	def __init__(self, name, inDate, num, category, cleared, amount, balance ):
-		self.inDate     = inDate.split("/")
+		print("inDate", inDate, sep="\t")
+		self.dateName = inDate.split("-")
+		print(self.dateName)
 		#self.inDate   =  int(date) for date in self.inDate 
-		self.date     = datetime.date(self.inDate[1],self.inDate[0],self.inDate[1])
+		self.date     = datetime.date(int(self.dateName[0]), int(self.dateName[1]) ,int(self.dateName[2]))
 		#self.date 	  = self.date.strftime("%m/%d/%y")
 		self.name 	  = name
 		self.num	  = num
