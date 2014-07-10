@@ -108,8 +108,14 @@ class Account:
 		print("In ballance account...")
 
 	def makeTransList(self, inStartDate, inEndDate):
-		startDate = inStartDate.split("/")
-		endDate   = inEndDate.split("/")
+		startDateString = inStartDate.split("/")
+		endDateString   = inEndDate.split("/")
+
+		startDateString = [ int(date) for date in startDateString ]
+		endDateString   = [ int(date) for date in endDateString ]
+
+		startDate = datetime.date(startDateString[2],startDateString[0],startDateString[1])
+		endDate   = datetime.date(endDateString[2], endDateString[0], endDateString[1])
 
 		print(startDate)
 		print(endDate)
@@ -118,10 +124,8 @@ class Account:
 
 		for trans in self.transactions:
 			#print(trans.name, trans.year, trans.month, trans.day, sep = "\t")
-			if(trans.year >= startDate[2] and trans.year <= endDate[2]):
-				if(trans.month >= startDate[0] and trans.month <= endDate[0]):
-					if(trans.day >= startDate[1] and trans.day <= endDate[1]):
-						transList.append(trans)
+			if(trans.date >= startDate and trans.date <= endDate):
+				transList.append(trans)
 
 		return(transList)
 
@@ -185,8 +189,8 @@ class Account:
 
 		self.printHeader()
 		for trans in transactionList:
-			tranMonth = trans.date.month
-			tranYear  = trans.date.year
+			tranMonth = trans.date
+			tranYear  = trans.date
 			valid = False
 		#	print(trans.month, trans.year, sep="\t")
 			# If Feb-Dec
@@ -311,7 +315,7 @@ class Transaction:
 		self.inDate     = inDate.split("/")
 		self.inDate   = [ int(date) for date in self.inDate ]
 		self.date     = datetime.date(self.inDate[2],self.inDate[0],self.inDate[1])
-		self.date 	  = self.date.strftime("%m/%d/%y")
+		#self.date 	  = self.date.strftime("%m/%d/%y")
 		self.name 	  = name
 		self.num	  = num
 		self.category = category
