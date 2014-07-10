@@ -189,8 +189,8 @@ class Account:
 
 		self.printHeader()
 		for trans in transactionList:
-			tranMonth = trans.date
-			tranYear  = trans.date
+			tranMonth = trans.date.month
+			tranYear  = trans.date.year
 			valid = False
 		#	print(trans.month, trans.year, sep="\t")
 			# If Feb-Dec
@@ -313,8 +313,8 @@ class Transaction:
 	""" Transaction for accounts """
 	def __init__(self, name, inDate, num, category, cleared, amount, balance ):
 		self.inDate     = inDate.split("/")
-		self.inDate   = [ int(date) for date in self.inDate ]
-		self.date     = datetime.date(self.inDate[2],self.inDate[0],self.inDate[1])
+		#self.inDate   =  int(date) for date in self.inDate 
+		self.date     = datetime.date(self.inDate[1],self.inDate[0],self.inDate[1])
 		#self.date 	  = self.date.strftime("%m/%d/%y")
 		self.name 	  = name
 		self.num	  = num
