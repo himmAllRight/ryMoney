@@ -328,8 +328,9 @@ class AccountManager:
 				unclearedList = [] 
 
 				preList = self.currAccount.makeTransList(startDate, endDate)
-				print(preList)
-
+				for trans in preList:
+					if( trans.cleared == " - "):
+						unclearedList.append(trans)
 			
 				select = ""
 				while(select != "d"):
