@@ -1,5 +1,5 @@
 Date,num,Description,Category,Cleared,Amount,Balance
-07/02/2014,DEP,Pay,Income, _ ,143.54,143.54
-07/02/2014,DEP,Pay,Income, _ ,199.43,342.97
-07/02/2014,PAY,Wing Man,Bill, _ ,-12.68,330.29
-07/02/2014,123,Test Decimal,New2, _ ,-123.33,206.96
+2014-07-02,DEP,Pay,Income, C ,143.54,143.54
+2014-07-02,DEP,Pay,Income, C ,199.43,342.97
+2014-07-02,PAY,Wing Man,Bill, _ ,-12.68,330.29
+2014-07-02,123,Test Decimal,New2, _ ,-123.33,206.96
