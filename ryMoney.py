@@ -290,13 +290,17 @@ class AccountManager:
 
 			# Ballane Acount
 			if(self.command == "ba"):
-				#startDate   = input("Enter starting date (mm/dd/yyyy): ")
-				#startAmount = eval(input("Enter starting amount: "))
-				#endDate		= input("Enter ending date (mm/dd/yyyy): ")
+				
+				#startDateInput = input("Enter starting date (mm-dd-yyyy): ")
+				#startAmount    = eval(input("Enter starting amount: "))
+				#endDateInput	= input("Enter ending date (mm-dd-yyyy): ")
 				#endAmount	= eval(input("Enter ending amount: "))
 
-				startDate = "01/01/1991"
-				endDate   = "12/01/1993"
+				startDateInput = startDateInput.split("-")
+				endDateInput   = endDateInput.split("-")
+
+				startDate = datetime.date(int(startDateInput[2]), int(startDateInput[0]) ,int(startDateInput[1]))
+				endDate   = datetime.date(int(endDateInput[2]), int(endDateInput[0]), int(endDateInput[1]))
 
 			#	startDate = startDate.split("/")
 			#	endDate   = endDate.split("/")
@@ -347,11 +351,9 @@ class AccountManager:
 
 						if(check == "y"):
 							print("Total for this statement:")
-							sumBal = 0
-							for num in ballanceTransactions:
-								sumBal = sumBal + num.amount
+							# Run actual calculation
+							self.currAccount.ballanceAccount(ballanceTransactions)
 
-							print(sumBal)
 
 						else:
 							select = ""
@@ -361,15 +363,12 @@ class AccountManager:
 					else:
 						select = int(select)
 						# Cleared selected Transaction
-						unclearedList[select].cleared = " C "
+						unclearedList[select].cleared = " T "
 						# Move transaction from uncleared to balance List.
 						ballanceTransactions.append(unclearedList.pop(select))
 						os.system("clear")
 
 
-
-				# Run actual calculation
-				self.currAccount.ballanceAccount()
 
 				screenPauseClear()
 

@@ -104,8 +104,10 @@ class Account:
 			balance = trans.balance
 		self.balance = balance
 
-	def ballanceAccount(self):
+	def ballanceAccount(self, balanceList):
 		print("In ballance account...")
+		for trans in balanceList:
+			trans.printT()
 
 	def makeTransList(self, inStartDate, inEndDate):
 		startDateString = inStartDate.split("/")
