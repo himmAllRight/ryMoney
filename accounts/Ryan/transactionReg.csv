@@ -1,17 +1,17 @@
 Date,num,Description,Category,Cleared,Amount,Balance
-09/06/1991,DEP,Test,Income, C ,50.00,50.00
-09/09/1991,DEP,Pay,Income, _ ,200.00,250.00
-3/06/1991,DEP,Test2,Income, _ ,10.00,260.00
-4/3/1993,DEP,tsdf,New2, _ ,20.00,280.00
-4/3/1992,DEP,sdf,Apple, _ ,122.32,402.32
-06/29/2014,DEP,Pay,Income, _ ,700.12,1102.44
-06/29/2014,DEP,looool,Bill, _ ,90.12,1192.56
-06/29/2014,DEP,AAAAGG,Rent, C ,795.00,1987.56
-06/29/2014,DEP,Electric Bill,Bill, _ ,-66.17,1921.39
-06/29/2014,DEP,test Check Bill,Bill, _ ,-63.14,1858.25
-06/29/2014,DEP,Red Robin,Bill, _ ,-24.31,1833.94
-06/29/2014,DEP,Paw,Income, _ ,500.23,2334.17
-06/30/2014,DEP,Test ,Income, _ ,90.20,2424.37
-07/01/2014,PAY,Boston,Zoo, C ,-180.50,2243.87
-12/01/2013,PAY,Dec Test,Rebecca, C ,-32.23,2211.64
-1/01/2014,345,Jan Test,Zoo, C ,-70.32,2141.32
+1991-09-06,DEP,Test,Income, C ,50.00,50.00
+1991-09-09,DEP,Pay,Income, - ,200.00,250.00
+1991-03-06,DEP,Test2,Income, _ ,10.00,260.00
+1993-04-03,DEP,tsdf,New2, C ,20.00,280.00
+1992-04-03,DEP,sdf,Apple, - ,122.32,402.32
+2014-06-29,DEP,Pay,Income, - ,700.12,1102.44
+2014-06-29,DEP,looool,Bill, _ ,90.12,1192.56
+2014-06-29,DEP,AAAAGG,Rent, - ,795.00,1987.56
+2014-06-29,DEP,Electric Bill,Bill, _ ,-66.17,1921.39
+2014-06-29,DEP,test Check Bill,Bill, _ ,-63.14,1858.25
+2014-06-29,DEP,Red Robin,Bill, _ ,-24.31,1833.94
+2014-06-29,DEP,Paw,Income, _ ,500.23,2334.17
+2014-06-30,DEP,Test ,Income, _ ,90.20,2424.37
+2014-07-01,PAY,Boston,Zoo, - ,-180.50,2243.87
+2013-12-01,PAY,Dec Test,Rebecca, C ,-32.23,2211.64
+2014-01-01,345,Jan Test,Zoo, C ,-70.32,2141.32
