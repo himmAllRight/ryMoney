@@ -107,19 +107,23 @@ class Account:
 	def ballanceAccount(self, balanceList, unclearedList, startAmount, endAmount):
 		print("In ballance account...")
 
-		unlistedDepositAmount = 0
-		unlistedPayAmount	  = 0
+		balanceListAmount = 0
+		unlistedAmount    = 0
+
+		# Find Sum of balanceList transactions
+		for trans in balanceList:
+			balanceListAmount = balanceListAmount + trans.amount
 
 		# Get the sum of the uncleared deposits and Pays NOT on the statement.
 		for trans in unclearedList:
-			if(trans.num == "DEP"):
-				unlistedDepositAmount = unlistedDepositAmount + trans.amount
-			if(trans.num == "PAY"):
-				unlistedPayAmount = unlistedPayAmount + trans.amount
+			unlistedAmount = unlistedAmount + trans.amount
 
-		testInterest = endAmount - ((startAmount + unlistedDepositAmount) - unlistedPayAmount)
+		amountCheck = startAmount + balanceListAmount + unlistedAmount
 
-		print(testInterest)
+
+		print("Check: ", amountCheck == self.balance )
+
+		print((endAmount + unlistedAmount) - self.balance)
 		interestCheck = input("Is the interest correct(y/n): ")
 
 		if(interestCheck == "y"):

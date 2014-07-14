@@ -271,9 +271,9 @@ class AccountManager:
 					# Clear or unclear a transaction, depending on current state
 					if(edit == "7"):
 						if(editTrans.cleared == " C "):
-							editTrans.cleared = " _ "
+							editTrans.cleared = " - "
 							print("Transaction uncleared.")
-						elif(editTrans.cleared == " _ "):
+						elif(editTrans.cleared == " - "):
 							editTrans.cleared = " C "
 							print("Transaction cleared.")
 
@@ -334,7 +334,7 @@ class AccountManager:
 
 				preList = self.currAccount.makeTransList(startDate, endDate)
 				for trans in preList:
-					if( trans.cleared == " _ "):
+					if( trans.cleared == " - "):
 						unclearedList.append(trans)
 			
 				select = ""
