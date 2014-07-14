@@ -104,7 +104,9 @@ class AccountManager:
 				cat     = eval(input("Select deposit category (#): "))
 				ammount = eval(input("Enter deposit ammount: "))
 
-				self.currAccount.newDeposit(name, day, month, year, configLoad.cats.list[cat], ammount)
+				date = year + "-" + month + "-" + day
+
+				self.currAccount.newDeposit(name, date, configLoad.cats.list[cat], ammount)
 
 				print("Deposit added to account: ",self.currAccount.name ,".")
 				screenPauseClear()
@@ -129,7 +131,9 @@ class AccountManager:
 				cat     = eval(input("Select payment category (#): "))
 				ammount = eval(input("Enter payment ammount: "))
 
-				self.currAccount.newPayment(name, day, month, year, configLoad.cats.list[cat], ammount)
+				date = year + "-" + month + "-" + day
+
+				self.currAccount.newPayment(name, date, configLoad.cats.list[cat], ammount)
 
 				print("Payment added to account: ",self.currAccount.name ,".")
 				screenPauseClear()
@@ -291,19 +295,16 @@ class AccountManager:
 			# Ballane Acount
 			if(self.command == "ba"):
 				
-				#startDateInput = input("Enter starting date (mm-dd-yyyy): ")
-				#startAmount    = eval(input("Enter starting amount: "))
-				#endDateInput	= input("Enter ending date (mm-dd-yyyy): ")
-				#endAmount	= eval(input("Enter ending amount: "))
+				startDateInput = input("Enter starting date (mm-dd-yyyy): ")
+				startAmount    = eval(input("Enter starting amount: "))
+				endDateInput	= input("Enter ending date (mm-dd-yyyy): ")
+				endAmount	= eval(input("Enter ending amount: "))
 
 				startDateInput = startDateInput.split("-")
 				endDateInput   = endDateInput.split("-")
 
 				startDate = datetime.date(int(startDateInput[2]), int(startDateInput[0]) ,int(startDateInput[1]))
 				endDate   = datetime.date(int(endDateInput[2]), int(endDateInput[0]), int(endDateInput[1]))
-
-			#	startDate = startDate.split("/")
-			#	endDate   = endDate.split("/")
 
 
 				os.system("clear")
@@ -333,7 +334,7 @@ class AccountManager:
 
 				preList = self.currAccount.makeTransList(startDate, endDate)
 				for trans in preList:
-					if( trans.cleared == " - "):
+					if( trans.cleared == " _ "):
 						unclearedList.append(trans)
 			
 				select = ""
@@ -352,7 +353,7 @@ class AccountManager:
 						if(check == "y"):
 							print("Total for this statement:")
 							# Run actual calculation
-							self.currAccount.ballanceAccount(ballanceTransactions)
+							self.currAccount.ballanceAccount(ballanceTransactions, unclearedList, startAmount, endAmount)
 
 
 						else:

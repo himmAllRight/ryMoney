@@ -66,24 +66,24 @@ class Account:
 		self.balance      = 0
 		self.transactions = []
 
-	def newDeposit(self, name, day, month, year, category, amount):
+	def newDeposit(self, name, date, category, amount):
 		""" Adds a new deposit to account. """
 		self.balance = self.balance + amount
 
 		# Adds new Deposit to Account
-		tempTrans = Transaction(name, day, month, year, "DEP", category, " _ ", amount, self.balance)
+		tempTrans = Transaction(name, date, "DEP", category, " - ", amount, self.balance)
 		self.transactions.append(tempTrans)
 
-	def newPayment(self, name, day, month, year, category, amount):
+	def newPayment(self, name, date, category, amount):
 		""" Takes a new new Withdrawl from the account """
 		self.balance = self.balance - amount
-		self.transactions.append(Transaction(name, day, month, year, "PAY", category, " _ ", amount*(-1), 
+		self.transactions.append(Transaction(name, date, "PAY", category, " - ", amount*(-1), 
 								 self.balance))
 
 	def newCheck(self, name, day, month, year, num, category, amount):
 		""" Takes a new new Withdrawl from the account """
 		self.balance = self.balance - amount
-		self.transactions.append(Transaction(name, day, month, year, num, category, " _ ", amount*(-1), 
+		self.transactions.append(Transaction(name, day, month, year, num, category, " - ", amount*(-1), 
 								 self.balance))
 
 	def importTransaction(self, date, num, name, cat, cleared, amount, balance):
@@ -104,21 +104,37 @@ class Account:
 			balance = trans.balance
 		self.balance = balance
 
-	def ballanceAccount(self, balanceList):
+	def ballanceAccount(self, balanceList, unclearedList, startAmount, endAmount):
 		print("In ballance account...")
-		for trans in balanceList:
-			trans.printT()
 
-	def makeTransList(self, inStartDate, inEndDate):
-		startDateString = inStartDate.split("/")
-		endDateString   = inEndDate.split("/")
+		unlistedDepositAmount = 0
+		unlistedPayAmount	  = 0
 
-		startDateString = [ int(date) for date in startDateString ]
-		endDateString   = [ int(date) for date in endDateString ]
+		# Get the sum of the uncleared deposits and Pays NOT on the statement.
+		for trans in unclearedList:
+			if(trans.num == "DEP"):
+				unlistedDepositAmount = unlistedDepositAmount + trans.amount
+			if(trans.num == "PAY"):
+				unlistedPayAmount = unlistedPayAmount + trans.amount
 
-		startDate = datetime.date(startDateString[2],startDateString[0],startDateString[1])
-		endDate   = datetime.date(endDateString[2], endDateString[0], endDateString[1])
+		testInterest = endAmount - ((startAmount + unlistedDepositAmount) - unlistedPayAmount)
 
+		print(testInterest)
+		interestCheck = input("Is the interest correct(y/n): ")
+
+		if(interestCheck == "y"):
+			for trans in balanceList:
+				trans.cleared = " C "
+
+			# Add in interest transaction
+
+
+
+
+
+
+	def makeTransList(self, startDate, endDate):
+		print("Making TransList...")
 		print(startDate)
 		print(endDate)
 
@@ -161,7 +177,7 @@ class Account:
 		
 		self.printHeader()
 		for trans in self.transactions:
-			if(trans.cleared == " _ "):
+			if(trans.cleared == " - "):
 				unclearedList.append(trans)
 				print(ind, ":   ",  sep="", end="")
 				trans.printT()
@@ -184,7 +200,7 @@ class Account:
 		else:
 			transactionList = []
 			for trans in self.transactions:
-				if(trans.cleared == " _ "):
+				if(trans.cleared == " - "):
 					transactionList.append(trans)
 					
 
