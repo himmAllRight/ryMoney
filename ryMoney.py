@@ -63,22 +63,38 @@ class AccountManager:
 
 	def __init__(self):
 		self.command = ""
+		accountSelected = False
 
-		# Select account to work on:
-		configLoad.accountList.printAccountNames()
-		print("\nWhich account would you like to work with?")
-		accountName = input("(Or hit enter to create new account): ")
-		if(accountName == ""):
-			# Create new Account
-			print("crete new account")
-			newName = input("What would you like to name the new accout? ")
-			configLoad.accountList.createNewAccount(newName)
-			print(configLoad.accountList.accounts)
-			self.currAccount = configLoad.accountList.accounts[newName]
+		while(accountSelected == False):
+			# Select account to work on:
+			configLoad.accountList.printAccountNames()
+			print("\nWhich account would you like to work with?")
+			accountName = input("(Or hit enter to create new account): ")
+			if(accountName == ""):
+				# Create new Account
+				print("Create New Account:")
+				newName = input("What would you like to name the new accout? (or q to cancle): ")
 
-		else:
-			self.currAccount = configLoad.accountList.accounts[accountName]
-		os.system("clear")
+				if(newName == "q"):
+					""" returns to account selection """
+				
+				else:
+					configLoad.accountList.createNewAccount(newName)
+					print(configLoad.accountList.accounts)
+					self.currAccount = configLoad.accountList.accounts[newName]
+
+					accountSelected = True
+
+			elif(accountName in configLoad.accountList.accounts):
+				print("Account in list")
+				self.currAccount = configLoad.accountList.accounts[account]
+
+				accountSelected = True
+
+			else:
+				print("Account '",accountName, "', not found. Please Try Again.")
+				screenPauseClear()
+			os.system("clear")
 		
 		# Category Manager Run Loop
 		while(self.command != "q"):
