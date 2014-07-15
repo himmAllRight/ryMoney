@@ -129,8 +129,8 @@ class Account:
 
 		print("Check: ", amountCheck == self.balance )
 
-		interest = (endAmount + unlistedAmount) - self.balance
-		print(interest)
+		interest = float((endAmount + unlistedAmount) - self.balance)
+		print("%.2f" % interest)
 		interestCheck = input("Is the interest correct(y/n): ")
 
 		if(interestCheck == "y"):
@@ -246,7 +246,7 @@ class Account:
 	def printAccountInfo(self):
 		""" Prints out the account information """
 		print("Account Name: ", self.name)
-		print("Account Balance: $", self.balance, "\n")
+		print("Account Balance: $", "%.2f" % self.balance, "\n")
 
 		print("Transactions:", "\n---------------",)
 
