@@ -227,22 +227,21 @@ class AccountManager:
 					# Edit Transaction Day
 					if(edit == "1"):
 						newDay = input("What should the day be changed to? (dd): ")
-						editTrans.day = newDay
-						editTrans.updateDate()
+						editTrans.date = editTrans.date.replace(day= int(newDay))
 						print("Day changed.")
 
 					# Edit Transaction Month
 					if(edit == "2"):
 						newMonth = input("What should the month be changed to? (mm): ")
 						editTrans.month = newMonth
-						editTrans.updateDate()
+						editTrans.date = editTrans.date.replace(month= int(newMonth))
 						print("Month Changed.")
 
 					# Edit Transaction Year
 					if(edit == "3"):
 						newYear = input("What should the year be changed to? (yyyy): ")
 						editTrans.year = newYear
-						editTrans.updateDate()
+						editTrans.date = editTrans.date.replace(year = int(newYear))
 						print("Year Changed.")
 
 					# Edit the Check number, if the transacion isn't a Payment or Deposist

@@ -134,9 +134,6 @@ class Account:
 
 
 
-
-
-
 	def makeTransList(self, startDate, endDate):
 		print("Making TransList...")
 		print(startDate)
@@ -342,9 +339,6 @@ class Transaction:
 		self.cleared  = cleared
 		self.amount	  = amount
 		self.balance  = balance
-
-	def updateDate(self):
-		self.date = self.month + "/" + self.day + "/" + self.year
 
 	def printTransaction(self, outputFile):
 		print(self.date, self.num, self.name, self.category, self.cleared, 
