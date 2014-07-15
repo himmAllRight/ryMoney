@@ -144,8 +144,8 @@ class Account:
 
 	def makeTransList(self, startDate, endDate):
 		print("Making TransList...")
-		print(startDate)
-		print(endDate)
+		print(isinstance(startDate, datetime.date))
+		print(isinstance(endDate, datetime.date))
 
 		transList = []
 
@@ -290,8 +290,10 @@ class AccountList:
 					if(i < 1):
 						header = row
 					else:
+						dateString = row[0].split("-")
+						date = datetime.date(int(dateString[0]), int(dateString[1]), int(dateString[2]))
 
-						tempAccount.importTransaction(row[0], row[1], row[2], row[3], row[4], float(row[5]), float(row[6]))
+						tempAccount.importTransaction(date, row[1], row[2], row[3], row[4], float(row[5]), float(row[6]))
 
 					i = i + 1
 				
