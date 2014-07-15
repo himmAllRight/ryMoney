@@ -80,15 +80,11 @@ class AccountManager:
 				
 				else:
 					configLoad.accountList.createNewAccount(newName)
-					print(configLoad.accountList.accounts)
 					self.currAccount = configLoad.accountList.accounts[newName]
-
 					accountSelected = True
 
 			elif(accountName in configLoad.accountList.accounts):
-				print("Account in list")
-				self.currAccount = configLoad.accountList.accounts[account]
-
+				self.currAccount = configLoad.accountList.accounts[accountName]
 				accountSelected = True
 
 			else:
@@ -392,22 +388,37 @@ class AccountManager:
 			# Select another account
 			if(self.command == "sa"):
 				os.system("clear")
-				configLoad.accountList.printAccountNames()
-				accountName = input("Which account would you like to work with? ")
-				if(accountName == ""):
-					os.system("clear")
-					# Create new Account
-					print("Create new account")
-					newName = input("What would you like to name the new accout? ")
-					configLoad.accountList.createNewAccount(newName)
-					self.currAccount = configLoad.accountList.accounts[newName]
-					accountName = newName
-				else:
-					self.currAccount = configLoad.accountList.accounts[accountName]
+				accountSelected = False
+				while(accountSelected == False):
+					configLoad.accountList.printAccountNames()
+					accountName = input("Which account would you like to work with?\n(Or hit enter to create a new account): ")
+					if(accountName == ""):
+						# Create new Account
+						print("Create New Account:")
+						newName = input("What would you like to name the new accout? (or q to cancle): ")
+
+						if(newName == "q"):
+							""" returns to account selection """
 					
-				print("Working account switced to ", accountName, ".")
+						else:
+							configLoad.accountList.createNewAccount(newName)
+							self.currAccount = configLoad.accountList.accounts[newName]
+							accountSelected = True
+							print("Working account switced to ", newName, ".")
+							screenPauseClear()
+
+					elif(accountName in configLoad.accountList.accounts):
+						print("Account in list")
+						self.currAccount = configLoad.accountList.accounts[accountName]
+
+						accountSelected = True
+						print("Working account switced to ", accountName, ".")
+
+					else:
+						print("Account '",accountName, "', not found. Please Try Again.")
+						screenPauseClear()
+					os.system("clear")
 				
-				screenPauseClear()
 
 			# Help Menu
 			if(self.command == "h"):
