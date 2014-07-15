@@ -108,7 +108,7 @@ class AccountManager:
 				month   = input("Enter deposit month (mm), or hit ENTER for this Month["+ time.strftime("%m") +"]: ")
 				if(month == ""):
 					month = time.strftime("%m")
-				year    = input("Enter deposit year (yyyy), or hit ENTER for this Year["+ time.strftime("%") +"]: ")
+				year    = input("Enter deposit year (yyyy), or hit ENTER for this Year["+ time.strftime("%Y") +"]: ")
 				if(year == ""):
 					year =time.strftime("%Y")
 
@@ -163,7 +163,7 @@ class AccountManager:
 				month   = input("Enter check month (mm), or hit ENTER for this Month["+ time.strftime("%m") +"]: ")
 				if(month == ""):
 					month = time.strftime("%m")
-				year    = input("Enter check year (yyyy), or hit ENTER for this Year["+ time.strftime("%") +"]: ")
+				year    = input("Enter check year (yyyy), or hit ENTER for this Year["+ time.strftime("%Y") +"]: ")
 				if(year == ""):
 					year =time.strftime("%Y")
 
@@ -508,7 +508,3 @@ class __main__:
 
 	# Runs UI
 	main = CLI()
-
-
-
-# sum(DICTNAME.values())
