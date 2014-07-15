@@ -80,10 +80,16 @@ class Account:
 		self.transactions.append(Transaction(name, date, "PAY", category, " - ", amount*(-1), 
 								 self.balance))
 
-	def newCheck(self, name, day, month, year, num, category, amount):
+	def addInterest(self, date, interest):
+		""" Takes a new new Withdrawl from the account """
+		self.balance = self.balance + interest
+		self.transactions.append(Transaction("-- Interest --", date, "INT", "Interest", " C ", interest, 
+								 self.balance))
+
+	def newCheck(self, name, date, num, category, amount):
 		""" Takes a new new Withdrawl from the account """
 		self.balance = self.balance - amount
-		self.transactions.append(Transaction(name, day, month, year, num, category, " - ", amount*(-1), 
+		self.transactions.append(Transaction(name, date, num, category, " - ", amount*(-1), 
 								 self.balance))
 
 	def importTransaction(self, date, num, name, cat, cleared, amount, balance):
@@ -104,7 +110,7 @@ class Account:
 			balance = trans.balance
 		self.balance = balance
 
-	def ballanceAccount(self, balanceList, unclearedList, startAmount, endAmount):
+	def ballanceAccount(self, endDate, balanceList, unclearedList, startAmount, endAmount):
 		print("In ballance account...")
 
 		balanceListAmount = 0
@@ -123,10 +129,12 @@ class Account:
 
 		print("Check: ", amountCheck == self.balance )
 
-		print((endAmount + unlistedAmount) - self.balance)
+		interest = (endAmount + unlistedAmount) - self.balance
+		print(interest)
 		interestCheck = input("Is the interest correct(y/n): ")
 
 		if(interestCheck == "y"):
+			self.addInterest(endDate, interest)
 			for trans in balanceList:
 				trans.cleared = " C "
 
@@ -331,8 +339,7 @@ class AccountList:
 class Transaction:
 	""" Transaction for accounts """
 	def __init__(self, name, inDate, num, category, cleared, amount, balance ):
-		self.dateName = inDate.split("-")
-		self.date     = datetime.date(int(self.dateName[0]), int(self.dateName[1]) ,int(self.dateName[2]))
+		self.date     = inDate
 		self.name 	  = name
 		self.num	  = num
 		self.category = category

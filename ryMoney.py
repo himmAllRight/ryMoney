@@ -116,7 +116,7 @@ class AccountManager:
 				cat     = eval(input("Select deposit category (#): "))
 				ammount = eval(input("Enter deposit ammount: "))
 
-				date = year + "-" + month + "-" + day
+				date = datetime.date(int(year), int(month), int(day))
 
 				self.currAccount.newDeposit(name, date, configLoad.cats.list[cat], ammount)
 
@@ -143,7 +143,7 @@ class AccountManager:
 				cat     = eval(input("Select payment category (#): "))
 				ammount = eval(input("Enter payment ammount: "))
 
-				date = year + "-" + month + "-" + day
+				date = datetime.date(int(year), int(month), int(day))
 
 				self.currAccount.newPayment(name, date, configLoad.cats.list[cat], ammount)
 
@@ -171,7 +171,9 @@ class AccountManager:
 				cat     = eval(input("Select payment category (#): "))
 				ammount = eval(input("Enter check ammount: "))
 
-				self.currAccount.newCheck(name, day, month, year, num, configLoad.cats.list[cat], ammount)
+				date = datetime.date(int(year), int(month), int(day))
+
+				self.currAccount.newCheck(name, date, num, configLoad.cats.list[cat], ammount)
 
 				print("Check Payment added to account: ",self.currAccount.name ,".")
 				screenPauseClear()
@@ -364,7 +366,7 @@ class AccountManager:
 						if(check == "y"):
 							print("Total for this statement:")
 							# Run actual calculation
-							self.currAccount.ballanceAccount(ballanceTransactions, unclearedList, startAmount, endAmount)
+							self.currAccount.ballanceAccount(endDate, ballanceTransactions, unclearedList, startAmount, endAmount)
 
 
 						else:
