@@ -296,8 +296,8 @@ class AccountManager:
 						if(editTrans.num != "DEP"):
 							newAmount = newAmount * (-1)
 						editTrans.amount = newAmount
-						self.currAccount.recalculateBallance()
-						print("Transaction amount changed and ballance recalculated.")
+						self.currAccount.recalculateBalance()
+						print("Transaction amount changed and balance recalculated.")
 
 
 					screenPauseClear()
@@ -305,7 +305,7 @@ class AccountManager:
 				print("Done Editing Transaction")
 				
 
-			# Ballane Acount
+			# Balance Acount
 			if(self.command == "ba"):
 				
 				startDateInput = input("Enter starting date (mm-dd-yyyy): ")
@@ -331,10 +331,10 @@ class AccountManager:
 						trans.printT()
 						i = i + 1
 
-				def printBallanceList():
+				def printBalanceList():
 					j = 0
-					print("Transactions for ballance: ")
-					for trans in ballanceTransactions:
+					print("Transactions for balance: ")
+					for trans in balanceTransactions:
 						print(j, ":  ", end="")
 						trans.printT()
 						j = j + 1
@@ -342,7 +342,7 @@ class AccountManager:
 
 
 				## Select transactions Section
-				ballanceTransactions = []
+				balanceTransactions = []
 				unclearedList = [] 
 
 				preList = self.currAccount.makeTransList(startDate, endDate)
@@ -353,20 +353,20 @@ class AccountManager:
 				select = ""
 				while(select != "d"):
 					printUnclearedList()
-					printBallanceList()
-					select = input("Select a transaction number to add it to ballance ('d' when done): ")
+					printBalanceList()
+					select = input("Select a transaction number to add it to balance ('d' when done): ")
 					if( select == "d"):
 						os.system("clear")
 						print("\nThese are the transactions on the statement, correct?")
 
-						printBallanceList()
+						printBalanceList()
 
 						check = input("(y/n): ")
 
 						if(check == "y"):
 							print("Total for this statement:")
 							# Run actual calculation
-							self.currAccount.ballanceAccount(endDate, ballanceTransactions, unclearedList, startAmount, endAmount)
+							self.currAccount.balanceAccount(endDate, balanceTransactions, unclearedList, startAmount, endAmount)
 
 
 						else:
@@ -379,7 +379,7 @@ class AccountManager:
 						# Cleared selected Transaction
 						unclearedList[select].cleared = " T "
 						# Move transaction from uncleared to balance List.
-						ballanceTransactions.append(unclearedList.pop(select))
+						balanceTransactions.append(unclearedList.pop(select))
 						os.system("clear")
 
 
@@ -437,12 +437,13 @@ class AccountManager:
 	def printOptions(self):
 		print("-- Account Manager --\n")
 		configLoad.accountList.printAccountNames()
-		print("Current Selected Account: ", self.currAccount.name, "\n")
+		print("\nCurrent Selected Account: ", self.currAccount.name)
+		print("Current Account Balance: ", self.currAccount.balance, "\n")
 		print("What you would like to do? \n")
 		print("sa  - Select another account")
 		print("et  - Edit transaction")
 		print("ct  - Clear transaction")
-		print("ba  - Ballance Account")
+		print("ba  - Balance Account")
 
 		print("\nnd - Add new Deposit")
 		print("np - Add a new Payment")

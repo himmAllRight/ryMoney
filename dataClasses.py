@@ -103,15 +103,15 @@ class Account:
 		for trans in self.transactions:
 			trans.printTransaction(outTest)
 
-	def recalculateBallance(self):
+	def recalculateBalance(self):
 		balance = 0
 		for trans in self.transactions:
 			trans.balance = float(trans.amount) + float(balance)
 			balance = trans.balance
 		self.balance = balance
 
-	def ballanceAccount(self, endDate, balanceList, unclearedList, startAmount, endAmount):
-		print("In ballance account...")
+	def balanceAccount(self, endDate, balanceList, unclearedList, startAmount, endAmount):
+		print("In balance account...")
 
 		balanceListAmount = 0
 		unlistedAmount    = 0
