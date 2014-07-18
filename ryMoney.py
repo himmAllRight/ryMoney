@@ -452,7 +452,7 @@ class AccountManager:
 		print("\npa - Print Account Information")
 		print("puc - Print all uncleared transactions")
 		print("p2m  - Print Transactions form last 2 months")
-		print("p2m  - Print uncleared Transactions form last 2 months")
+		print("p2mu  - Print uncleared Transactions form last 2 months")
 		print("\nq  - Return to Main Menu")
 
 
