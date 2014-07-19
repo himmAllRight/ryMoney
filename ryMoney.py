@@ -113,7 +113,15 @@ class AccountManager:
 					year =time.strftime("%Y")
 
 				configLoad.cats.printCategories()
-				cat     = eval(input("Select deposit category (#): "))
+				cat = float("inf")
+
+				# Checks to make sure value is in bounds
+				while(cat < len(configLoad.cats.list)):
+					cat     = eval(input("Select deposit category (#): "))
+					if(cat >= len(configLoad.cats.list)):
+						print("Index Value is too large. Please choose a number less than ", len(configLoad.cats.list), ".")
+				
+
 				ammount = eval(input("Enter deposit ammount: "))
 
 				date = datetime.date(int(year), int(month), int(day))
