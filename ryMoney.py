@@ -464,6 +464,38 @@ class AccountManager:
 		print("\nq  - Return to Main Menu")
 
 
+class BudgetManager:
+	""" Used for managing Budgets """
+
+	def __init__(self):
+		self.command = ""
+
+		# Category Manager Run Loop
+		while(self.command != "q"):
+			self.printOptions()
+			self.command = input("input: ")
+
+			if(self.command == "nb"):
+				print("This command hasn't been written yet. The Budget list has to be written first.")
+				screenPauseClear()
+
+			if(self.command == "pb"):
+				print("This option has not been written yet.")
+				screenPauseClear()
+
+
+			os.system("clear")
+
+
+	def printOptions(self):
+		print("-- Budget Manager --\n")
+		print("What you would like to do? \n")
+		print("nb - Add new Budget Item")
+		print("pb - Pay a Budget")
+		print("\nq  - Return to Main Menu")
+
+
+
 class CLI:
 	""" The command line User Run environment """
 	def __init__(self):
@@ -489,6 +521,10 @@ class CLI:
 			if(self.command == "am"):
 				os.system("clear")
 				AccountManager()
+
+			if(self.command == "bm"):
+				os.system("clear")
+				BudgetManager()
 
 			if(self.command == "q"):
 				print("Have a good day! Good-bye.")
