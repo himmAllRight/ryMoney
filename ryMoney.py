@@ -486,11 +486,12 @@ class BudgetManager:
 				screenPauseClear()
 
 			if(self.command == "pbi"):
+				os.system("clear")
 				configLoad.budgets.printBudgetNames()
 				name = input("What Budget do you want to print? ")
+				os.system("clear")
 				configLoad.budgets.budgets[name].printBudgetInfo()
 
-				screenPauseClear()
 
 			if(self.command == "sb"):
 				configLoad.budgets.saveBudgets(configLoad.budgetSaveName)
@@ -498,11 +499,6 @@ class BudgetManager:
 
 				screenPauseClear()
 				
-				
-
-
-
-			os.system("clear")
 
 
 	def printOptions(self):

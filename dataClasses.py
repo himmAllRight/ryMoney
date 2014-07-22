@@ -366,7 +366,7 @@ class Budget:
 		self.fixed    	  = fixed
 		self.amount   	  = 0
 		self.transfers    = {}
-		self.memo  		  = memo
+		self.memo  		  = memo.strip("\n")
 
 	def setAmount(self):
 		self.amount = sum(self.transfers.values())
@@ -391,10 +391,19 @@ class Budget:
 
 	def printBudgetInfo(self):
 		# Print out information of accounts contributing to Budget
-		for account in self.transfers:
-			print(account, ":  $", self.transfers[account], sep="")
+		print("Budget Contribution for", self.name , ":\nMemo: ", self.memo, "\n-----------------------")
 
-		print("----------------------------\nTotal:  $", self.amount)
+
+		if(len(self.transfers) == 0):
+			print("No money transfered to budget yet.")
+		else:
+			for account in self.transfers:
+				print(account, ":  $", self.transfers[account], sep="")
+
+		if(self.fixed > 0):
+			print("----------------------------\nTotal:  $", self.amount, "/", self.fixed,"\n")
+		else:
+			print("----------------------------\nTotal:  $", self.amount, "\n")
 
 
 
@@ -407,7 +416,7 @@ class BudgetList:
 		if( name in self.budgets):
 			print("The budget '", name, "' is already created.")
 		else:
-			self.budgets[name] = Budget(name, fixed, memo)
+			self.budgets[name] = Budget(name, int(fixed), memo)
 
 	def saveBudgets(self, saveFileName):
 		os.chdir(configLoad.CONFIGDIR) # Enter Saves Directory
@@ -425,7 +434,7 @@ class BudgetList:
 			else:
 				transfersSaveString = ""
 				for transfer in tempBudget.transfers:
-					transfersSaveString = transfersSaveString + transfer + ":" + tempBudget.transfers[transfer] + "|"
+					transfersSaveString = transfersSaveString + transfer + ":" + str(tempBudget.transfers[transfer]) + "|"
 					
 				transfersSaveString = transfersSaveString[:-1]	# Remove last "|"
 			
@@ -446,14 +455,12 @@ class BudgetList:
 		for row in budgets:
 			# First of two lines per budget pair
 			if(i % 2 == 0):
-				print(row)
 				firstLine = row.split("|")
 				currName = firstLine[0]
 				self.addBudget(firstLine[0], firstLine[1], firstLine[2])
 
 			else:
 				if(row.strip("\n") == "No money transfered."):
-					print("In pass")
 					pass
 					# Don't need to do anything if there are no transfers for budget.
 				
@@ -462,10 +469,11 @@ class BudgetList:
 
 					for payment in payments:
 						paymentInfo = payment.split(":")
-						print(paymentInfo)
-						self.budgets[currName].transfers[paymentInfo[0]] = paymentInfo[1]
+						self.budgets[currName].transfers[paymentInfo[0]] = int(paymentInfo[1])
+				self.budgets[currName].setAmount()
 
 			i = i + 1
+
 
 		os.chdir(configLoad.DIR)
 
