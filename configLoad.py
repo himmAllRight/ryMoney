@@ -60,7 +60,3 @@ budgets 	= dataClasses.BudgetList()
 # Load accounts and budgets
 accountList.loadAccounts()
 budgets.loadBudgets()
-
-
-
-

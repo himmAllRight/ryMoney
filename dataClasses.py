@@ -418,6 +418,12 @@ class BudgetList:
 		else:
 			self.budgets[name] = Budget(name, int(fixed), memo)
 
+	
+# Need to make it so that it can re-add the money back to the accounts before deleteing first.
+#	def removeBudget(self, name):
+#		del self.budgets[name]
+#		print("Budget item '", name, "' deleted.")
+
 	def saveBudgets(self, saveFileName):
 		os.chdir(configLoad.CONFIGDIR) # Enter Saves Directory
 		budgetOutFile = open(saveFileName, "w+")

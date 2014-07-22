@@ -485,6 +485,13 @@ class BudgetManager:
 
 				screenPauseClear()
 
+			# Need to add functions that transfer money to and from accounts first.
+			# if(self.command == "db"):
+			# 	os.system("clear")
+			# 	configLoad.budgets.printBudgetNames()
+			# 	deleteName = input("What budget item do you want to delete? ")
+			# 	configLoad.budgets.removeBudget(deleteName)
+
 			if(self.command == "pbi"):
 				os.system("clear")
 				configLoad.budgets.printBudgetNames()
