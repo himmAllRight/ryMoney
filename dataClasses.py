@@ -361,12 +361,12 @@ class Transaction:
 
 class Budget:
 	""" A budget Item """
-	def __init__(self, name, fixed, dueDateMemo):
+	def __init__(self, name, fixed, memo):
 		self.name     	  = name
 		self.fixed    	  = fixed
 		self.amount   	  = 0
 		self.transfers    = {}
-		self.dueDateMemo  = dueDateMemo
+		self.memo  		  = memo
 
 	def setAmount(self):
 		self.amount = sum(self.transfers.values())
@@ -408,6 +408,31 @@ class BudgetList:
 			print("The budget '", name, "' is already created.")
 		else:
 			self.budgets[name] = Budget(name, fixed, memo)
+
+	def saveBudgets(self, saveFileName):
+
+		os.chdir(configLoad.CONFIGDIR) # Enter Saves Directory
+		budgetOutFile = open(saveFileName, "w+")
+
+		for budgetName in self.budgets:
+			# Create a temp budget item to easily reference variables.
+			tempBudget = self.budgets[budgetName]
+			# Print Budget Info
+			print(budgetName, tempBudget.fixed, tempBudget.memo, sep="|", file= budgetOutFile)
+			
+			# make string containing Budget's saved payments
+			transfersSaveString = ""
+			for transfer in tempBudget.transfers:
+				transfersSaveString = transfersSaveString + transfer + ":" + tempBudget.transfers[transfer] + "|"
+				
+			transfersSaveString = transfersSaveString[:-1]	# Remove last "|"
+			
+			# Write string to file
+			print(transfersSaveString, file= budgetOutFile)
+		
+		budgetOutFile.close()
+		os.chdir(configLoad.DIR)	# Return to program DIR
+
 
 	def printBudgetNames(self):
 		for budgetName in self.budgets:

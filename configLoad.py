@@ -39,8 +39,9 @@ CONFIGDIR  = DIR + "/configurations"
 ACCOUNTDIR = DIR + "/accounts"
 
 ## Globale File Names
-catSaveName  = "categories.txt"
-transRegName = 'transactionReg.csv'	
+catSaveName    = "categories.txt"
+transRegName   = "transactionReg.csv"
+budgetSaveName = "budgets.txt"
 
 
 # Checks directories and makes them if not there.
