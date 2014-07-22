@@ -492,6 +492,15 @@ class BudgetManager:
 
 				screenPauseClear()
 
+			if(self.command == "sb"):
+				configLoad.budgets.saveBudgets(configLoad.budgetSaveName)
+				print("Budgets saved.")
+
+				screenPauseClear()
+				
+				
+
+
 
 			os.system("clear")
 

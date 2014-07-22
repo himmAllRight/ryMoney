@@ -57,8 +57,9 @@ accountList = dataClasses.AccountList()
 cats 		= loadCategories(catSaveName)
 budgets 	= dataClasses.BudgetList()
 
-# Load accounts
+# Load accounts and budgets
 accountList.loadAccounts()
+budgets.loadBudgets()
 
 
 

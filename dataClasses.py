@@ -410,7 +410,6 @@ class BudgetList:
 			self.budgets[name] = Budget(name, fixed, memo)
 
 	def saveBudgets(self, saveFileName):
-
 		os.chdir(configLoad.CONFIGDIR) # Enter Saves Directory
 		budgetOutFile = open(saveFileName, "w+")
 
@@ -421,17 +420,55 @@ class BudgetList:
 			print(budgetName, tempBudget.fixed, tempBudget.memo, sep="|", file= budgetOutFile)
 			
 			# make string containing Budget's saved payments
-			transfersSaveString = ""
-			for transfer in tempBudget.transfers:
-				transfersSaveString = transfersSaveString + transfer + ":" + tempBudget.transfers[transfer] + "|"
-				
-			transfersSaveString = transfersSaveString[:-1]	# Remove last "|"
+			if(len(tempBudget.transfers) == 0):
+				transfersSaveString = "No money transfered."
+			else:
+				transfersSaveString = ""
+				for transfer in tempBudget.transfers:
+					transfersSaveString = transfersSaveString + transfer + ":" + tempBudget.transfers[transfer] + "|"
+					
+				transfersSaveString = transfersSaveString[:-1]	# Remove last "|"
 			
 			# Write string to file
 			print(transfersSaveString, file= budgetOutFile)
 		
 		budgetOutFile.close()
 		os.chdir(configLoad.DIR)	# Return to program DIR
+
+	def loadBudgets(self):
+
+		os.chdir(configLoad.CONFIGDIR)
+		# Load Transactions
+		budgets =  open(configLoad.budgetSaveName, 'r')
+		reader = csv.reader(budgets)
+		i = 0
+		currName = ""
+		for row in budgets:
+			# First of two lines per budget pair
+			if(i % 2 == 0):
+				print(row)
+				firstLine = row.split("|")
+				currName = firstLine[0]
+				self.addBudget(firstLine[0], firstLine[1], firstLine[2])
+
+			else:
+				if(row.strip("\n") == "No money transfered."):
+					print("In pass")
+					pass
+					# Don't need to do anything if there are no transfers for budget.
+				
+				else:
+					payments = row.split("|")
+
+					for payment in payments:
+						paymentInfo = payment.split(":")
+						print(paymentInfo)
+						self.budgets[currName].transfers[paymentInfo[0]] = paymentInfo[1]
+
+			i = i + 1
+
+		os.chdir(configLoad.DIR)
+
 
 
 	def printBudgetNames(self):
