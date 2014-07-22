@@ -356,3 +356,42 @@ class Transaction:
 	def printT(self):
 		print(self.date, self.num, self.name, self.category, self.cleared, 
 			  "%.2f" % self.amount,  "%.2f" % self.balance, sep="\t\t")
+
+
+
+class Budget:
+	""" A budget Item """
+	def __init__(self, name, fixed, dueDateMemo):
+		self.name     	  = name
+		self.fixed    	  = fixed
+		self.amount   	  = 0
+		self.transfers    = {}
+		self.dueDateMemo  = dueDateMemo
+
+	def setAmount(self):
+		self.amount = sum(self.transfers.values())
+
+	def newTransfer(self, accountName, amount):
+		# If the account has already transfered money
+		if( accountName in self.transfers):
+			self.transfers[accountName] = self.transfers.get(accountName) + amount
+
+		# If a new account is contributing money to the budget.
+		else:
+			self.transfers[accountName] = amount
+
+		# Set new Budge amount
+		self.setAmount()
+
+	def payBudget(self):
+		# Essentially clears the budget...
+		self.amount     = 0
+		self.transfers  = {} 
+
+
+	def printBudgetInfo(self):
+		# Print out information of accounts contributing to Budget
+		for account in self.transfers:
+			print(account, ":  $", self.transfers[account], sep="")
+
+		print("----------------------------\nTotal:  $", self.amount)
