@@ -54,6 +54,7 @@ if not os.path.exists(ACCOUNTDIR):
 
 accountList = dataClasses.AccountList()
 cats 		= loadCategories(catSaveName)
+budgets 	= dataClasses.BudgetList()
 
 # Load accounts
 accountList.loadAccounts()

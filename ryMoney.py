@@ -476,11 +476,20 @@ class BudgetManager:
 			self.command = input("input: ")
 
 			if(self.command == "nb"):
-				print("This command hasn't been written yet. The Budget list has to be written first.")
+				name  = input("Enter Budget Name: ")
+				fixed = eval(input("Enter Fixed Budget amount (0 if not fixed): "))
+				memo  = input("Enter a memo about how often the budget item must be payed: ")
+
+				# add new budget to budgetList
+				configLoad.budgets.addBudget(name, fixed, memo)
+
 				screenPauseClear()
 
-			if(self.command == "pb"):
-				print("This option has not been written yet.")
+			if(self.command == "pbi"):
+				configLoad.budgets.printBudgetNames()
+				name = input("What Budget do you want to print? ")
+				configLoad.budgets.budgets[name].printBudgetInfo()
+
 				screenPauseClear()
 
 
@@ -491,7 +500,7 @@ class BudgetManager:
 		print("-- Budget Manager --\n")
 		print("What you would like to do? \n")
 		print("nb - Add new Budget Item")
-		print("pb - Pay a Budget")
+		print("pbi - Print a Budget's information")
 		print("\nq  - Return to Main Menu")
 
 

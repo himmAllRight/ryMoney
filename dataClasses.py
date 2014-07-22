@@ -395,3 +395,22 @@ class Budget:
 			print(account, ":  $", self.transfers[account], sep="")
 
 		print("----------------------------\nTotal:  $", self.amount)
+
+
+
+class BudgetList:
+	def __init__(self):
+		self.budgets = {}
+
+	def addBudget(self, name, fixed, memo):
+		# Check to see if budget exists, and if not, add a new one.
+		if( name in self.budgets):
+			print("The budget '", name, "' is already created.")
+		else:
+			self.budgets[name] = Budget(name, fixed, memo)
+
+	def printBudgetNames(self):
+		for budgetName in self.budgets:
+			print(budgetName, "   ", sep="")
+
+
