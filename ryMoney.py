@@ -89,7 +89,7 @@ class AccountManager:
 
 			else:
 				print("Account '",accountName, "', not found. Please Try Again.")
-				screenPauseClear()z
+				screenPauseClear()
 			os.system("clear")
 		
 		# Category Manager Run Loop
@@ -187,17 +187,16 @@ class AccountManager:
 				screenPauseClear()
 
 
-
-	def newBudgetTransfer(self, budgetName, date, category, amount):
-
 			# New Budget Transfer
 			if(self.command == "nbt"):
 				os.system("clear")
 				budgetName = ""
-				while(budgetName not in configLoad.budgets):
+
+				while(budgetName not in configLoad.budgets.budgets):
 					configLoad.budgets.printBudgetNames()
 					budgetName    = input("Enter Payment name: ")
-					if(budgetName not in configLoad.budgets):
+
+					if(budgetName not in configLoad.budgets.budgets):
 						print(budgetName, " is not a budget. Please try again.")
 
 				day     = input("Enter check day (dd), or hit ENTER for Today["+ time.strftime("%d") +"]s: ")
@@ -216,7 +215,7 @@ class AccountManager:
 
 				date = datetime.date(int(year), int(month), int(day))
 
-				self.currAccount.newBudgetTransfer(budgerName, date, num, configLoad.cats.list[cat], ammount)
+				self.currAccount.newBudgetTransfer(budgetName, date, configLoad.cats.list[cat], ammount)
 
 				print("Amount transferred to budget: ",self.currAccount.name ,".")
 				screenPauseClear()

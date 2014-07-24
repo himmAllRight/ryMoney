@@ -96,7 +96,7 @@ class Account:
 		self.balance = self.balance - amount
 		configLoad.budgets.budgets[budgetName].newTransfer(self.name, amount)
 		budgetTitle = "-- Budget Transfer (" + budgetName + ") --"
-		self.transactions.append(Transaction(budgetTitle, date, "BT ", category, " B ", amount, self.balances))
+		self.transactions.append(Transaction(budgetTitle, date, "BT ", category, " B ", amount, self.balance))
 
 
 	def importTransaction(self, date, num, name, cat, cleared, amount, balance):
