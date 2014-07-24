@@ -89,7 +89,7 @@ class AccountManager:
 
 			else:
 				print("Account '",accountName, "', not found. Please Try Again.")
-				screenPauseClear()
+				screenPauseClear()z
 			os.system("clear")
 		
 		# Category Manager Run Loop
@@ -184,6 +184,41 @@ class AccountManager:
 				self.currAccount.newCheck(name, date, num, configLoad.cats.list[cat], ammount)
 
 				print("Check Payment added to account: ",self.currAccount.name ,".")
+				screenPauseClear()
+
+
+
+	def newBudgetTransfer(self, budgetName, date, category, amount):
+
+			# New Budget Transfer
+			if(self.command == "nbt"):
+				os.system("clear")
+				budgetName = ""
+				while(budgetName not in configLoad.budgets):
+					configLoad.budgets.printBudgetNames()
+					budgetName    = input("Enter Payment name: ")
+					if(budgetName not in configLoad.budgets):
+						print(budgetName, " is not a budget. Please try again.")
+
+				day     = input("Enter check day (dd), or hit ENTER for Today["+ time.strftime("%d") +"]s: ")
+				if(day == ""):
+					day = time.strftime("%d")
+				month   = input("Enter check month (mm), or hit ENTER for this Month["+ time.strftime("%m") +"]: ")
+				if(month == ""):
+					month = time.strftime("%m")
+				year    = input("Enter check year (yyyy), or hit ENTER for this Year["+ time.strftime("%Y") +"]: ")
+				if(year == ""):
+					year =time.strftime("%Y")
+
+				configLoad.cats.printCategories()
+				cat     = eval(input("Select payment category (#): "))
+				ammount = eval(input("Enter transfer ammount: "))
+
+				date = datetime.date(int(year), int(month), int(day))
+
+				self.currAccount.newBudgetTransfer(budgerName, date, num, configLoad.cats.list[cat], ammount)
+
+				print("Amount transferred to budget: ",self.currAccount.name ,".")
 				screenPauseClear()
 
 
