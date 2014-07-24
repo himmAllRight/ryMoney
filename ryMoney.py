@@ -199,13 +199,13 @@ class AccountManager:
 					if(budgetName not in configLoad.budgets.budgets):
 						print(budgetName, " is not a budget. Please try again.")
 
-				day     = input("Enter check day (dd), or hit ENTER for Today["+ time.strftime("%d") +"]s: ")
+				day     = input("Enter transfer day (dd), or hit ENTER for Today["+ time.strftime("%d") +"]s: ")
 				if(day == ""):
 					day = time.strftime("%d")
-				month   = input("Enter check month (mm), or hit ENTER for this Month["+ time.strftime("%m") +"]: ")
+				month   = input("Enter transfer month (mm), or hit ENTER for this Month["+ time.strftime("%m") +"]: ")
 				if(month == ""):
 					month = time.strftime("%m")
-				year    = input("Enter check year (yyyy), or hit ENTER for this Year["+ time.strftime("%Y") +"]: ")
+				year    = input("Enter transfer year (yyyy), or hit ENTER for this Year["+ time.strftime("%Y") +"]: ")
 				if(year == ""):
 					year =time.strftime("%Y")
 
@@ -215,7 +215,7 @@ class AccountManager:
 
 				date = datetime.date(int(year), int(month), int(day))
 
-				self.currAccount.newBudgetTransfer(budgetName, date, configLoad.cats.list[cat], ammount)
+				self.currAccount.newBudgetTransfer(budgetName, date, `configLoad.cats.list[cat], ammount)
 
 				print("Amount transferred to budget: ",self.currAccount.name ,".")
 				screenPauseClear()
@@ -488,8 +488,9 @@ class AccountManager:
 		print("ba  - Balance Account")
 
 		print("\nnd - Add new Deposit")
-		print("np - Add a new Payment")
-		print("nc - Add a new Check Payment")
+		print("np  - Add a new Payment")
+		print("nc  - Add a new Check Payment")
+		print("nbt - Add a new Transfer to Budget")
 
 		print("\npa - Print Account Information")
 		print("puc - Print all uncleared transactions")
