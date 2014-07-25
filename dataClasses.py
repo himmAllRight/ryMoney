@@ -493,7 +493,12 @@ class BudgetList:
 
 
 	def printBudgetNames(self):
+		i = 0
+		names =""
 		for budgetName in self.budgets:
-			print(budgetName, "   ", sep="")
+			names = names + str(i) + ": " + budgetName + "   "
+			i = i + 1
+		print(names)
+			
 
 

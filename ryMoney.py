@@ -215,7 +215,7 @@ class AccountManager:
 
 				date = datetime.date(int(year), int(month), int(day))
 
-				self.currAccount.newBudgetTransfer(budgetName, date, `configLoad.cats.list[cat], ammount)
+				self.currAccount.newBudgetTransfer(budgetName, date, configLoad.cats.list[cat], ammount)
 
 				print("Amount transferred to budget: ",self.currAccount.name ,".")
 				screenPauseClear()
