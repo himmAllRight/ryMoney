@@ -98,6 +98,10 @@ class Account:
 		budgetTitle = "-- Budget Transfer (" + budgetName + ") --"
 		self.transactions.append(Transaction(budgetTitle, date, "BT ", category, " B ", amount, self.balance))
 
+	def newBudgetPayment(self, budgetName, date, category, amount):
+		budgetTitle = " -- Budget Payed (" + budgetName + "[" + amount + "]) --"
+		self.transaction.append(Transaction(budgetTitle, date,  "BP ", category, " B ", 0.0, ))
+
 
 	def importTransaction(self, date, num, name, cat, cleared, amount, balance):
 		tempTrans = Transaction(name, date, num, cat, cleared, amount, balance)
@@ -390,10 +394,15 @@ class Budget:
 		# Set new Budge amount
 		self.setAmount()
 
-	def payBudget(self):
+	def payBudget(self, budgetName, date, category, amount):
+		# Write account transaction that it is paid.
+		for payAccount in self.transfers:
+			configLoad.accountList.accounts[payAccount].newBudgetPayment(budgetName, date, category, amount)
+
+
 		# Essentially clears the budget...
-		self.amount     = 0
-		self.transfers  = {} 
+		#self.amount     = 0
+		#self.transfers  = {} 
 
 
 	def printBudgetInfo(self):

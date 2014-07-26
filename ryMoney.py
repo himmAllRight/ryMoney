@@ -534,6 +534,36 @@ class BudgetManager:
 				os.system("clear")
 				configLoad.budgets.budgets[name].printBudgetInfo()
 
+			if(self.command == "pb"):
+				os.system("clear")
+				configLoad.budgets.printBudgetNames()
+				name = input("What Budget do you want to pay off? ")
+				os.system("clear")
+
+
+
+				day     = input("Enter transfer day (dd), or hit ENTER for Today["+ time.strftime("%d") +"]s: ")
+				if(day == ""):
+					day = time.strftime("%d")
+				month   = input("Enter transfer month (mm), or hit ENTER for this Month["+ time.strftime("%m") +"]: ")
+				if(month == ""):
+					month = time.strftime("%m")
+				year    = input("Enter transfer year (yyyy), or hit ENTER for this Year["+ time.strftime("%Y") +"]: ")
+				if(year == ""):
+					year =time.strftime("%Y")
+
+				configLoad.cats.printCategories()
+				cat     = eval(input("Select budget category (#): "))
+				amount = configLoad.budgets.budgets[name].amount
+
+				date = datetime.date(int(year), int(month), int(day))
+
+
+
+				configLoad.budgets.budgets[name].payBudget(name, date, configLoad.cats.list[cat], amount)
+
+
+
 
 			if(self.command == "sb"):
 				configLoad.budgets.saveBudgets(configLoad.budgetSaveName)
