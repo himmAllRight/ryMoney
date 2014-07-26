@@ -628,7 +628,7 @@ class CLI:
 		print("Please select what you would like to do:")
 		print("cm  - Category Manager")
 		print("am  - Account Manager)")
-		print("bm  - Budget Manager (Not Yet)")
+		print("bm  - Budget Manager")
 
 		print("\nh - help")
 		print("q - Quit ryMoney")
