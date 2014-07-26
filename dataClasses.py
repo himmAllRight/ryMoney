@@ -394,15 +394,19 @@ class Budget:
 		# Set new Budge amount
 		self.setAmount()
 
-	def payBudget(self, budgetName, date, category, amount):
+	def payBudget(self, budgetName, date, category):
 		# Write account transaction that it is paid.
 		for payAccount in self.transfers:
-			configLoad.accountList.accounts[payAccount].newBudgetPayment(budgetName, date, category, amount)
+			configLoad.accountList.accounts[payAccount].newBudgetPayment(budgetName, date, category, self.transfers[payAccount] )
 
+
+		print("Budget paid and noted in account transactions.")
 
 		# Essentially clears the budget...
-		#self.amount     = 0
-		#self.transfers  = {} 
+		self.amount     = 0
+		self.transfers  = {} 
+
+
 
 
 	def printBudgetInfo(self):
