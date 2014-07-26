@@ -100,7 +100,7 @@ class Account:
 
 	def newBudgetPayment(self, budgetName, date, category, amount):
 		budgetTitle = " -- Budget Payed (" + budgetName + "[" + str(amount) + "]) --"
-		self.transactions.append(Transaction(budgetTitle, date,  "BP ", category, " B ", "0.0", self.balance ))
+		self.transactions.append(Transaction(budgetTitle, date,  "BP ", category, " B ", amount, self.balance ))
 
 
 	def importTransaction(self, date, num, name, cat, cleared, amount, balance):
