@@ -509,7 +509,7 @@ class BudgetList:
 		i = 0
 		names =""
 		for budgetName in self.budgets:
-			names = names + str(i) + ": " + budgetName + "   "
+			names = names + budgetName + "   "
 			i = i + 1
 		print(names)
 			
