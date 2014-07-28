@@ -439,7 +439,7 @@ class BudgetList:
 	
 # Need to make it so that it can re-add the money back to the accounts before deleteing first.
 	def removeBudget(self, budgetName, date, category):
-		for payAccount in self.transfers:
+		for payAccount in self.budgets[budgetName].transfers:
 			configLoad.accountList.accounts[payAccount].newBudgetPayment(budgetName, date, category, self.transfers[payAccount] )
 
 		del self.budgets[budgetName]
