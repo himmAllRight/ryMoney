@@ -521,8 +521,21 @@ class BudgetManager:
 				screenPauseClear()
 
 			# Need to add functions that transfer money to and from accounts first.
-			# if(self.command == "db"):
-			# 	os.system("clear")
+			if(self.command == "db"):
+			 	os.system("clear")
+
+			 	configLoad.budgets.printBudgetNames()
+			 	deleteName = input("What Item  do you want to delete?")
+			 	day   = time.strftime("%d")
+			 	month = time.strftime("%m")
+			 	year  = time.strftime("%Y")
+
+			 	date  = datetime.date(int(year), int(month), int(day))
+			 	configLoad.cats.printCategories()
+
+			 	cat = eval(input("Select what category to put transaction in: "))
+
+			 	configLoad.budgets.removeBudget(deleteName, date, configLoad.cats.list[cat])
 			# 	configLoad.budgets.printBudgetNames()
 			# 	deleteName = input("What budget item do you want to delete? ")
 			# 	configLoad.budgets.removeBudget(deleteName)

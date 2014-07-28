@@ -407,8 +407,6 @@ class Budget:
 		self.transfers  = {} 
 
 
-
-
 	def printBudgetInfo(self):
 		# Print out information of accounts contributing to Budget
 		print("Budget Contribution for", self.name , ":\nMemo: ", self.memo, "\n-----------------------")
@@ -440,9 +438,12 @@ class BudgetList:
 
 	
 # Need to make it so that it can re-add the money back to the accounts before deleteing first.
-#	def removeBudget(self, name):
-#		del self.budgets[name]
-#		print("Budget item '", name, "' deleted.")
+	def removeBudget(self, budgetName, date, category):
+		for payAccount in self.transfers:
+			configLoad.accountList.accounts[payAccount].newBudgetPayment(budgetName, date, category, self.transfers[payAccount] )
+
+		del self.budgets[budgetName]
+		print("Budget item '", budgetName, "' deleted.")
 
 	def saveBudgets(self, saveFileName):
 		os.chdir(configLoad.CONFIGDIR) # Enter Saves Directory
