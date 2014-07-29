@@ -575,6 +575,46 @@ class BudgetManager:
 				screenPauseClear()
 
 
+
+
+
+			# Edit a transaction
+			if(self.command == "eb"):
+				os.system("clear")
+				configLoad.budgets.printBudgetNames()
+
+				# get transaction index value
+				edit = ""
+				ediName = input("What budget do you want to edit? ('q' to exit): ")
+				if(editName == "q"):
+					edit = "q"
+				else:
+					editBudget = configLoad.budgets.budgets[editName]
+				os.system("clear")
+
+				
+				while(edit != "q"):
+					print("Budget selected:\n----------------\n", editName)
+					
+
+					print("\nEdit Options: \n--------------------")
+					options = "1: Need to write functions "
+					edit = input(options + "\n\nWhat would you like to change in the transaction? (edit #, or 'q' to quit): ")	
+
+					# Edit Transaction Day
+					if(edit == "1"):
+						print("part edited`.")
+
+
+
+					screenPauseClear()
+
+				print("Done Editing Budget")
+
+
+
+
+
 			if(self.command == "sb"):
 				configLoad.budgets.saveBudgets(configLoad.budgetSaveName)
 				print("Budgets saved.")
