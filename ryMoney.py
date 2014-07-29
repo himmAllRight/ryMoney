@@ -585,7 +585,7 @@ class BudgetManager:
 
 				# get transaction index value
 				edit = ""
-				ediName = input("What budget do you want to edit? ('q' to exit): ")
+				editName = input("What budget do you want to edit? ('q' to exit): ")
 				if(editName == "q"):
 					edit = "q"
 				else:
