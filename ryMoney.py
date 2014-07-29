@@ -630,7 +630,8 @@ class BudgetManager:
 	def printOptions(self):
 		print("-- Budget Manager --\n")
 		print("What you would like to do? \n")
-		print("nb - Add new Budget Item")
+		print("nb  - Add new Budget Item")
+		print("eb  - Edit a Budget Item.")
 		print("pb  - Pay off Budget")
 		print("pbi - Print a Budget's information")
 		print("\nq  - Return to Main Menu")
