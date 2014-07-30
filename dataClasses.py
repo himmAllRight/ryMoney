@@ -408,8 +408,9 @@ class Budget:
 
 	def changeBudgetName(self, newName):
 		oldname = self.name
+		configLoad.budgets.budgets[newName] = configLoad.budgets.budgets.pop(oldname)
 		self.name = newName
-		print("Budget name changed from ", oldname, " to ", newName, ".")
+		print("Budget name changed from ", oldname, " to ", self.name, ".")
 
 	def changeBudgetMemo(self, newMemo):
 		self.memo = newMemo
