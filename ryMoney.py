@@ -594,7 +594,8 @@ class BudgetManager:
 
 				
 				while(edit != "q"):
-					print("Budget selected:\n----------------\n", editBudget.name)
+					print("Budget selected:", editBudget.name,"\n----------------")
+					editBudget.printBudgetInfo()
 					
 
 					print("\nEdit Options: \n--------------------")
