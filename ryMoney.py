@@ -594,7 +594,7 @@ class BudgetManager:
 
 				
 				while(edit != "q"):
-					print("Budget selected:\n----------------\n", editName)
+					print("Budget selected:\n----------------\n", editBudget.name)
 					
 
 					print("\nEdit Options: \n--------------------")
@@ -612,6 +612,8 @@ class BudgetManager:
 					if(edit == "3"):
 						inputFixed = input("Enter new budget fixed value ('0' for no set value): ")
 						editBudget.changeFixed(inputFixed)
+
+					screenPauseClear()
 
 				print("Done Editing Budget")
 
