@@ -406,6 +406,19 @@ class Budget:
 		self.amount     = 0
 		self.transfers  = {} 
 
+	def changeBudgetName(self, newName):
+		oldname = self.name
+		self.name = newName
+		print("Budget name changed from ", oldname, " to ", newName, ".")
+
+	def changeBudgetMemo(self, newMemo):
+		self.memo = newMemo
+		print("Budget memo changed to ", newMemo)
+
+	def changeFixed(self, newFixedValue):
+		self.fixed = newFixedValue
+		print("Budget memo chaned to ", newFixedValue)
+
 
 	def printBudgetInfo(self):
 		# Print out information of accounts contributing to Budget

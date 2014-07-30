@@ -598,16 +598,20 @@ class BudgetManager:
 					
 
 					print("\nEdit Options: \n--------------------")
-					options = "1: Need to write functions "
+					options = "1: change Name  2: Change Memo  3: change fixed value "
 					edit = input(options + "\n\nWhat would you like to change in the transaction? (edit #, or 'q' to quit): ")	
 
-					# Edit Transaction Day
 					if(edit == "1"):
-						print("part edited`.")
+						inputName = input("What would you like to rename the budget item to: ")
+						editBudget.changeBudgetName(inputName)
 
+					if(edit == "2"):
+						inputMemo = input("Please enter new memo for budget: ")
+						editBudget.changeBudgetMemo(inputMemo)
 
-
-					screenPauseClear()
+					if(edit == "3"):
+						inputFixed = input("Enter new budget fixed value ('0' for no set value): ")
+						editBudget.changeFixed(inputFixed)
 
 				print("Done Editing Budget")
 
@@ -631,7 +635,8 @@ class BudgetManager:
 		print("-- Budget Manager --\n")
 		print("What you would like to do? \n")
 		print("nb  - Add new Budget Item")
-		print("eb  - Edit a Budget Item.")
+		print("db  - Delete Budget Item")
+		print("eb  - Edit a Budget Item.\n")
 		print("pb  - Pay off Budget")
 		print("pbi - Print a Budget's information")
 		print("\nq  - Return to Main Menu")
