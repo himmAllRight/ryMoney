@@ -364,7 +364,7 @@ class AccountManager:
 
 				os.system("clear")
 
-				#Might delete these and just move the code to the position...
+				# Print list of uncleared transactions
 				def printUnclearedList():
 					i = 0
 					print("Uncleared Transactions:")
@@ -373,6 +373,7 @@ class AccountManager:
 						trans.printT()
 						i = i + 1
 
+				# Print the list of transactions when balancing check book
 				def printBalanceList():
 					j = 0
 					print("Transactions for balance: ")
@@ -397,6 +398,8 @@ class AccountManager:
 					printUnclearedList()
 					printBalanceList()
 					select = input("Select a transaction number to add it to balance ('d' when done): ")
+					
+					# If Done selecting
 					if( select == "d"):
 						os.system("clear")
 						print("\nThese are the transactions on the statement, correct?")
@@ -415,7 +418,7 @@ class AccountManager:
 							select = ""
 						
 
-
+					# Otherwise, continue
 					else:
 						select = int(select)
 						# Cleared selected Transaction
@@ -476,6 +479,7 @@ class AccountManager:
 		screenPauseClear()
 
 
+	# Print account Manager options
 	def printOptions(self):
 		print("-- Account Manager --\n")
 		configLoad.accountList.printAccountNames()
@@ -536,10 +540,9 @@ class BudgetManager:
 			 	cat = eval(input("Select what category to put transaction in: "))
 
 			 	configLoad.budgets.removeBudget(deleteName, date, configLoad.cats.list[cat])
-			# 	configLoad.budgets.printBudgetNames()
-			# 	deleteName = input("What budget item do you want to delete? ")
-			# 	configLoad.budgets.removeBudget(deleteName)
 
+
+			# Print the information for a budget
 			if(self.command == "pbi"):
 				os.system("clear")
 				configLoad.budgets.printBudgetNames()
@@ -547,19 +550,20 @@ class BudgetManager:
 				os.system("clear")
 				configLoad.budgets.budgets[name].printBudgetInfo()
 
+			# Pay Budget
 			if(self.command == "pb"):
 				os.system("clear")
 				configLoad.budgets.printBudgetNames()
 				name = input("What Budget do you want to pay off? ")
 				os.system("clear")
 
-				day     = input("Enter transfer day (dd), or hit ENTER for Today["+ time.strftime("%d") +"]s: ")
+				day     = input("Enter budget transfer day (dd), or hit ENTER for Today["+ time.strftime("%d") +"]s: ")
 				if(day == ""):
 					day = time.strftime("%d")
-				month   = input("Enter transfer month (mm), or hit ENTER for this Month["+ time.strftime("%m") +"]: ")
+				month   = input("Enter budget transfer month (mm), or hit ENTER for this Month["+ time.strftime("%m") +"]: ")
 				if(month == ""):
 					month = time.strftime("%m")
-				year    = input("Enter transfer year (yyyy), or hit ENTER for this Year["+ time.strftime("%Y") +"]: ")
+				year    = input("Enter budget transfer year (yyyy), or hit ENTER for this Year["+ time.strftime("%Y") +"]: ")
 				if(year == ""):
 					year =time.strftime("%Y")
 
@@ -621,7 +625,7 @@ class BudgetManager:
 
 
 
-
+			# Save Budget
 			if(self.command == "sb"):
 				configLoad.budgets.saveBudgets(configLoad.budgetSaveName)
 				print("Budgets saved.")
@@ -633,7 +637,7 @@ class BudgetManager:
 		screenPauseClear()
 				
 
-
+	# Print budget manager options
 	def printOptions(self):
 		print("-- Budget Manager --\n")
 		print("What you would like to do? \n")
