@@ -390,7 +390,7 @@ class AccountManager:
 
 				preList = self.currAccount.makeTransList(startDate, endDate)
 				for trans in preList:
-					if( trans.cleared == " - "):
+					if( trans.cleared != " C "):
 						unclearedList.append(trans)
 			
 				select = ""
