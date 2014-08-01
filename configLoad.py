@@ -31,8 +31,6 @@ def loadCategories(loadFileName):
 
 
 
-
-
 ## Global Directories ##
 DIR        = "/home/ryan/scripts/ryMoney"
 CONFIGDIR  = DIR + "/configurations"

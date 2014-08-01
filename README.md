@@ -1,21 +1,28 @@
 ryMoney
 =======
 
-My simple Money App
+My simple command-line Money Apps.
+
+Files:
+------
+ryMoney.py     - The main run environment script.
+configLoad.py  - The script that contains the path locations for ryMoney to run
+dataClasses.py - The script that contains all the class objects and functions.
 
 
 Object Types:
 -------------
 
-Account - Keeps track of the transactions of a given checking account. 
-          Essentially a list of Transaction Objects. Also maintains the 
+Account - Keeps track of the transactions of a given bank account. 
+          Basically put, a list of Transaction Objects. Also maintains the
           ballance of the transactions within the account.
 
-Budget  - An object that allows for the budgeting of money. Each budget item 
-          acts basically as a simple holding account that money is transfered 
-          to from one or more accounts in order to plan and track budgets. 
+Account List - An object that holds all of the accounts, and contains the
+               functions that handle all of the account options.
 
-          STILL IN DESIGN/DEVELOPMENT.
+Budget  - An object that allows for the budgeting of money. Each budget item 
+          acts as a simple holding account that money is transfered to from 
+          one or more accounts in order to plan and track budgets. 
 
     name       - name of the budget item.
     fixed      - If the budget is a fixed number each month.
@@ -26,6 +33,10 @@ Budget  - An object that allows for the budgeting of money. Each budget item
     cummAmount - The cumulative amount of money towards the budget from each
                  account.
     dueDate    - The date the budget item needs to be paid.
+
+
+Budget List - An object that holds all of the budget items and contains the 
+              functions to handle the all of the budget items.
     
 
 
