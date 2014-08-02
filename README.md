@@ -57,4 +57,35 @@ Category - A category that transactions can  be filed under. Used for looking at
            spending patterns later.
 
 
+- Setup and Running -
+
+- Config -
+Before using ryMoney, the user should first check the configLoad.py script to
+make sure that the defined file pathways are correct. In the configLoad.py 
+file, the global directory variables DIR, CONFIGDIR, and ACCOUNTDIR are defined.
+DIR is the top directory where the scripts are all located, and the directory's
+path should be defined in DIR. by default, the CONFIGDIR and ACCOUNTDIR point 
+to two subdirectories within DIR that hold the configuration files and account
+directories. However, if desired, the CONFIGDIR and ACCOUNTDIR can point to
+any location where the configuration files (categories, budget, etc. saves) and
+account directories are each located. This is useful if for example, the user 
+wants to keep the run scripts in a build folder, but maintain the save files
+in another location that can be synced across computers such as a shared 
+network folder or dropbox folder.
+
+If the user's saved accounts, budgets, or categories are not loading properly,
+it is most likely due to the paths not being defined properly in the
+configDIr.py file.
+
+In addition to the directories where the settings are saved, the filenames for
+the files that save the categories, budgets, and account transaction regsitry
+are defined here under the global name variables catSaveName, budgetSaveName,
+and transRegName respectively.
+
+
+- Use -
+
+In order to run ryMoney, simply execute the python script, ryMoney.py 
+(python ryMoney.py).
+
     
