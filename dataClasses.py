@@ -96,11 +96,11 @@ class Account:
 		self.balance = self.balance - amount
 		configLoad.budgets.budgets[budgetName].newTransfer(self.name, amount)
 		budgetTitle = "-- Budget Transfer (" + budgetName + ") --"
-		self.transactions.append(Transaction(budgetTitle, date, "BT ", category, " B ", amount, self.balance))
+		self.transactions.append(Transaction(budgetTitle, date, "BT ", category, "BT ", amount, self.balance))
 
 	def newBudgetPayment(self, budgetName, date, category, amount):
 		budgetTitle = " -- Budget Payed (" + budgetName + "[" + str(amount) + "]) --"
-		self.transactions.append(Transaction(budgetTitle, date,  "BP ", category, " B ", amount, self.balance ))
+		self.transactions.append(Transaction(budgetTitle, date,  "BP ", category, "BP ", amount, self.balance ))
 
 
 	def importTransaction(self, date, num, name, cat, cleared, amount, balance):
@@ -197,7 +197,7 @@ class Account:
 		
 		self.printHeader()
 		for trans in self.transactions:
-			if(trans.cleared == " - "):
+			if(trans.cleared != " C "):
 				unclearedList.append(trans)
 				print(ind, ":   ",  sep="", end="")
 				trans.printT()
