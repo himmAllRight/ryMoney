@@ -33,8 +33,8 @@ def loadCategories(loadFileName):
 
 ## Global Directories ##
 DIR        = "/home/ryan/scripts/ryMoney"
-CONFIGDIR  = DIR + "/configurations"
-ACCOUNTDIR = DIR + "/accounts"
+CONFIGDIR  = "/home/ryan/Dropbox/Banking/configurations"
+ACCOUNTDIR = "/home/ryan/Dropbox/Banking/accounts"
 
 ## Globale File Names
 catSaveName    = "categories.txt"
