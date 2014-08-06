@@ -557,24 +557,33 @@ class BudgetManager:
 				name = input("What Budget do you want to pay off? ")
 				os.system("clear")
 
-				day     = input("Enter budget transfer day (dd), or hit ENTER for Today["+ time.strftime("%d") +"]s: ")
-				if(day == ""):
-					day = time.strftime("%d")
-				month   = input("Enter budget transfer month (mm), or hit ENTER for this Month["+ time.strftime("%m") +"]: ")
-				if(month == ""):
-					month = time.strftime("%m")
-				year    = input("Enter budget transfer year (yyyy), or hit ENTER for this Year["+ time.strftime("%Y") +"]: ")
-				if(year == ""):
-					year =time.strftime("%Y")
+				if( configLoad.budgets.budgets[name].amount > 0):
 
-				configLoad.cats.printCategories()
-				cat     = eval(input("Select budget category (#): "))
+					day     = input("Enter budget transfer day (dd), or hit ENTER for Today["+ time.strftime("%d") +"]s: ")
+					if(day == ""):
+						day = time.strftime("%d")
+					month   = input("Enter budget transfer month (mm), or hit ENTER for this Month["+ time.strftime("%m") +"]: ")
+					if(month == ""):
+						month = time.strftime("%m")
+					year    = input("Enter budget transfer year (yyyy), or hit ENTER for this Year["+ time.strftime("%Y") +"]: ")
+					if(year == ""):
+						year =time.strftime("%Y")
 
-				amount = configLoad.budgets.budgets[name].amount
+					configLoad.cats.printCategories()
+					cat     = eval(input("Select budget category (#): "))
 
-				date = datetime.date(int(year), int(month), int(day))
+					configLoad.budgets.budgets[name].printBudgetContribution()
 
-				configLoad.budgets.budgets[name].payBudget(name, date, configLoad.cats.list[cat])
+					payAll = input("Do you want to pay the entire budgeted amount from all accounts?")
+
+					amount = configLoad.budgets.budgets[name].amount
+
+					date = datetime.date(int(year), int(month), int(day))
+
+					configLoad.budgets.budgets[name].payBudget(name, date, configLoad.cats.list[cat])
+
+				else:
+					print("Cannot pay off budget: No money transfered to budget yet.")
 
 				screenPauseClear()
 

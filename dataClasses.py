@@ -437,6 +437,16 @@ class Budget:
 		else:
 			print("----------------------------\nTotal:  $", self.amount, "\n")
 
+	def printBudgetContribution(self):
+		print("Budget Contribution for", self.name)
+
+		if(len(self.transfers) == 0):
+			print("No money transfered to budget yet.")
+		else:
+			for account in self.transfers:
+				print(account, ":  $", self.transfers[account], sep="")
+
+
 
 
 class BudgetList:
@@ -527,6 +537,4 @@ class BudgetList:
 			names = names + budgetName + "   "
 			i = i + 1
 		print(names)
-			
-
 
