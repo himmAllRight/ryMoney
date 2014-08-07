@@ -574,13 +574,18 @@ class BudgetManager:
 
 					configLoad.budgets.budgets[name].printBudgetContribution()
 
-					payAll = input("Do you want to pay the entire budgeted amount from all accounts?")
+					payAll = ""
+					while(payAll != 'y' or payAll != 'n'):
+						payAll = input("Do you want to pay the entire budgeted amount from all accounts[y/n]?")
 
-					amount = configLoad.budgets.budgets[name].amount
-
-					date = datetime.date(int(year), int(month), int(day))
-
-					configLoad.budgets.budgets[name].payBudget(name, date, configLoad.cats.list[cat])
+						if(payAll == "y"):
+							amount = configLoad.budgets.budgets[name].amount
+							date = datetime.date(int(year), int(month), int(day))
+							configLoad.budgets.budgets[name].payBudget(name, date, configLoad.cats.list[cat])
+						elif(payAll == "n"):
+							print("Need to write no option....")
+						else:
+							print("Please enter y or n")
 
 				else:
 					print("Cannot pay off budget: No money transfered to budget yet.")
