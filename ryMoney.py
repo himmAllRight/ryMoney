@@ -576,14 +576,41 @@ class BudgetManager:
 
 					payAll = ""
 					while(payAll != "y" and payAll != "n"):
-						payAll = input("Do you want to pay the entire budgeted amount from all accounts[y/n]?")
+						payAll = input("Do you want to pay the entire budgeted amount from each account listed [y/n]?")
 
 						if(payAll == "y"):
 							amount = configLoad.budgets.budgets[name].amount
 							date = datetime.date(int(year), int(month), int(day))
 							configLoad.budgets.budgets[name].payBudget(name, date, configLoad.cats.list[cat])
+
+
 						elif(payAll == "n"):
-							print("Need to write no option....")
+							selectContributor = ""
+							payments = {}
+							while( selectContributor != "d"):
+								os.system("clear")
+								configLoad.budgets.budgets[name].printBudgetContribution()
+
+								if(selectContributor == "d"):
+
+								else:
+									print("Selected contributions from each account to budget payment:")
+									for( contributor in payments):
+										print(contributor, ":  ", payments[contributor] )
+
+									  selectContributor = input("Select contributor to select money from:")
+									if(selectContributor in configLoad.budgets.budgets):
+										tempAmount = eval(input("How much money do you want to pay the budget from this account? "))
+										if( tempAmount <= configLoad.budgets.budgets[selectContributor].amount):
+											payments[selectContributor] = tempAmount
+
+										else: 
+											print("The amount specified exceeds the amount transfered to the budget for this account.\nPlease try again and select a value less than", configLoad.budgets.budgets[selectContributor].amount, ".")
+									else:
+										print("There hasn't been any money contributed to this budget from the account ",selectContributor,".\nPlease select again.")
+
+
+
 						else:
 							print("Please enter y or n")
 
@@ -591,9 +618,6 @@ class BudgetManager:
 					print("Cannot pay off budget: No money transfered to budget yet.")
 
 				screenPauseClear()
-
-
-
 
 
 			# Edit a transaction
