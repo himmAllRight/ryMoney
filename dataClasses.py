@@ -414,6 +414,15 @@ class Budget:
 		# Essentially clears the budget...
 		self.amount     = 0
 		self.transfers  = {} 
+	def payBudgetAdv(self, budgetName, date, category, payments):
+		for payAccount in payments:
+			configLoad.accountList.accounts[payAccount].newBudgetPayment(budgetName, date, category, payments[payAccount] )
+
+			newAmount = self.amount - payments[payAccount]
+			if(newAmount == 0):
+				del self.transfers[payAccount]
+
+
 
 	def changeBudgetName(self, newName):
 		oldname = self.name

@@ -113,14 +113,12 @@ class AccountManager:
 					year =time.strftime("%Y")
 
 				configLoad.cats.printCategories()
-				cat = float("inf")
 
 				# Checks to make sure value is in bounds
-				while(cat < len(configLoad.cats.list)):
+				cat     = eval(input("Select deposit category (#): "))
+				while(cat >= len(configLoad.cats.list)):
+					print("Index Value is too large. Please choose a number less than ", len(configLoad.cats.list), ".")
 					cat     = eval(input("Select deposit category (#): "))
-					if(cat >= len(configLoad.cats.list)):
-						print("Index Value is too large. Please choose a number less than ", len(configLoad.cats.list), ".")
-				
 
 				ammount = eval(input("Enter deposit ammount: "))
 
@@ -589,16 +587,22 @@ class BudgetManager:
 							payments = {}
 							while( selectContributor != "d"):
 								os.system("clear")
-								configLoad.budgets.budgets[name].printBudgetContribution()
 
 								if(selectContributor == "d"):
+									amount = configLoad.budgets.budgets[name].amount
+									date = datetime.date(int(year), int(month), int(day))
+
+									configLoad.budgets.budgets[name].payBudgetAdv(name, date, configLoad.cats.list[cat], payments)
+
 
 								else:
+									configLoad.budgets.budgets[name].printBudgetContribution()
 									print("Selected contributions from each account to budget payment:")
-									for( contributor in payments):
-										print(contributor, ":  ", payments[contributor] )
+									if(len(payments) > 0 ):
+										for contributor in payments:
+											print(contributor, ":  ", payments[contributor] )
 
-									  selectContributor = input("Select contributor to select money from:")
+									selectContributor = input("Select contributor to select money from:")
 									if(selectContributor in configLoad.budgets.budgets):
 										tempAmount = eval(input("How much money do you want to pay the budget from this account? "))
 										if( tempAmount <= configLoad.budgets.budgets[selectContributor].amount):
