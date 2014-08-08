@@ -575,7 +575,7 @@ class BudgetManager:
 					configLoad.budgets.budgets[name].printBudgetContribution()
 
 					payAll = ""
-					while(payAll != "y" or payAll != "n"):
+					while(payAll != "y" and payAll != "n"):
 						payAll = input("Do you want to pay the entire budgeted amount from all accounts[y/n]?")
 
 						if(payAll == "y"):

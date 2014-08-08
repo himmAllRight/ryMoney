@@ -144,7 +144,7 @@ class Account:
 		print("%.2f" % interest)
 
 		interestCheck = ""
-		while(interestCheck != "y" or interestCheck != "n"):
+		while(interestCheck != "y" and interestCheck != "n"):
 			interestCheck = input("Is the interest correct(y/n): ")
 			# If correct, marked as cleared and exit
 			if(interestCheck == "y"):
@@ -159,10 +159,6 @@ class Account:
 
 			else:
 				print("Please enter 'y' or 'n'.")
-
-
-
-			
 
 
 
