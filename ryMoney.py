@@ -586,7 +586,6 @@ class BudgetManager:
 							selectContributor = ""
 							payments = {}
 							while( selectContributor != "d"):
-								os.system("clear")
 
 								if(selectContributor == "d"):
 									amount = configLoad.budgets.budgets[name].amount
@@ -603,6 +602,7 @@ class BudgetManager:
 											print(contributor, ":  ", payments[contributor] )
 
 									selectContributor = input("Select contributor to select money from:")
+									print(selectContributor, "\n", configLoad.budgets.budgets[name].transfers)
 									if(selectContributor in configLoad.budgets.budgets):
 										tempAmount = eval(input("How much money do you want to pay the budget from this account? "))
 										if( tempAmount <= configLoad.budgets.budgets[selectContributor].amount):
@@ -613,6 +613,7 @@ class BudgetManager:
 									else:
 										print("There hasn't been any money contributed to this budget from the account ",selectContributor,".\nPlease select again.")
 
+							os.system("clear")
 
 
 						else:
