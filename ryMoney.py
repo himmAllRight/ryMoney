@@ -143,7 +143,7 @@ class AccountManager:
 				month   = input("Enter payment month (mm), or hit ENTER for this Month["+ time.strftime("%m") +"]: ")
 				if(month == ""):
 					month = time.strftime("%m")
-				year    = input("Enter payment year (yyyy), or hit ENTER for this Year["+ time.strftime("%") +"]: ")
+				year    = input("Enter payment year (yyyy), or hit ENTER for this Year["+ time.strftime("%Y") +"]: ")
 				if(year == ""):
 					year =time.strftime("%Y")
 

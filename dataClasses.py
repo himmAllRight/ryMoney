@@ -142,14 +142,27 @@ class Account:
 
 		interest = float((endAmount + unlistedAmount) - self.balance)
 		print("%.2f" % interest)
-		interestCheck = input("Is the interest correct(y/n): ")
 
-		if(interestCheck == "y"):
-			self.addInterest(endDate, interest)
-			for trans in balanceList:
-				trans.cleared = " C "
+		interestCheck = ""
+		while(interestCheck != "y" or interestCheck != "n"):
+			interestCheck = input("Is the interest correct(y/n): ")
+			# If correct, marked as cleared and exit
+			if(interestCheck == "y"):
+				self.addInterest(endDate, interest)
+				for trans in balanceList:
+					trans.cleared = " C "
 
-			# Add in interest transaction
+			# If it isn't correct, changed cleared status of transactions
+			elif(interestCheck == "n"):
+				for trans in balanceList:
+					trans.cleared = " - "
+
+			else:
+				print("Please enter 'y' or 'n'.")
+
+
+
+			
 
 
 
