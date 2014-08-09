@@ -140,7 +140,7 @@ class Account:
 
 		print("Check: ", amountCheck == self.balance )
 
-		interest = float( endAmount - (startAmount + balanceList) )
+		interest = float( endAmount - (startAmount + balanceListAmount) )
 		print("%.2f" % interest)
 
 		interestCheck = ""
