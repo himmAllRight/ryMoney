@@ -602,7 +602,7 @@ class BudgetManager:
 											print(contributor, ":  ", payments[contributor] )
 
 									selectContributor = input("Select contributor to select money from:")
-									print(selectContributor, "\n", configLoad.budgets.budgets[name].transfers)
+
 									if(selectContributor in configLoad.budgets.budgets):
 										tempAmount = eval(input("How much money do you want to pay the budget from this account? "))
 										if( tempAmount <= configLoad.budgets.budgets[selectContributor].amount):
