@@ -576,42 +576,44 @@ class BudgetManager:
 					while(payAll != "y" and payAll != "n"):
 						payAll = input("Do you want to pay the entire budgeted amount from each account listed [y/n]?")
 
+						# If simple pay budget
 						if(payAll == "y"):
 							amount = configLoad.budgets.budgets[name].amount
 							date = datetime.date(int(year), int(month), int(day))
 							configLoad.budgets.budgets[name].payBudget(name, date, configLoad.cats.list[cat])
 
-
+						# If Advanced pay budget
 						elif(payAll == "n"):
 							selectContributor = ""
 							payments = {}
 							while( selectContributor != "d"):
+								# Options while selecting contributor during advanced pay budget
+								configLoad.budgets.budgets[name].printBudgetContribution()
+								print("Selected contributions from each account to budget payment:")
+								
+								# If payments has items in it, pt them out
+								if(len(payments) > 0 ):
+									for contributor in payments:
+										print(contributor, ":  ", payments[contributor] )
 
-								if(selectContributor == "d"):
-									amount = configLoad.budgets.budgets[name].amount
-									date = datetime.date(int(year), int(month), int(day))
+								selectContributor = input("Select contributor to select money from:")
 
-									configLoad.budgets.budgets[name].payBudgetAdv(name, date, configLoad.cats.list[cat], payments)
+								if(selectContributor in configLoad.budgets.budgets):
+									tempAmount = eval(input("How much money do you want to pay the budget from this account? "))
+									if( tempAmount <= configLoad.budgets.budgets[selectContributor].amount):
+										payments[selectContributor] = tempAmount
 
-
+									else: 
+										print("The amount specified exceeds the amount transfered to the budget for this account.\nPlease try again and select a value less than", configLoad.budgets.budgets[selectContributor].amount, ".")
 								else:
-									configLoad.budgets.budgets[name].printBudgetContribution()
-									print("Selected contributions from each account to budget payment:")
-									if(len(payments) > 0 ):
-										for contributor in payments:
-											print(contributor, ":  ", payments[contributor] )
+									print("There hasn't been any money contributed to this budget from the account ",selectContributor,".\nPlease select again.")
 
-									selectContributor = input("Select contributor to select money from:")
+							# If done selecting contributors for advanced pay budget
+							if(selectContributor == "d"):
+								amount = configLoad.budgets.budgets[name].amount
+								date = datetime.date(int(year), int(month), int(day))
 
-									if(selectContributor in configLoad.budgets.budgets):
-										tempAmount = eval(input("How much money do you want to pay the budget from this account? "))
-										if( tempAmount <= configLoad.budgets.budgets[selectContributor].amount):
-											payments[selectContributor] = tempAmount
-
-										else: 
-											print("The amount specified exceeds the amount transfered to the budget for this account.\nPlease try again and select a value less than", configLoad.budgets.budgets[selectContributor].amount, ".")
-									else:
-										print("There hasn't been any money contributed to this budget from the account ",selectContributor,".\nPlease select again.")
+								configLoad.budgets.budgets[name].payBudgetAdv(name, date, configLoad.cats.list[cat], payments)
 
 							os.system("clear")
 
