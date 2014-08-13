@@ -594,11 +594,11 @@ class BudgetManager:
 								# If payments has items in it, pt them out
 								if(len(payments) > 0 ):
 									for contributor in payments:
-										print(contributor, ":  ", payments[contributor] )
+										print(contributor, "!:  ", payments[contributor] )
 
 								selectContributor = input("Select contributor to select money from:")
 
-								if(selectContributor in configLoad.budgets.budgets):
+								if(selectContributor in configLoad.budgets.budgets[name].transfers):
 									tempAmount = eval(input("How much money do you want to pay the budget from this account? "))
 									if( tempAmount <= configLoad.budgets.budgets[selectContributor].amount):
 										payments[selectContributor] = tempAmount
