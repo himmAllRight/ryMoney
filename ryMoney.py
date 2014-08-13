@@ -600,7 +600,7 @@ class BudgetManager:
 
 								if(selectContributor in configLoad.budgets.budgets[name].transfers):
 									tempAmount = eval(input("How much money do you want to pay the budget from this account? "))
-									if( tempAmount <= configLoad.budgets.budgets[selectContributor].amount):
+									if( tempAmount <= configLoad.budgets.budgets[name].transfers[tempAmount].amount):
 										payments[selectContributor] = tempAmount
 
 									else: 
