@@ -586,9 +586,20 @@ class BudgetManager:
 						elif(payAll == "n"):
 							selectContributor = ""
 							payments = {}
+							possible = {}
+
+							# Makes list of possible transfers accounts to pull money from
+							for pos in configLoad.budgets.budgets[name].transfers:
+								possible[pos] = configLoad.budgets.budgets[name].transfers[pos]
+
+
 							while( selectContributor != "d"):
 								# Options while selecting contributor during advanced pay budget
-								configLoad.budgets.budgets[name].printBudgetContribution()
+
+								# Print out each possible transfer account to pay budget
+								for pos in possible:
+									print(pos, " :  ", possible[pos])
+
 								print("Selected contributions from each account to budget payment:")
 								
 								# If payments has items in it, pt them out
