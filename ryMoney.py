@@ -606,10 +606,12 @@ class BudgetManager:
 
 								print("Selected contributions from each account to budget payment:")
 								
-								# If payments has items in it, pt them out
+								# If payments has items in it, printt them out
 								if(len(payments) > 0 ):
 									for contributor in payments:
 										print(contributor, ":  ", payments[contributor] )
+
+									print("------\nTotal: ", sum(payments.values()))
 
 								selectContributor = input("Select contributor to select money from:")
 
@@ -623,7 +625,7 @@ class BudgetManager:
 								else:
 									print("There hasn't been any money contributed to this budget from the account ",selectContributor,".\nPlease select again.")
 
-								
+
 
 
 							# If done selecting contributors for advanced pay budget
