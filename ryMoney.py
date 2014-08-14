@@ -581,6 +581,8 @@ class BudgetManager:
 							amount = configLoad.budgets.budgets[name].amount
 							date = datetime.date(int(year), int(month), int(day))
 							configLoad.budgets.budgets[name].payBudget(name, date, configLoad.cats.list[cat])
+							print("All budgeted money payed off.")
+							screenPauseClear()
 
 						# If Advanced pay budget
 						elif(payAll == "n"):
@@ -594,30 +596,35 @@ class BudgetManager:
 
 
 							while( selectContributor != "d"):
-								# Options while selecting contributor during advanced pay budget
-
+								os.system("clear")
 								# Print out each possible transfer account to pay budget
 								for pos in possible:
-									print(pos, " :  ", possible[pos])
+									if(pos in payments):
+										print(pos, ":  ", possible[pos], "  [", payments[pos], "] ")
+									else:
+										print(pos, ":  ", possible[pos])
 
 								print("Selected contributions from each account to budget payment:")
 								
 								# If payments has items in it, pt them out
 								if(len(payments) > 0 ):
 									for contributor in payments:
-										print(contributor, "!:  ", payments[contributor] )
+										print(contributor, ":  ", payments[contributor] )
 
 								selectContributor = input("Select contributor to select money from:")
 
 								if(selectContributor in configLoad.budgets.budgets[name].transfers):
 									tempAmount = eval(input("How much money do you want to pay the budget from this account? "))
-									if( tempAmount <= configLoad.budgets.budgets[name].transfers[tempAmount].amount):
+									if( tempAmount <= possible[selectContributor]):
 										payments[selectContributor] = tempAmount
 
 									else: 
 										print("The amount specified exceeds the amount transfered to the budget for this account.\nPlease try again and select a value less than", configLoad.budgets.budgets[selectContributor].amount, ".")
 								else:
 									print("There hasn't been any money contributed to this budget from the account ",selectContributor,".\nPlease select again.")
+
+								
+
 
 							# If done selecting contributors for advanced pay budget
 							if(selectContributor == "d"):
