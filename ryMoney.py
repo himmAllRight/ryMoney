@@ -528,6 +528,7 @@ class AccountManager:
 		print("np  - Add a new Payment")
 		print("nc  - Add a new Check Payment")
 		print("nbt - Add a new Transfer to Budget")
+		print("ncp - Add new Credit Payment")
 
 		print("\npa - Print Account Information")
 		print("puc - Print all uncleared transactions")
@@ -779,6 +780,7 @@ class BudgetManager:
 		print("eb  - Edit a Budget Item.\n")
 		print("pb  - Pay off Budget")
 		print("pbi - Print a Budget's information")
+		print("pc  - Pay off Credit")
 		print("\nq  - Return to Main Menu")
 
 

@@ -105,7 +105,7 @@ class Account:
 		self.transactions.append(Transaction(budgetTitle, date, "CT ", category, "CT ", amount, self.balance))
 
 	def newBudgetPayment(self, budgetName, date, category, amount):
-		budgetTitle = " -- Budget Payed (" + budgetName + "[" + str(amount) + "]) --"
+		budgetTitle = " -- Budget Payed (" + budgetName + "[" + str(amount) + "] --"
 		self.transactions.append(Transaction(budgetTitle, date,  "BP ", category, "BP ", amount, self.balance ))
 
 	def newCreditPayment(self, creditName, date, category, amount):
@@ -418,7 +418,6 @@ class Budget:
 		for payAccount in self.transfers:
 			configLoad.accountList.accounts[payAccount].newBudgetPayment(budgetName, date, category, self.transfers[payAccount] )
 
-
 		print("Budget paid and noted in account transactions.")
 
 		# Essentially clears the budget...
@@ -428,6 +427,11 @@ class Budget:
 	def payCredit(self, creditName, date, category):
 		for payAccount in self.transfers:
 			configLoad.accountList.accounts[payAccount].newCreditPayment(creditName, date, category, self.transfers[payAccount] )
+
+		print("Credit paid and noted in transactions.")
+
+		self.amount    = 0
+		self.transfers = {}
 
 	def payBudgetAdv(self, budgetName, date, category, payments):
 		for payAccount in payments:
