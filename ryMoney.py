@@ -682,6 +682,39 @@ class BudgetManager:
 				screenPauseClear()
 
 
+
+			if(self.command == "pc"):
+				os.system("clear")
+				configLoad.budgets.printBudgetNames()
+				name = input("What Credit do you want to pay off? ")
+				os.system("clear")
+
+				if( configLoad.budgets.budgets[name].amount > 0):
+
+					day     = input("Enter Credit payment day (dd), or hit ENTER for Today["+ time.strftime("%d") +"]s: ")
+					if(day == ""):
+						day = time.strftime("%d")
+					month   = input("Enter Credit payment month (mm), or hit ENTER for this Month["+ time.strftime("%m") +"]: ")
+					if(month == ""):
+						month = time.strftime("%m")
+					year    = input("Enter Credit payment year (yyyy), or hit ENTER for this Year["+ time.strftime("%Y") +"]: ")
+					if(year == ""):
+						year =time.strftime("%Y")
+
+					configLoad.cats.printCategories()
+					cat     = eval(input("Select Credit category (#): "))
+
+					configLoad.budgets.budgets[name].printBudgetContribution()
+
+					amount = configLoad.budgets.budgets[name].amount
+					date = datetime.date(int(year), int(month), int(day))
+					configLoad.budgets.budgets[name].payCredit(name, date, configLoad.cats.list[cat])
+					print("Credit payed off.")
+					screenPauseClear()
+
+
+
+
 			# Edit a transaction
 			if(self.command == "eb"):
 				os.system("clear")

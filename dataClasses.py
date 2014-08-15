@@ -108,8 +108,8 @@ class Account:
 		budgetTitle = " -- Budget Payed (" + budgetName + "[" + str(amount) + "]) --"
 		self.transactions.append(Transaction(budgetTitle, date,  "BP ", category, "BP ", amount, self.balance ))
 
-	def newCredittPayment(self, creditName, date, category, amount):
-		budgetTitle = " -- Credit Payed (" + CreditName + "[" + str(amount) + "]) --"
+	def newCreditPayment(self, creditName, date, category, amount):
+		budgetTitle = " -- Credit Payed [" + creditName + "]) --"
 		self.transactions.append(Transaction(budgetTitle, date,  "CP ", category, "CP ", amount, self.balance ))
 
 
@@ -424,6 +424,11 @@ class Budget:
 		# Essentially clears the budget...
 		self.amount     = 0
 		self.transfers  = {} 
+
+	def payCredit(self, creditName, date, category):
+		for payAccount in self.transfers:
+			configLoad.accountList.accounts[payAccount].newCreditPayment(creditName, date, category, self.transfers[payAccount] )
+
 	def payBudgetAdv(self, budgetName, date, category, payments):
 		for payAccount in payments:
 			configLoad.accountList.accounts[payAccount].newBudgetPayment(budgetName, date, category, payments[payAccount] )
@@ -431,8 +436,6 @@ class Budget:
 			newAmount = self.amount - payments[payAccount]
 			if(newAmount == 0):
 				del self.transfers[payAccount]
-
-
 
 	def changeBudgetName(self, newName):
 		oldname = self.name
