@@ -192,7 +192,7 @@ class AccountManager:
 
 				while(budgetName not in configLoad.budgets.budgets):
 					configLoad.budgets.printBudgetNames()
-					budgetName    = input("Enter Payment name: ")
+					budgetName    = input("Enter Budget name: ")
 
 					if(budgetName not in configLoad.budgets.budgets):
 						print(budgetName, " is not a budget. Please try again.")
@@ -216,6 +216,41 @@ class AccountManager:
 				self.currAccount.newBudgetTransfer(budgetName, date, configLoad.cats.list[cat], ammount)
 
 				print("Amount transferred to budget: ",self.currAccount.name ,".")
+				screenPauseClear()
+
+
+			# New Credit Transfer
+			if(self.command == "ncp"):
+				os.system("clear")
+				creditName = ""
+
+				while(creditName not in configLoad.budgets.budgets):
+					configLoad.budgets.printBudgetNames()
+					creditName    = input("Enter Credit name: ")
+
+					if(creditName not in configLoad.budgets.budgets):
+						print(creditName, " is not a budget or Credit name. Please try again.")
+
+				name 	= input("Enter payment name: ")
+				day     = input("Enter transfer day (dd), or hit ENTER for Today["+ time.strftime("%d") +"]s: ")
+				if(day == ""):
+					day = time.strftime("%d")
+				month   = input("Enter transfer month (mm), or hit ENTER for this Month["+ time.strftime("%m") +"]: ")
+				if(month == ""):
+					month = time.strftime("%m")
+				year    = input("Enter transfer year (yyyy), or hit ENTER for this Year["+ time.strftime("%Y") +"]: ")
+				if(year == ""):
+					year =time.strftime("%Y")
+
+				configLoad.cats.printCategories()
+				cat     = eval(input("Select payment category (#): "))
+				ammount = eval(input("Enter transfer ammount: "))
+
+				date = datetime.date(int(year), int(month), int(day))
+
+				self.currAccount.newCreditTransfer(creditName, name, date, configLoad.cats.list[cat], ammount)
+
+				print("Amount transferred to Dredit: ",self.currAccount.name ,".")
 				screenPauseClear()
 
 

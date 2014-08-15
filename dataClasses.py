@@ -98,6 +98,12 @@ class Account:
 		budgetTitle = "-- Budget Transfer (" + budgetName + ") --"
 		self.transactions.append(Transaction(budgetTitle, date, "BT ", category, "BT ", amount, self.balance))
 
+	def newCreditTransfer(self, creditName, name, date, category, amount):
+		self.balance = self.balance - amount
+		configLoad.budgets.budgets[creditName].newTransfer(self.name, amount)
+		budgetTitle = name + " [Credit: " + creditName + "] - " + name
+		self.transactions.append(Transaction(budgetTitle, date, "CT ", category, "CT ", amount, self.balance))
+
 	def newBudgetPayment(self, budgetName, date, category, amount):
 		budgetTitle = " -- Budget Payed (" + budgetName + "[" + str(amount) + "]) --"
 		self.transactions.append(Transaction(budgetTitle, date,  "BP ", category, "BP ", amount, self.balance ))
