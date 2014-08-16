@@ -34,6 +34,11 @@ Budget  - An object that allows for the budgeting of money. Each budget item
                  account.
     dueDate    - The date the budget item needs to be paid.
 
+    * Budgets can also be used in order to keep track of credit cards. 
+      Currently, there are a few methods that can be used to pay a credit,
+      but credit cards are still setup through a Budget. Futures plans will
+      have credit cards be their own entity.
+
 
 Budget List - An object that holds all of the budget items and contains the 
               functions to handle the all of the budget items.

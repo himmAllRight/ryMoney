@@ -784,6 +784,15 @@ class BudgetManager:
 		print("\nq  - Return to Main Menu")
 
 
+class CreditManager:
+	""" Used for managing Credit and Credit Cards """
+
+	def __init__(self):
+		print("This functionality has not been written yet. Until that time, use the temporary functions contained in the Budget Manager.\nThank you.")
+		self.command = ""
+		screenPauseClear()
+
+
 
 class CLI:
 	""" The command line User Run environment """
@@ -814,6 +823,10 @@ class CLI:
 			if(self.command == "bm"):
 				os.system("clear")
 				BudgetManager()
+
+			if(self.command == "cm"):
+				os.system("clear")
+				CreditManager()
 
 			if(self.command == "q"):
 				print("Have a good day! Good-bye.")
