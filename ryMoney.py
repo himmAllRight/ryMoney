@@ -790,6 +790,7 @@ class CreditManager:
 	def __init__(self):
 		print("This functionality has not been written yet. Until that time, use the temporary functions contained in the Budget Manager.\nThank you.")
 		self.command = ""
+		os.system("sleep 2")
 		screenPauseClear()
 
 
