@@ -555,7 +555,7 @@ class BudgetList:
 
 					for payment in payments:
 						paymentInfo = payment.split(":")
-						self.budgets[currName].transfers[paymentInfo[0]] = int(paymentInfo[1])
+						self.budgets[currName].transfers[paymentInfo[0]] = float(paymentInfo[1])
 				self.budgets[currName].setAmount()
 
 			i = i + 1

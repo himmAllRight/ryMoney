@@ -811,7 +811,7 @@ class CLI:
 
 			""" Potential Selection Options"""
 			# Test Creen Clearing
-			if(self.command == "cm"):
+			if(self.command == "cat"):
 				os.system("clear")
 				CategoryManager()
 
@@ -840,9 +840,10 @@ class CLI:
 	def printOptions(self):
 		print("ryMoney -- Main Menu\n")
 		print("Please select what you would like to do:")
-		print("cm  - Category Manager")
+		print("cat  - Category Manager")
 		print("am  - Account Manager)")
 		print("bm  - Budget Manager")
+		print("cm  - Credit Manager")
 
 		print("\nh - help")
 		print("q - Quit ryMoney")
