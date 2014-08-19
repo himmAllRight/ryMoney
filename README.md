@@ -32,18 +32,25 @@ Budget  - An object that allows for the budgeting of money. Each budget item
                  from.
     cummAmount - The cumulative amount of money towards the budget from each
                  account.
-    dueDate    - The date the budget item needs to be paid.
-
-    * Budgets can also be used in order to keep track of credit cards. 
-      Currently, there are a few methods that can be used to pay a credit,
-      but credit cards are still setup through a Budget. Futures plans will
-      have credit cards be their own entity.
+    memo       - The date the budget item needs to be paid.
 
 
 Budget List - An object that holds all of the budget items and contains the 
               functions to handle the all of the budget items.
     
 
+Credit  - An object that allows users to keep track of their credit cards. 
+
+    name       - name of the Credit item.
+    amount     - A dictonary of amount of money put towards the credit card. 
+                 Each key is the name of the account that the budgeted money 
+                 came from.
+    cummAmount - The cumulative amount of money towards the credit from each
+                 account.
+
+
+Credit List - An object that holds all of the credit items and contains the 
+              functions to handle the all of the credit items.
 
 Transaction - An object that holds all the data items of a Transaction. Theses
               data items consist of:
