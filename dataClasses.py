@@ -573,3 +573,89 @@ class BudgetList:
 			i = i + 1
 		print(names)
 
+
+
+
+class Credit:
+	""" A budget Item """
+	def __init__(self, name, memo):
+		self.name     	  = name
+		self.amount   	  = 0
+		self.transfers    = {}
+		self.memo  		  = memo.strip("\n")
+
+	def setAmount(self):
+		self.amount = sum(self.transfers.values())
+
+	def newTransfer(self, accountName, amount):
+		# If the account has already transfered money
+		if( accountName in self.transfers):
+			self.transfers[accountName] = self.transfers.get(accountName) + amount
+
+		# If a new account is contributing money to the budget.
+		else:
+			self.transfers[accountName] = amount
+
+		# Set new Budge amount
+		self.setAmount()
+
+	def payCredit(self, budgetName, date, category):
+		# Write account transaction that it is paid.
+		for payAccount in self.transfers:
+			configLoad.accountList.accounts[payAccount].newBudgetPayment(budgetName, date, category, self.transfers[payAccount] )
+
+		print("Budget paid and noted in account transactions.")
+
+		# Essentially clears the budget...
+		self.amount     = 0
+		self.transfers  = {} 
+
+	def payCredit(self, creditName, date, category):
+		for payAccount in self.transfers:
+			configLoad.accountList.accounts[payAccount].newCreditPayment(creditName, date, category, self.transfers[payAccount] )
+
+		print("Credit paid and noted in transactions.")
+
+		self.amount    = 0
+		self.transfers = {}
+
+	def payCreditAdv(self, budgetName, date, category, payments):
+		for payAccount in payments:
+			configLoad.accountList.accounts[payAccount].newCreditPayment(budgetName, date, category, payments[payAccount] )
+
+			newAmount = self.amount - payments[payAccount]
+			if(newAmount == 0):
+				del self.transfers[payAccount]
+
+#	def changeCreditName(self, newName):
+#		oldname = self.name
+#		configLoad.budgets.budgets[newName] = configLoad.budgets.budgets.pop(oldname)
+#		self.name = newName
+#		print("Budget name changed from ", oldname, " to ", self.name, ".")
+
+	def changeCreditMemo(self, newMemo):
+		self.memo = newMemo
+		print("Credit memo changed to ", newMemo)
+
+
+	def printCreditInfo(self):
+		# Print out information of accounts contributing to Budget
+		print("Credit Contribution for", self.name , ":\nMemo: ", self.memo, "\n-----------------------")
+
+
+		if(len(self.transfers) == 0):
+			print("No money transfered to pay credit yet.")
+		else:
+			for account in self.transfers:
+				print(account, ":  $", self.transfers[account], sep="")
+
+			print("----------------------------\nTotal:  $", self.amount, "\n")
+
+	def printCreditContribution(self):
+		print("Contribution for", self.name)
+
+		if(len(self.transfers) == 0):
+			print("No money transfered to pay credit yet.")
+		else:
+			for account in self.transfers:
+				print(account, ":  $", self.transfers[account], sep="")
