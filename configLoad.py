@@ -40,6 +40,7 @@ ACCOUNTDIR = "/home/ryan/Dropbox/Banking/accounts"
 catSaveName    = "categories.txt"
 transRegName   = "transactionReg.csv"
 budgetSaveName = "budgets.txt"
+creditSaveName = "credits.txt"
 
 
 # Checks directories and makes them if not there.
@@ -54,7 +55,9 @@ if not os.path.exists(ACCOUNTDIR):
 accountList = dataClasses.AccountList()
 cats 		= loadCategories(catSaveName)
 budgets 	= dataClasses.BudgetList()
+credits     = dataClasses.CreditList()
 
 # Load accounts and budgets
 accountList.loadAccounts()
 budgets.loadBudgets()
+credits.loadCredits()

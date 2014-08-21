@@ -659,3 +659,92 @@ class Credit:
 		else:
 			for account in self.transfers:
 				print(account, ":  $", self.transfers[account], sep="")
+
+
+
+class CreditList:
+	def __init__(self):
+		self.credits = {}
+
+	def addCredit(self, name, memo):
+		# Check to see if budget exists, and if not, add a new one.
+		if( name in self.budgets):
+			print("The credit '", name, "' is already created.")
+		else:
+			self.credits[name] = Credit(name, memo)
+
+	
+# Need to make it so that it can re-add the money back to the accounts before deleteing first.
+	def removeCredit(self, creditName, date, category):
+		for payAccount in self.credits[creditName].transfers:
+			configLoad.accountList.accounts[payAccount].newCreditPayment(creditName, date, category, self.transfers[payAccount] )
+
+		del self.budgets[budgetName]
+		print("Credit item '", creditName, "' payed.")
+
+	def saveCredits(self, saveFileName):
+		os.chdir(configLoad.CONFIGDIR) # Enter Saves Directory
+		creditOutFile = open(saveFileName, "w+")
+
+		for creditName in self.credits:
+			# Create a temp credit item to easily reference variables.
+			tempCredit = self.credits[creditName]
+			# Print Budget Info
+			print(creditName, tempCredit.fixed, tempCredit.memo, sep= "|", file= crediOutFile)
+			
+			# make string containing Budget's saved payments
+			if(len(tempCredit.transfers) == 0):
+				transfersSaveString = "No money transfered."
+			else:
+				transfersSaveString = ""
+				for transfer in tempCredit.transfers:
+					transfersSaveString = transfersSaveString + transfer + ":" + str(tempCredit.transfers[transfer]) + "|"
+					
+				transfersSaveString = transfersSaveString[:-1]	# Remove last "|"
+			
+			# Write string to file
+			print(transfersSaveString, file= creditOutFile)
+		
+		creditOutFile.close()
+		os.chdir(configLoad.DIR)	# Return to program DIR
+
+	def loadCredits(self):
+
+		os.chdir(configLoad.CONFIGDIR)
+		# Load Transactions
+		credits =  open(configLoad.creditSaveName, 'r')
+		reader = csv.reader(credits)
+		i = 0
+		currName = ""
+		for row in creditss:
+			# First of two lines per budget pair
+			if(i % 2 == 0):
+				firstLine = row.split("|")
+				currName = firstLine[0]
+				self.addCredit(firstLine[0], firstLine[1], firstLine[2])
+
+			else:
+				if(row.strip("\n") == "No money transfered."):
+					pass
+					# Don't need to do anything if there are no transfers for budget.
+				
+				else:
+					payments = row.split("|")
+
+					for payment in payments:
+						paymentInfo = payment.split(":")
+						self.credits[currName].transfers[paymentInfo[0]] = float(paymentInfo[1])
+				self.credits[currName].setAmount()
+
+			i = i + 1
+
+		os.chdir(configLoad.DIR)
+
+
+	def printCreditNames(self):
+		i = 0
+		names =""
+		for creditName in self.credits:
+			names = names + creditName + "   "
+			i = i + 1
+		print(names)
