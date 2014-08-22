@@ -795,6 +795,248 @@ class CreditManager:
 
 
 
+	def preINIT(self):
+		# Category Manager Run Loop
+		while(self.command != "q"):
+			self.printOptions()
+			self.command = input("input: ")
+
+			if(self.command == "nb"):
+				name  = input("Enter Credit Name: ")
+				memo  = input("Enter a memo about the card if you want: ")
+
+				# add new budget to budgetList
+				configLoad.credits.addCredit(name, memo)
+
+				screenPauseClear()
+
+			# Need to add functions that transfer money to and from accounts first.
+			if(self.command == "db"):
+			 	os.system("clear")
+
+			 	configLoad.credits.printCreditNames()
+			 	deleteName = input("What Item  do you want to delete?")
+			 	day   = time.strftime("%d")
+			 	month = time.strftime("%m")
+			 	year  = time.strftime("%Y")
+
+			 	date  = datetime.date(int(year), int(month), int(day))
+			 	configLoad.cats.printCategories()
+
+			 	cat = eval(input("Select what category to put transaction in: "))
+
+			 	configLoad.credits.removeCredit(deleteName, date, configLoad.cats.list[cat])
+
+
+			# Print the information for a budget
+			if(self.command == "pbi"):
+				os.system("clear")
+				configLoad.credits.printCreditNames()
+				name = input("What Credit do you want to print? ")
+				os.system("clear")
+				configLoad.credits.credits[name].printCreditInfo()
+
+			# Pay Budget
+			if(self.command == "pb"):
+				os.system("clear")
+				configLoad.credits.printCreditNames()
+				name = input("What credit do you want to pay off? ")
+				os.system("clear")
+
+				if( configLoad.credits.credits[name].amount > 0):
+
+					day     = input("Enter Credit transfer day (dd), or hit ENTER for Today["+ time.strftime("%d") +"]s: ")
+					if(day == ""):
+						day = time.strftime("%d")
+					month   = input("Enter Credit transfer month (mm), or hit ENTER for this Month["+ time.strftime("%m") +"]: ")
+					if(month == ""):
+						month = time.strftime("%m")
+					year    = input("Enter budget transfer year (yyyy), or hit ENTER for this Year["+ time.strftime("%Y") +"]: ")
+					if(year == ""):
+						year =time.strftime("%Y")
+
+					configLoad.cats.printCategories()
+					cat     = eval(input("Select budget category (#): "))
+
+					configLoad.budgets.budgets[name].printBudgetContribution()
+
+					payAll = ""
+					while(payAll != "y" and payAll != "n"):
+						payAll = input("Do you want to pay the entire budgeted amount from each account listed [y/n]?")
+
+						# If simple pay budget
+						if(payAll == "y"):
+							amount = configLoad.budgets.budgets[name].amount
+							date = datetime.date(int(year), int(month), int(day))
+							configLoad.budgets.budgets[name].payBudget(name, date, configLoad.cats.list[cat])
+							print("All budgeted money payed off.")
+							screenPauseClear()
+
+						# If Advanced pay budget
+						elif(payAll == "n"):
+							selectContributor = ""
+							payments = {}
+							possible = {}
+
+							# Makes list of possible transfers accounts to pull money from
+							for pos in configLoad.budgets.budgets[name].transfers:
+								possible[pos] = configLoad.budgets.budgets[name].transfers[pos]
+
+
+							while( selectContributor != "d"):
+								os.system("clear")
+								# Print out each possible transfer account to pay budget
+								for pos in possible:
+									if(pos in payments):
+										print(pos, ":  ", possible[pos], "  [", payments[pos], "] ")
+									else:
+										print(pos, ":  ", possible[pos])
+
+								print("Selected contributions from each account to budget payment:")
+								
+								# If payments has items in it, printt them out
+								if(len(payments) > 0 ):
+									for contributor in payments:
+										print(contributor, ":  ", payments[contributor] )
+
+									print("------\nTotal: ", sum(payments.values()))
+
+								selectContributor = input("Select contributor to select money from:")
+
+								if(selectContributor in configLoad.budgets.budgets[name].transfers):
+									tempAmount = eval(input("How much money do you want to pay the budget from this account? "))
+									if( tempAmount <= possible[selectContributor]):
+										payments[selectContributor] = tempAmount
+
+									else: 
+										print("The amount specified exceeds the amount transfered to the budget for this account.\nPlease try again and select a value less than", configLoad.budgets.budgets[selectContributor].amount, ".")
+								else:
+									print("There hasn't been any money contributed to this budget from the account ",selectContributor,".\nPlease select again.")
+
+
+
+
+							# If done selecting contributors for advanced pay budget
+							if(selectContributor == "d"):
+								amount = configLoad.budgets.budgets[name].amount
+								date = datetime.date(int(year), int(month), int(day))
+
+								configLoad.budgets.budgets[name].payBudgetAdv(name, date, configLoad.cats.list[cat], payments)
+
+							os.system("clear")
+
+
+						else:
+							print("Please enter y or n")
+
+				else:
+					print("Cannot pay off budget: No money transfered to budget yet.")
+
+				screenPauseClear()
+
+
+
+			if(self.command == "pc"):
+				os.system("clear")
+				configLoad.budgets.printBudgetNames()
+				name = input("What Credit do you want to pay off? ")
+				os.system("clear")
+
+				if( configLoad.budgets.budgets[name].amount > 0):
+
+					day     = input("Enter Credit payment day (dd), or hit ENTER for Today["+ time.strftime("%d") +"]s: ")
+					if(day == ""):
+						day = time.strftime("%d")
+					month   = input("Enter Credit payment month (mm), or hit ENTER for this Month["+ time.strftime("%m") +"]: ")
+					if(month == ""):
+						month = time.strftime("%m")
+					year    = input("Enter Credit payment year (yyyy), or hit ENTER for this Year["+ time.strftime("%Y") +"]: ")
+					if(year == ""):
+						year =time.strftime("%Y")
+
+					configLoad.cats.printCategories()
+					cat     = eval(input("Select Credit category (#): "))
+
+					configLoad.budgets.budgets[name].printBudgetContribution()
+
+					amount = configLoad.budgets.budgets[name].amount
+					date = datetime.date(int(year), int(month), int(day))
+					configLoad.budgets.budgets[name].payCredit(name, date, configLoad.cats.list[cat])
+					print("Credit payed off.")
+					screenPauseClear()
+
+
+
+
+			# Edit a transaction
+			if(self.command == "eb"):
+				os.system("clear")
+				configLoad.budgets.printBudgetNames()
+
+				# get transaction index value
+				edit = ""
+				editName = input("What budget do you want to edit? ('q' to exit): ")
+				if(editName == "q"):
+					edit = "q"
+				else:
+					editBudget = configLoad.budgets.budgets[editName]
+				os.system("clear")
+
+				
+				while(edit != "q"):
+					print("Budget selected:", editBudget.name,"\n----------------")
+					editBudget.printBudgetInfo()
+					
+
+					print("\nEdit Options: \n--------------------")
+					options = "1: change Name  2: Change Memo  3: change fixed value "
+					edit = input(options + "\n\nWhat would you like to change in the transaction? (edit #, or 'q' to quit): ")	
+
+					if(edit == "1"):
+						inputName = input("What would you like to rename the budget item to: ")
+						editBudget.changeBudgetName(inputName)
+
+					if(edit == "2"):
+						inputMemo = input("Please enter new memo for budget: ")
+						editBudget.changeBudgetMemo(inputMemo)
+
+					if(edit == "3"):
+						inputFixed = input("Enter new budget fixed value ('0' for no set value): ")
+						editBudget.changeFixed(inputFixed)
+
+					screenPauseClear()
+
+				print("Done Editing Budget")
+
+
+
+
+			# Save Budget
+			if(self.command == "sb"):
+				configLoad.budgets.saveBudgets(configLoad.budgetSaveName)
+				print("Budgets saved.")
+
+				screenPauseClear()
+
+		configLoad.budgets.saveBudgets(configLoad.budgetSaveName)
+		print("Budgets saved.")
+		screenPauseClear()
+				
+
+	# Print budget manager options
+	def printOptions(self):
+		print("-- Budget Manager --\n")
+		print("What you would like to do? \n")
+		print("nb  - Add new Budget Item")
+		print("db  - Delete Budget Item")
+		print("eb  - Edit a Budget Item.\n")
+		print("pb  - Pay off Budget")
+		print("pbi - Print a Budget's information")
+		print("pc  - Pay off Credit")
+		print("\nq  - Return to Main Menu")
+
+
+
 class CLI:
 	""" The command line User Run environment """
 	def __init__(self):

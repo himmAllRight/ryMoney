@@ -60,4 +60,4 @@ credits     = dataClasses.CreditList()
 # Load accounts and budgets
 accountList.loadAccounts()
 budgets.loadBudgets()
-credits.loadCredits()
+credits.loadCredits()	
