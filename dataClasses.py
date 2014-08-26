@@ -716,7 +716,7 @@ class CreditList:
 		reader = csv.reader(credits)
 		i = 0
 		currName = ""
-		for row in creditss:
+		for row in credits:
 			# First of two lines per budget pair
 			if(i % 2 == 0):
 				firstLine = row.split("|")
