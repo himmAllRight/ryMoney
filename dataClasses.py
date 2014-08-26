@@ -534,7 +534,17 @@ class BudgetList:
 
 		os.chdir(configLoad.CONFIGDIR)
 		# Load Transactions
-		budgets =  open(configLoad.budgetSaveName, 'r')
+
+		try:
+			budgets =  open(configLoad.budgetSaveName, 'r')
+		except:
+			# Make File if Doesn't exit
+			open(configLoad.budgetSaveName, "w+")
+
+			# Then Load it again.
+			budgets = open(configLoad.budgetSaveName, "r")
+
+
 		reader = csv.reader(budgets)
 		i = 0
 		currName = ""
@@ -711,8 +721,17 @@ class CreditList:
 	def loadCredits(self):
 
 		os.chdir(configLoad.CONFIGDIR)
-		# Load Transactions
-		credits =  open(configLoad.creditSaveName, 'r')
+
+		try:
+			credits =  open(configLoad.creditSaveName, 'r')
+		except:
+			# Make File if Doesn't exit
+			open(configLoad.creditSaveName, "w+")
+
+			# Then Load it again.
+			credits = open(configLoad.creditSaveName, "r")
+
+
 		reader = csv.reader(credits)
 		i = 0
 		currName = ""
