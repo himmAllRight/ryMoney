@@ -700,7 +700,7 @@ class CreditList:
 			# Create a temp credit item to easily reference variables.
 			tempCredit = self.credits[creditName]
 			# Print Budget Info
-			print(creditName, tempCredit.fixed, tempCredit.memo, sep= "|", file= crediOutFile)
+			print(creditName, tempCredit.memo, sep= "|", file= creditOutFile)
 			
 			# make string containing Budget's saved payments
 			if(len(tempCredit.transfers) == 0):

@@ -788,14 +788,8 @@ class CreditManager:
 	""" Used for managing Credit and Credit Cards """
 
 	def __init__(self):
-		print("This functionality has not been written yet. Until that time, use the temporary functions contained in the Budget Manager.\nThank you.")
 		self.command = ""
-		os.system("sleep 2")
-		screenPauseClear()
 
-
-
-	def preINIT(self):
 		# Category Manager Run Loop
 		while(self.command != "q"):
 			self.printOptions()
@@ -1014,7 +1008,7 @@ class CreditManager:
 
 				screenPauseClear()
 
-		configLoad.credits.savesCredits(configLoad.creditSaveName)
+		configLoad.credits.saveCredits(configLoad.creditSaveName)
 		print("Credits saved.")
 		screenPauseClear()
 				
@@ -1023,11 +1017,11 @@ class CreditManager:
 	def printOptions(self):
 		print("-- Credit Manager --\n")
 		print("What you would like to do? \n")
-		print("nb  - Add new Budget Item")
-		print("db  - Delete Budget Item")
-		print("eb  - Edit a Budget Item.\n")
-		print("pb  - Pay off Budget")
-		print("pbi - Print a Budget's information")
+		print("nb  - Add new Credit Item")
+		print("db  - Delete Credit Item")
+		print("eb  - Edit a Credit Item.\n")
+		print("pb  - Pay off Credit")
+		print("pbi - Print a Credit's information")
 		print("pc  - Pay off Credit")
 		print("\nq  - Return to Main Menu")
 
