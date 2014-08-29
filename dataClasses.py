@@ -678,7 +678,7 @@ class CreditList:
 
 	def addCredit(self, name, memo):
 		# Check to see if budget exists, and if not, add a new one.
-		if( name in self.budgets):
+		if( name in self.credits):
 			print("The credit '", name, "' is already created.")
 		else:
 			self.credits[name] = Credit(name, memo)
@@ -740,7 +740,7 @@ class CreditList:
 			if(i % 2 == 0):
 				firstLine = row.split("|")
 				currName = firstLine[0]
-				self.addCredit(firstLine[0], firstLine[1], firstLine[2])
+				self.addCredit(firstLine[0], firstLine[1])
 
 			else:
 				if(row.strip("\n") == "No money transfered."):
