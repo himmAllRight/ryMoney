@@ -101,16 +101,16 @@ class Account:
 	def newCreditTransfer(self, creditName, name, date, category, amount):
 		self.balance = self.balance - amount
 		configLoad.credits.credits[creditName].newTransfer(self.name, amount)
-		budgetTitle = name + " [Credit: " + creditName + "]"
-		self.transactions.append(Transaction(budgetTitle, date, "CT ", category, "CT ", amount, self.balance))
+		creditTitle = name + " [Credit: " + creditName + "]"
+		self.transactions.append(Transaction(creditTitle, date, "CT ", category, "CT ", amount, self.balance))
 
 	def newBudgetPayment(self, budgetName, date, category, amount):
-		budgetTitle = " -- Budget Payed (" + budgetName + "[" + str(amount) + "] --"
-		self.transactions.append(Transaction(budgetTitle, date,  "BP ", category, "BP ", amount, self.balance ))
+		budgetTitle = " -- Budget Payed [" + budgetName + ": $" + str(amount) + "] --"
+		self.transactions.append(Transaction(budgetTitle, date,  "BP ", category, "BP ", 0, self.balance ))
 
 	def newCreditPayment(self, creditName, date, category, amount):
-		creditTitle = " -- Credit Payed [" + creditName + "]) --"
-		self.transactions.append(Transaction(creditTitle, date,  "CP ", category, "CP ", amount, self.balance ))
+		creditTitle = " -- Credit Payed [" + creditName + ": $" + str(amount) + "] --"
+		self.transactions.append(Transaction(creditTitle, date,  "CP ", category, "CP ", 0, self.balance ))
 
 
 	def importTransaction(self, date, num, name, cat, cleared, amount, balance):
