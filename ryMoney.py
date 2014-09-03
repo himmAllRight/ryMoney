@@ -423,7 +423,7 @@ class AccountManager:
 
 				preList = self.currAccount.makeTransList(startDate, endDate)
 				for trans in preList:
-					if( trans.cleared != " C "):
+					if( trans.cleared != " C " and trans.cleared != "CT " and trans.cleared != "BT "):
 						unclearedList.append(trans)
 			
 				select = ""
