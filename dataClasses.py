@@ -96,13 +96,13 @@ class Account:
 		self.balance = self.balance - amount
 		configLoad.budgets.budgets[budgetName].newTransfer(self.name, amount)
 		budgetTitle = "-- Budget Transfer (" + budgetName + ") --"
-		self.transactions.append(Transaction(budgetTitle, date, "BT ", category, "BT ", amount, self.balance))
+		self.transactions.append(Transaction(budgetTitle, date, "BT ", category, "BT ", amount*(-1), self.balance))
 
 	def newCreditTransfer(self, creditName, name, date, category, amount):
 		self.balance = self.balance - amount
 		configLoad.credits.credits[creditName].newTransfer(self.name, amount)
 		creditTitle = name + " [Credit: " + creditName + "]"
-		self.transactions.append(Transaction(creditTitle, date, "CT ", category, "CT ", amount, self.balance))
+		self.transactions.append(Transaction(creditTitle, date, "CT ", category, "CT ", amount*(-1), self.balance))
 
 	def newBudgetPayment(self, budgetName, date, category, amount):
 		budgetTitle = " -- Budget Payed [" + budgetName + ": $" + str(amount) + "] --"

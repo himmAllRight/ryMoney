@@ -224,12 +224,12 @@ class AccountManager:
 				os.system("clear")
 				creditName = ""
 
-				while(creditName not in configLoad.budgets.budgets):
-					configLoad.budgets.printBudgetNames()
+				while(creditName not in configLoad.credits.credits):
+					configLoad.credits.printCreditNames()
 					creditName    = input("Enter Credit name: ")
 
-					if(creditName not in configLoad.budgets.budgets):
-						print(creditName, " is not a budget or Credit name. Please try again.")
+					if(creditName not in configLoad.credits.credits):
+						print(creditName, " is not a Credit name. Please try again.")
 
 				name 	= input("Enter payment name: ")
 				day     = input("Enter transfer day (dd), or hit ENTER for Today["+ time.strftime("%d") +"]s: ")
