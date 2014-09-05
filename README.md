@@ -100,4 +100,4 @@ and transRegName respectively.
 In order to run ryMoney, simply execute the python script, ryMoney.py 
 (python ryMoney.py).
 
-    
+ To add...   
