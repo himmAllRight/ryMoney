@@ -127,6 +127,8 @@ class AccountManager:
 				self.currAccount.newDeposit(name, date, configLoad.cats.list[cat], ammount)
 
 				print("Deposit added to account: ",self.currAccount.name ,".")
+				configLoad.accountList.saveAccountList()
+				print("Accounts Saved...")
 				screenPauseClear()
 
 
@@ -154,6 +156,8 @@ class AccountManager:
 				self.currAccount.newPayment(name, date, configLoad.cats.list[cat], ammount)
 
 				print("Payment added to account: ",self.currAccount.name ,".")
+				configLoad.accountList.saveAccountList()
+				print("Accounts Saved...")
 				screenPauseClear()
 
 
@@ -182,6 +186,8 @@ class AccountManager:
 				self.currAccount.newCheck(name, date, num, configLoad.cats.list[cat], ammount)
 
 				print("Check Payment added to account: ",self.currAccount.name ,".")
+				configLoad.accountList.saveAccountList()
+				print("Accounts Saved...")
 				screenPauseClear()
 
 
@@ -216,6 +222,8 @@ class AccountManager:
 				self.currAccount.newBudgetTransfer(budgetName, date, configLoad.cats.list[cat], ammount)
 
 				print("Amount transferred to budget: ",self.currAccount.name ,".")
+				configLoad.accountList.saveAccountList()
+				print("Accounts Saved...")
 				screenPauseClear()
 
 
@@ -251,6 +259,10 @@ class AccountManager:
 				self.currAccount.newCreditTransfer(creditName, name, date, configLoad.cats.list[cat], ammount)
 
 				print("Amount transferred to Dredit: ",self.currAccount.name ,".")
+				
+				configLoad.accountList.saveAccountList()
+				configLoad.credits.saveCredits(configLoad.creditSaveName)
+				print("Accounts and Credits Saved... ")
 				screenPauseClear()
 
 
@@ -374,7 +386,9 @@ class AccountManager:
 						self.currAccount.recalculateBalance()
 						print("Transaction amount changed and balance recalculated.")
 
-
+					
+					configLoad.accountList.saveAccountList()
+					print("Accounts Saved...")
 					screenPauseClear()
 
 				print("Done Editing Transaction")
@@ -459,7 +473,6 @@ class AccountManager:
 						# Move transaction from uncleared to balance List.
 						balanceTransactions.append(unclearedList.pop(select))
 						os.system("clear")
-
 
 
 				screenPauseClear()
@@ -761,7 +774,7 @@ class CreditManager:
 			self.printOptions()
 			self.command = input("input: ")
 
-			if(self.command == "nb"):
+			if(self.command == "nc"):
 				name  = input("Enter Credit Name: ")
 				memo  = input("Enter a memo about the card if you want: ")
 
@@ -771,7 +784,7 @@ class CreditManager:
 				screenPauseClear()
 
 			# Need to add functions that transfer money to and from accounts first.
-			if(self.command == "db"):
+			if(self.command == "dc"):
 			 	os.system("clear")
 
 			 	configLoad.credits.printCreditNames()
@@ -788,15 +801,15 @@ class CreditManager:
 			 	configLoad.credits.removeCredit(deleteName, date, configLoad.cats.list[cat])
 
 
-			# Print the information for a budget
-			if(self.command == "pbi"):
+			# Print the information for a Credit
+			if(self.command == "pci"):
 				os.system("clear")
 				configLoad.credits.printCreditNames()
 				name = input("What Credit do you want to print? ")
 				os.system("clear")
 				configLoad.credits.credits[name].printCreditInfo()
 
-
+			# Pay Credit
 			if(self.command == "pc"):
 				os.system("clear")
 				configLoad.credits.printCreditNames()
@@ -890,151 +903,6 @@ class CreditManager:
 							print("Please enter y or n")
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# Pay Credit
-			if(self.command == "cb"):
-				os.system("clear")
-				configLoad.budgets.printBudgetNames()
-				name = input("What Budget do you want to pay off? ")
-				os.system("clear")
-
-				if( configLoad.budgets.budgets[name].amount > 0):
-
-					day     = input("Enter budget transfer day (dd), or hit ENTER for Today["+ time.strftime("%d") +"]s: ")
-					if(day == ""):
-						day = time.strftime("%d")
-					month   = input("Enter budget transfer month (mm), or hit ENTER for this Month["+ time.strftime("%m") +"]: ")
-					if(month == ""):
-						month = time.strftime("%m")
-					year    = input("Enter budget transfer year (yyyy), or hit ENTER for this Year["+ time.strftime("%Y") +"]: ")
-					if(year == ""):
-						year =time.strftime("%Y")
-
-					configLoad.cats.printCategories()
-					cat     = eval(input("Select budget category (#): "))
-
-					configLoad.budgets.budgets[name].printBudgetContribution()
-
-					payAll = ""
-					while(payAll != "y" and payAll != "n"):
-						payAll = input("Do you want to pay the entire budgeted amount from each account listed [y/n]?")
-
-						# If simple pay budget
-						if(payAll == "y"):
-							amount = configLoad.budgets.budgets[name].amount
-							date = datetime.date(int(year), int(month), int(day))
-							configLoad.budgets.budgets[name].payBudget(name, date, configLoad.cats.list[cat])
-							print("All budgeted money payed off.")
-							screenPauseClear()
-
-						# If Advanced pay budget
-						elif(payAll == "n"):
-							selectContributor = ""
-							payments = {}
-							possible = {}
-
-							# Makes list of possible transfers accounts to pull money from
-							for pos in configLoad.budgets.budgets[name].transfers:
-								possible[pos] = configLoad.budgets.budgets[name].transfers[pos]
-
-
-							while( selectContributor != "d"):
-								os.system("clear")
-								# Print out each possible transfer account to pay budget
-								for pos in possible:
-									if(pos in payments):
-										print(pos, ":  ", possible[pos], "  [", payments[pos], "] ")
-									else:
-										print(pos, ":  ", possible[pos])
-
-								print("Selected contributions from each account to budget payment:")
-								
-								# If payments has items in it, printt them out
-								if(len(payments) > 0 ):
-									for contributor in payments:
-										print(contributor, ":  ", payments[contributor] )
-
-									print("------\nTotal: ", sum(payments.values()))
-
-								selectContributor = input("Select contributor to select money from:")
-
-								if(selectContributor in configLoad.budgets.budgets[name].transfers):
-									tempAmount = eval(input("How much money do you want to pay the budget from this account? "))
-									if( tempAmount <= possible[selectContributor]):
-										payments[selectContributor] = tempAmount
-
-									else: 
-										print("The amount specified exceeds the amount transfered to the budget for this account.\nPlease try again and select a value less than", configLoad.budgets.budgets[selectContributor].amount, ".")
-								else:
-									print("There hasn't been any money contributed to this budget from the account ",selectContributor,".\nPlease select again.")
-
-
-
-
-							# If done selecting contributors for advanced pay budget
-							if(selectContributor == "d"):
-								amount = configLoad.budgets.budgets[name].amount
-								date = datetime.date(int(year), int(month), int(day))
-
-								configLoad.budgets.budgets[name].payBudgetAdv(name, date, configLoad.cats.list[cat], payments)
-
-							os.system("clear")
-
-
-						else:
-							print("Please enter y or n")
-
-				else:
-					print("Cannot pay off budget: No money transfered to budget yet.")
-
-				screenPauseClear()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 			# Edit a transaction
 			if(self.command == "eb"):
 				os.system("clear")
@@ -1081,20 +949,20 @@ class CreditManager:
 
 				screenPauseClear()
 
+		configLoad.accountList.saveAccountList()
 		configLoad.credits.saveCredits(configLoad.creditSaveName)
-		print("Credits saved.")
+		print("Accounts and Credits Saved...")
 		screenPauseClear()
-				
 
 	# Print budget manager options
 	def printOptions(self):
 		print("-- Credit Manager --\n")
 		print("What you would like to do? \n")
-		print("nb  - Add new Credit Item")
+		print("nc  - Add new Credit Item")
 		print("pc  - Pay off Credit")
-		print("db  - Delete Credit Item")
+		print("dc  - Delete Credit Item")
 		print("eb  - Edit a Credit Item.\n")		
-		print("pbi - Print a Credit's information")
+		print("pci - Print a Credit's information")
 		print("\nq  - Return to Main Menu")
 
 
