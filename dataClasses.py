@@ -634,6 +634,11 @@ class Credit:
 			configLoad.accountList.accounts[payAccount].newCreditPayment(budgetName, date, category, payments[payAccount] )
 
 			newAmount = self.amount - payments[payAccount]
+
+			# Set new amount and payAcount amounts
+			self.transfers[payAccount] = newAmount
+			self.amount = newAmount
+			
 			if(newAmount == 0):
 				del self.transfers[payAccount]
 
