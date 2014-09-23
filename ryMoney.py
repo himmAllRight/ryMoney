@@ -288,6 +288,7 @@ class AccountManager:
 
 			# Print out all the transactions in a category, and total them
 			if(self.command == "pct"):
+				os.system("clear")
 				configLoad.cats.printCategories()
 				cat = eval(input("Select category (#): "))
 				self.currAccount.printCategoryTransactions(configLoad.cats.list[cat])
