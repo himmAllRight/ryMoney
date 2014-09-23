@@ -286,6 +286,12 @@ class AccountManager:
 				os.system("clear")
 				self.currAccount.printTwoMonths(False)
 
+			# Print out all the transactions in a category, and total them
+			if(self.command == "pct"):
+				configLoad.cats.printCategories()
+				cat = eval(input("Select category (#): "))
+				self.currAccount.printCategoryTransactions(configLoad.cats.list[cat])
+
 			# Clear a transaction
 			if(self.command == "ct"):
 				os.system("clear")
@@ -544,9 +550,10 @@ class AccountManager:
 		print("ncp - Add new Credit Payment")
 
 		print("\npa - Print Account Information")
-		print("puc - Print all uncleared transactions")
+		print("puc  - Print all uncleared transactions")
 		print("p2m  - Print Transactions form last 2 months")
-		print("p2mu  - Print uncleared Transactions form last 2 months")
+		print("p2mu - Print uncleared Transactions form last 2 months")
+		print("pct  - Print the transactions in a category, and the total.")
 		print("\nq  - Return to Main Menu")
 
 

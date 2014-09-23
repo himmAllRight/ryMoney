@@ -273,6 +273,21 @@ class Account:
 
 		return(monthList)
 
+
+
+
+	def printCategoryTransactions(self, cat):
+		catTotal = 0
+		for trans in self.transactions:
+			if(trans.category == cat):
+				trans.printT()
+				catTotal = catTotal + trans.amount
+		print("Total: ", catTotal)
+
+
+
+
+
 	def printAccountInfo(self):
 		""" Prints out the account information """
 		print("Account Name: ", self.name)
