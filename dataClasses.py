@@ -171,6 +171,17 @@ class Account:
 				print("Please enter 'y' or 'n'.")
 
 
+	def totalCats(self):
+		catSums = {}
+		for trans in self.transactions:
+			if(trans.category in catSums):
+				catSums[trans.category] = catSums[trans.category] + trans.amount
+			else:
+				catSums[trans.category] = trans.amount
+
+		for cat in catSums:
+			print(catSums[cat] + ": " + cat)
+
 
 	def makeTransList(self, startDate, endDate):
 		print("Making TransList...")

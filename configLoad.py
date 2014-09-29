@@ -33,8 +33,8 @@ def loadCategories(loadFileName):
 
 ## Global Directories ##
 DIR        = "/home/ryan/scripts/ryMoney"
-CONFIGDIR  = "/home/ryan/owncloud/Rebecca_Share/Banking/configurations"
-ACCOUNTDIR = "/home/ryan/owncloud/Rebecca_Share/Banking/accounts"
+CONFIGDIR  = "/home/ryan/owncloud/Rebecca_Share/Banking/configurations/"
+ACCOUNTDIR = "/home/ryan/owncloud/Rebecca_Share/Banking/accounts/"
 
 
 ## Globale File Names
