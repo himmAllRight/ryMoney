@@ -180,7 +180,8 @@ class Account:
 				catSums[trans.category] = trans.amount
 
 		for cat in catSums:
-			print(catSums[cat] + ": " + cat)
+			print(cat, ": ", "%.2f" % catSums[cat])
+		print("\n")
 
 
 	def makeTransList(self, startDate, endDate):
