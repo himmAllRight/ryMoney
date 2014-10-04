@@ -98,6 +98,9 @@ class Account:
 		budgetTitle = "-- Budget Transfer (" + budgetName + ") --"
 		self.transactions.append(Transaction(budgetTitle, date, "BT ", category, "BT ", amount*(-1), self.balance))
 
+	def autoBudget(self):
+		autoBudgets ={"studentLoands": 100, "parkingPasses": 162}
+
 	def newCreditTransfer(self, creditName, name, date, category, amount):
 		self.balance = self.balance - amount
 		configLoad.credits.credits[creditName].newTransfer(self.name, amount)
