@@ -226,6 +226,31 @@ class AccountManager:
 				print("Accounts Saved...")
 				screenPauseClear()
 
+			# Auto-Budget Function
+			if(self.command == "ab"):
+				os.system("clear")
+				
+				weeks = eval(input("How many weeks do you want to auto-budget? "))
+				autoBudgetList = self.currAccount.makeAutoBudgetList(weeks)
+				print("Auto-Budget will transfer the following to Budget Items:")
+
+				for autoBudget in autoBudgetList:
+					print(autoBudget, ": $", "%.2f" % autoBudgetList[autoBudget])
+				print("==========================\n", "Total: $", "%.2f" % sum(autoBudgetList.values()))
+
+				confirm = ""
+				while(confirm != "y" and confirm != "n"):
+					confirm = input("Add Items to Budgets? (y/n): ")
+
+					if(confirm == "y"):
+						print("Adding to budget Items...")
+					elif(confirm == "n"):
+						print("Exiting Auto-Budget...")
+					else:
+						print("Please enter 'y' or 'n': ")
+
+
+
 
 			# New Credit Transfer
 			if(self.command == "ncp"):
@@ -548,6 +573,7 @@ class AccountManager:
 		print("et  - Edit transaction")
 		print("ct  - Clear transaction")
 		print("ba  - Balance Account")
+		print("ab  - Run Auto-Budget Function")
 
 		print("\nnd - Add new Deposit")
 		print("np  - Add a new Payment")

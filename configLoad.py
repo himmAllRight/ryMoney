@@ -38,10 +38,11 @@ ACCOUNTDIR = "/Data1/ryan/owncloud/Rebecca_Share/Banking/accounts/"
 
 
 ## Globale File Names
-catSaveName    = "categories.txt"
-transRegName   = "transactionReg.csv"
-budgetSaveName = "budgets.txt"
-creditSaveName = "credits.txt"
+catSaveName    		= "categories.txt"
+transRegName   		= "transactionReg.csv"
+budgetSaveName 		= "budgets.txt"
+creditSaveName 		= "credits.txt"
+autoBudgetsSaveName = "autoBudget.txt"
 
 
 # Checks directories and makes them if not there.

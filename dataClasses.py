@@ -98,8 +98,21 @@ class Account:
 		budgetTitle = "-- Budget Transfer (" + budgetName + ") --"
 		self.transactions.append(Transaction(budgetTitle, date, "BT ", category, "BT ", amount*(-1), self.balance))
 
-	def autoBudget(self):
-		autoBudgets ={"studentLoands": 100, "parkingPasses": 162}
+	def makeAutoBudgetList(self, weeks):
+		# Make List from Config File
+		loadFileName = configLoad.CONFIGDIR + configLoad.autoBudgetsSaveName
+		autoBudgetFile = open(loadFileName, "r")
+		
+		autoBudgetList = {}
+
+		for line in autoBudgetFile:
+			line = line.strip()
+			autoBudgetItem = line.split("|")
+
+			autoBudgetList[autoBudgetItem[0]] = (float(autoBudgetItem[1]) / float(autoBudgetItem[2])) * weeks
+
+		return(autoBudgetList)
+
 
 	def newCreditTransfer(self, creditName, name, date, category, amount):
 		self.balance = self.balance - amount
