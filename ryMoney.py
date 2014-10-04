@@ -222,8 +222,10 @@ class AccountManager:
 				self.currAccount.newBudgetTransfer(budgetName, date, configLoad.cats.list[cat], ammount)
 
 				print("Amount transferred to budget: ",self.currAccount.name ,".")
+				
 				configLoad.accountList.saveAccountList()
-				print("Accounts Saved...")
+				configLoad.budgets.saveBudgets(configLoad.budgetSaveName)
+				print("Accounts and Credits Saved... ")
 				screenPauseClear()
 
 			# Auto-Budget Function
@@ -243,7 +245,13 @@ class AccountManager:
 					confirm = input("Add Items to Budgets? (y/n): ")
 
 					if(confirm == "y"):
-						print("Adding to budget Items...")
+						if(self.currAccount.balance > sum(autoBudgetList.values())):
+							print("Adding to budget Items...")
+							self.currAccount.payAutoBudget(autoBudgetList)
+
+						else:
+							print("Sorry, there is not enough money in the account to transfer to Budgets.")
+
 					elif(confirm == "n"):
 						print("Exiting Auto-Budget...")
 					else:
@@ -603,11 +611,10 @@ class BudgetManager:
 
 			if(self.command == "nb"):
 				name  = input("Enter Budget Name: ")
-				fixed = eval(input("Enter Fixed Budget amount (0 if not fixed): "))
 				memo  = input("Enter a memo about how often the budget item must be payed: ")
 
 				# add new budget to budgetList
-				configLoad.budgets.addBudget(name, fixed, memo)
+				configLoad.budgets.addBudget(name, memo)
 
 				screenPauseClear()
 
@@ -757,7 +764,7 @@ class BudgetManager:
 					
 
 					print("\nEdit Options: \n--------------------")
-					options = "1: change Name  2: Change Memo  3: change fixed value "
+					options = "1: change Name  2: Change Memo "
 					edit = input(options + "\n\nWhat would you like to change in the transaction? (edit #, or 'q' to quit): ")	
 
 					if(edit == "1"):
@@ -767,10 +774,6 @@ class BudgetManager:
 					if(edit == "2"):
 						inputMemo = input("Please enter new memo for budget: ")
 						editBudget.changeBudgetMemo(inputMemo)
-
-					if(edit == "3"):
-						inputFixed = input("Enter new budget fixed value ('0' for no set value): ")
-						editBudget.changeFixed(inputFixed)
 
 					screenPauseClear()
 

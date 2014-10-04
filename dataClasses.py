@@ -92,12 +92,6 @@ class Account:
 		self.transactions.append(Transaction(name, date, num, category, " - ", amount*(-1), 
 								 self.balance))
 
-	def newBudgetTransfer(self, budgetName, date, category, amount):
-		self.balance = self.balance - amount
-		configLoad.budgets.budgets[budgetName].newTransfer(self.name, amount)
-		budgetTitle = "-- Budget Transfer (" + budgetName + ") --"
-		self.transactions.append(Transaction(budgetTitle, date, "BT ", category, "BT ", amount*(-1), self.balance))
-
 	def makeAutoBudgetList(self, weeks):
 		# Make List from Config File
 		loadFileName = configLoad.CONFIGDIR + configLoad.autoBudgetsSaveName
@@ -112,6 +106,21 @@ class Account:
 			autoBudgetList[autoBudgetItem[0]] = (float(autoBudgetItem[1]) / float(autoBudgetItem[2])) * weeks
 
 		return(autoBudgetList)
+
+	def payAutoBudget(self, autoBudgetList):
+
+		date = datetime.date(int(time.strftime("%Y")), int(time.strftime("%m")), int(time.strftime("%d")))
+
+		for budget in autoBudgetList:
+			if(budget not in configLoad.budgets.budgets):
+				configLoad.budgets.addBudget(budget, "Budget imported from auto-budget.")
+			self.newBudgetTransfer(budget, date, "Budget", autoBudgetList[budget])
+
+	def newBudgetTransfer(self, budgetName, date, category, amount):
+		self.balance = self.balance - amount
+		configLoad.budgets.budgets[budgetName].newTransfer(self.name, amount)
+		budgetTitle = "-- Budget Transfer (" + budgetName + ") --"
+		self.transactions.append(Transaction(budgetTitle, date, "BT ", category, "BT ", amount*(-1), self.balance))
 
 
 	def newCreditTransfer(self, creditName, name, date, category, amount):
@@ -429,9 +438,8 @@ class Transaction:
 
 class Budget:
 	""" A budget Item """
-	def __init__(self, name, fixed, memo):
+	def __init__(self, name, memo):
 		self.name     	  = name
-		self.fixed    	  = fixed
 		self.amount   	  = 0
 		self.transfers    = {}
 		self.memo  		  = memo.strip("\n")
@@ -489,10 +497,6 @@ class Budget:
 		self.memo = newMemo
 		print("Budget memo changed to ", newMemo)
 
-	def changeFixed(self, newFixedValue):
-		self.fixed = newFixedValue
-		print("Budget memo chaned to ", newFixedValue)
-
 
 	def printBudgetInfo(self):
 		# Print out information of accounts contributing to Budget
@@ -505,10 +509,7 @@ class Budget:
 			for account in self.transfers:
 				print(account, ":  $", self.transfers[account], sep="")
 
-		if(self.fixed > 0):
-			print("----------------------------\nTotal:  $", self.amount, "/", self.fixed,"\n")
-		else:
-			print("----------------------------\nTotal:  $", self.amount, "\n")
+		print("----------------------------\nTotal:  $", self.amount, "\n")
 
 	def printBudgetContribution(self):
 		print("Budget Contribution for", self.name)
@@ -526,12 +527,12 @@ class BudgetList:
 	def __init__(self):
 		self.budgets = {}
 
-	def addBudget(self, name, fixed, memo):
+	def addBudget(self, name, memo):
 		# Check to see if budget exists, and if not, add a new one.
 		if( name in self.budgets):
 			print("The budget '", name, "' is already created.")
 		else:
-			self.budgets[name] = Budget(name, int(fixed), memo)
+			self.budgets[name] = Budget(name, memo)
 
 	
 # Need to make it so that it can re-add the money back to the accounts before deleteing first.
@@ -550,7 +551,7 @@ class BudgetList:
 			# Create a temp budget item to easily reference variables.
 			tempBudget = self.budgets[budgetName]
 			# Print Budget Info
-			print(budgetName, tempBudget.fixed, tempBudget.memo, sep="|", file= budgetOutFile)
+			print(budgetName, tempBudget.memo, sep="|", file= budgetOutFile)
 			
 			# make string containing Budget's saved payments
 			if(len(tempBudget.transfers) == 0):
@@ -591,7 +592,7 @@ class BudgetList:
 			if(i % 2 == 0):
 				firstLine = row.split("|")
 				currName = firstLine[0]
-				self.addBudget(firstLine[0], firstLine[1], firstLine[2])
+				self.addBudget(firstLine[0], firstLine[1])
 
 			else:
 				if(row.strip("\n") == "No money transfered."):
@@ -644,7 +645,7 @@ class Credit:
 		else:
 			self.transfers[accountName] = amount
 
-		# Set new Budge amount
+		# Set new Credit amount
 		self.setAmount()
 
 	def payCredit(self, budgetName, date, category):
